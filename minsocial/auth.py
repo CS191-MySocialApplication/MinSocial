@@ -88,7 +88,7 @@ def cookied():
         a = token["access_token"]
         
 
-    url = "https://api.twitter.com/2/tweets?ids=1594154971846823936,1594336348806082561"
+    url = "https://api.twitter.com/2/tweets?ids=1587843085169459200"
     headers = {
         "Authorization" : "Bearer {}".format(a)
     }

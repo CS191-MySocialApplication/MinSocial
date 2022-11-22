@@ -1,2 +1,2 @@
 # MinSocial App
-- MinSocial is a minimal social interface for Twitter and Mastodon.
+- MinSocial is a minimal social media interface prototype for Twitter and Mastodon.
