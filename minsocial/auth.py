@@ -26,7 +26,7 @@ def log_in():
     parameters = {"response_type":"code",
     "client_id": configs["twitter_client_id"],
     "redirect_uri":"http://127.0.0.1:5000/logged",
-    "scope":"tweet.read users.read follows.read offline.access",
+    "scope":"tweet.read users.read follows.read offline.access dm.read",
     "state":"state",
     "code_challenge":"challenge",
     "code_challenge_method":"plain"}
@@ -35,7 +35,7 @@ def log_in():
     
     
 
-    return '<a href="{}">fuck</a>'.format(authlink)
+    return '<a href="{}">login</a>'.format(authlink)
 
 @bp.route("/logged", methods=['GET'])
 def logged():
@@ -55,47 +55,22 @@ def logged():
     r = requests.post(url, headers=headers, data=dataToSend)
     token = r.json()
 
-    resp = make_response(redirect("/cookied"))
-    resp.set_cookie("access_token", token["access_token"], max_age=token["expires_in"])
-    resp.set_cookie("refresh_token", token["refresh_token"], max_age=60000*30)
-
-    return resp
-
-@bp.route("/googed", methods=['POST'])
-def googed():
-    print(request.form)
-
-    return "eh"
-
-@bp.route("/cookied")
-def cookied():
-    a = request.cookies.get("access_token")
-    b = request.cookies.get("refresh_token")
-    
-    if a == None:
-        url = "https://api.twitter.com/2/oauth2/token"
-        headers = {"Content-Type": "application/x-www-form-urlencoded"}
-        
-        dataToSend = {
-            "refresh_token": b,
-            "grant_type":"refresh_token",
-            "client_id": configs["twitter_client_id"],
-
-        }
-
-        r = requests.post(url, headers=headers, data=dataToSend)
-        token = r.json()
-        a = token["access_token"]
-        
-
-    url = "https://api.twitter.com/2/tweets?ids=1587843085169459200"
+    url_me = "https://api.twitter.com/2/users/me"
     headers = {
-        "Authorization" : "Bearer {}".format(a)
+        "Authorization" : "Bearer {}".format(token["access_token"])
     }
 
-    r = requests.get(url, headers=headers)
+    r = requests.get(url_me, headers=headers)
+    user_details = r.json()["data"]
 
-    return r.text
+    resp = make_response(redirect("/home"))
+    resp.set_cookie("access_token", token["access_token"], max_age=token["expires_in"])
+    resp.set_cookie("refresh_token", token["refresh_token"], max_age=60000*30)
+    resp.set_cookie("id", user_details["id"], max_age=60000*30)
+    resp.set_cookie("name", user_details["name"], max_age=60000*30)
+    resp.set_cookie("username", user_details["username"], max_age=60000*30)
+
+    return resp
 
 @bp.route("/logout")
 def logout():
@@ -114,7 +89,6 @@ def logout():
         }
 
         r = requests.post(url, headers=headers, data=dataToSend)
-        print(r.text)
 
     if b is not None:
         
@@ -125,7 +99,6 @@ def logout():
         }
 
         r = requests.post(url, headers=headers, data=dataToSend)
-        print(r.text)
 
     resp = make_response(redirect("/"))
     resp.set_cookie("access_token", "", expires=0)

@@ -9,14 +9,15 @@
         <li>
             <a href="{{ url_for('auth.logout') }}"> Log out </a>
         </li>
+
         <li>
-            <a href="{{ url_for('home.dm') }}"> DMs </a>
+            <a href="{{ url_for('home.home') }}"> Home </a>
         </li>
     </ul>
 
     <ul>
-        {% for item in mentions %}
-            <li>{{item["text"]}}</li>
+        {% for item in dms %}
+            <li>@{{item["sender_name"]}} - {{item["text"]}}</li>
         {% endfor %}
     </ul>
 </body>
