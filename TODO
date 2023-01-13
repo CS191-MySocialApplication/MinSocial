@@ -1,2 +1,5 @@
 [/] - Authorization 25 minutes
 [~] - Installation Process (Optimize)
+
+[ ] - Create wrappers for access token checking, refreshing and redirecting.
+
