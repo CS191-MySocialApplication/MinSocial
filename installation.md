@@ -9,3 +9,8 @@
 8. Set callback URL to http://127.0.0.1:5000/logged
 9. Set website URL to anything
 10. Copy Client ID and paste it into client_id.json
+
+# Application
+I recommend that you use a python virtual environment for this.
+1. pip -r requirements.txt
+2. flask --app minsocial run
