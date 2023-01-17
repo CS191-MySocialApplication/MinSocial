@@ -6,12 +6,11 @@ from datetime import datetime, timedelta
 import requests
 import urllib.parse
 import json
-
+from minsocial.auth import login_required
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-
 
 with open("config.json", "r", encoding="utf-8") as config_file:
         configs = json.loads(config_file.read())
@@ -19,25 +18,10 @@ with open("config.json", "r", encoding="utf-8") as config_file:
 bp = Blueprint('home', __name__, url_prefix='/')
 
 @bp.route("/home")
+@login_required
 def home():
     a = request.cookies.get("access_token")
-    b = request.cookies.get("refresh_token")
     user_id = request.cookies.get("id")
-
-    if a == None:
-        url = "https://api.twitter.com/2/oauth2/token"
-        headers = {"Content-Type": "application/x-www-form-urlencoded"}
-        
-        dataToSend = {
-            "refresh_token": b,
-            "grant_type":"refresh_token",
-            "client_id": configs["twitter_client_id"],
-
-        }
-
-        r = requests.post(url, headers=headers, data=dataToSend)
-        token = r.json()
-        a = token["access_token"]
         
     url = "https://api.twitter.com/2/users/{}/mentions".format(user_id)
     headers = {
@@ -45,30 +29,16 @@ def home():
     }
 
     r = requests.get(url, headers=headers)
+
     mentions = r.json()["data"]
 
     return render_template("index.html", mentions=mentions)
 
 @bp.route("/dm")
+@login_required
 def dm():
     a = request.cookies.get("access_token")
-    b = request.cookies.get("refresh_token")
     user_id = request.cookies.get("id")
-
-    if a == None:
-        url = "https://api.twitter.com/2/oauth2/token"
-        headers = {"Content-Type": "application/x-www-form-urlencoded"}
-        
-        dataToSend = {
-            "refresh_token": b,
-            "grant_type":"refresh_token",
-            "client_id": configs["twitter_client_id"],
-
-        }
-
-        r = requests.post(url, headers=headers, data=dataToSend)
-        token = r.json()
-        a = token["access_token"]
         
     url = "https://api.twitter.com/2/dm_events?dm_event.fields=id,text,sender_id".format(user_id)
     headers = {
@@ -76,7 +46,6 @@ def dm():
     }
 
     r = requests.get(url, headers=headers)
-    print(r.text)
     dms = r.json()["data"]
 
     data = []
