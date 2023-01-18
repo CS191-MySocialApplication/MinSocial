@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 import requests
 import urllib.parse
 import json
-from minsocial.auth import login_required
+from minsocial.decorators import login_required
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
@@ -40,7 +40,7 @@ def dm():
     a = request.cookies.get("access_token")
     user_id = request.cookies.get("id")
         
-    url = "https://api.twitter.com/2/dm_events?dm_event.fields=id,text,sender_id".format(user_id)
+    url = "https://api.twitter.com/2/dm_events?dm_event.fields=id,text,sender_id"
     headers = {
         "Authorization" : "Bearer {}".format(a)
     }
@@ -53,6 +53,7 @@ def dm():
         dm_details = {}
         dm_details["text"] = dm["text"]
 
+        # Convert to cache retrieval
         new_url = "https://api.twitter.com/2/users/{}".format(dm["sender_id"])
         r2 = requests.get(new_url, headers=headers)
 
