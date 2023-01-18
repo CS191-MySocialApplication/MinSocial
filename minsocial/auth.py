@@ -33,7 +33,7 @@ def log_in():
 
     authlink = url + urllib.parse.urlencode(parameters)
 
-    return '<a href="{}">login</a>'.format(authlink)
+    return render_template('login.html', authlink=authlink)
 
 @bp.route("/logged", methods=['GET'])
 def logged():

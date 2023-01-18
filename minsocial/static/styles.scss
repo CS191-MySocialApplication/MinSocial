@@ -1,0 +1,25 @@
+/* These are all temporary stylings and were minimally based off our UI.*/
+
+html {
+    background-color: #50c0cb;
+    color: white;
+}
+
+body {
+    display: flex;
+    flex: 1 1 auto;
+    width: auto;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    background-color: #252c2c;
+    padding: 20px 60px;
+    border-radius: 8px;
+}
+
+a {
+    color: white;
+}
