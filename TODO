@@ -1,5 +1,5 @@
 [/] - Authorization 25 minutes
 [~] - Installation Process (Optimize)
 
-[ ] - Create wrappers for access token checking, refreshing and redirecting.
-
+[/] - Create wrappers for access token checking, refreshing and redirecting.
+[ ] - Replace URLS with the ones in constants.py
