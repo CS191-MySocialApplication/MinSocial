@@ -80,3 +80,34 @@ def view_tweet(tweet_id): # ADD MORE DETAILS
     tweet_details = r.text
 
     return tweet_details
+
+@bp.route("/compose", methods=['GET', 'POST'])
+@login_required
+def compose_tweet():
+    if request.method == "GET":
+        return redirect(url_for("home.home"))
+
+    if request.form["text"] == None:
+        return redirect(url_for("home.home"))
+
+    dataToSend = {
+        "text": request.form["text"]
+    }
+
+    headers = {
+        "Authorization" : "Bearer {}".format(request.cookies.get("access_token")),
+        "Content-Type": "application/json"
+    }
+    
+    URL = "https://api.twitter.com/2/tweets"
+
+    r = requests.post(URL, headers=headers, json=dataToSend)
+
+    print(r.text)
+
+    if r.status_code == 201:
+        data = r.json()["data"]
+        print(data)
+        return redirect(url_for('home.view_tweet', tweet_id=data["id"]))
+
+    return redirect(url_for("home.home"))

@@ -78,3 +78,10 @@ GET_ME = {
         "Authorization" : "Bearer {}"
     }
 }
+
+GET_TWEET = {
+    "URL": "https://api.twitter.com/2/tweets/{}",
+    "HEADER":{
+        "Authorization" : "Bearer {}"
+    }
+}
