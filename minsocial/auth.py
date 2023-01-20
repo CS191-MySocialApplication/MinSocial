@@ -26,7 +26,7 @@ def log_in():
     parameters = {"response_type":"code",
     "client_id": configs["twitter_client_id"],
     "redirect_uri":"http://127.0.0.1:5000/logged",
-    "scope":"tweet.read users.read follows.read offline.access dm.read",
+    "scope":"tweet.read tweet.write users.read follows.read offline.access dm.read",
     "state":"state",
     "code_challenge":"challenge",
     "code_challenge_method":"plain"}
@@ -63,8 +63,8 @@ def logged():
 
     resp = make_response(redirect("/home"))
     resp.set_cookie("access_token", token["access_token"], max_age=3600)
-    resp.set_cookie("refresh_token", token["refresh_token"], max_age=60000*30)
-    resp.set_cookie("id", user_details["id"], max_age=60000*30)
+    resp.set_cookie("refresh_token", token["refresh_token"], max_age=3600)
+    resp.set_cookie("id", user_details["id"], max_age=60000*30) # BUG: WILL PERSIST EVEN WITH OTHER USERS
     resp.set_cookie("name", user_details["name"], max_age=60000*30)
     resp.set_cookie("username", user_details["username"], max_age=60000*30)
 

@@ -7,13 +7,11 @@ import requests
 import urllib.parse
 import json
 from minsocial.decorators import login_required
+from minsocial import constants
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-
-with open("config.json", "r", encoding="utf-8") as config_file:
-        configs = json.loads(config_file.read())
 
 bp = Blueprint('home', __name__, url_prefix='/')
 
@@ -23,14 +21,13 @@ def home():
     a = request.cookies.get("access_token")
     user_id = request.cookies.get("id")
         
-    url = "https://api.twitter.com/2/users/{}/mentions".format(user_id)
-    headers = {
-        "Authorization" : "Bearer {}".format(a)
-    }
+    url = constants.GET_MENTIONED["URL"].format(user_id)
+    headers = constants.GET_MENTIONED["HEADER"].copy()
+    headers["Authorization"] = headers["Authorization"].format(a)
 
     r = requests.get(url, headers=headers)
 
-    mentions = r.json()["data"]
+    mentions = r.json().get("data")
 
     return render_template("index.html", mentions=mentions)
 
@@ -40,10 +37,9 @@ def dm():
     a = request.cookies.get("access_token")
     user_id = request.cookies.get("id")
         
-    url = "https://api.twitter.com/2/dm_events?dm_event.fields=id,text,sender_id"
-    headers = {
-        "Authorization" : "Bearer {}".format(a)
-    }
+    url = constants.GET_DMS["URL"]
+    headers = constants.GET_DMS["HEADER"].copy()
+    headers["Authorization"] = headers["Authorization"].format(a)
 
     r = requests.get(url, headers=headers)
     dms = r.json()["data"]
@@ -54,13 +50,13 @@ def dm():
         dm_details["text"] = dm["text"]
 
         # Convert to cache retrieval
-        new_url = "https://api.twitter.com/2/users/{}".format(dm["sender_id"])
+        new_url = constants.GET_USER["URL"].format(dm["sender_id"])
         r2 = requests.get(new_url, headers=headers)
 
         sender_det = r2.json()["data"]["username"]
         dm_details["sender_name"] = sender_det
 
-        new_url = "https://api.twitter.com/2/users/{}".format(dm["sender_id"])
+        new_url = constants.GET_USER["URL"].format(dm["sender_id"])
         r2 = requests.get(new_url, headers=headers)
 
         sender_det = r2.json()["data"]["username"]

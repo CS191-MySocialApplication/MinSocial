@@ -13,10 +13,11 @@ with open("config.json", "r", encoding="utf-8") as config_file:
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if request.cookies.get("refresh_token") == None:
+
+        if "refresh_token" not in request.cookies:
             return redirect(url_for("auth.log_in"))
-        elif request.cookies.get("access_token") == None:
-        
+        elif "access_token" not in request.cookies:
+
             url = "https://api.twitter.com/2/oauth2/token"
             headers = {"Content-Type": "application/x-www-form-urlencoded"}
             
@@ -29,7 +30,7 @@ def login_required(f):
             r = requests.post(url, headers=headers, data=dataToSend)
             token = r.json()
 
-            response = f(*args, **kwargs)
+            response = redirect(request.url)
             response = make_response(response)
 
             response.set_cookie("access_token", token["access_token"], max_age=3600)
