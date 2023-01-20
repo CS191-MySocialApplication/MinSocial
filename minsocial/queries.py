@@ -65,3 +65,18 @@ def dm():
 
 
     return render_template("dms.html", dms=data)
+
+
+@bp.route("/tweet/<tweet_id>")
+@login_required
+def view_tweet(tweet_id): # ADD MORE DETAILS
+    a = request.cookies.get("access_token")
+
+    url = constants.GET_TWEET["URL"].format(tweet_id)
+    headers = constants.GET_DMS["HEADER"].copy()
+    headers["Authorization"] = headers["Authorization"].format(a)
+
+    r = requests.get(url, headers=headers)
+    tweet_details = r.text
+
+    return tweet_details

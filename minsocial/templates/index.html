@@ -16,7 +16,7 @@
 
     <ul>
         {% for item in mentions %}
-            <li>{{item["text"]}}</li>
+            <li><a href="{{ url_for('home.view_tweet', tweet_id=item['id']) }}">{{item["text"]}}</a></li>
         {% endfor %}
     </ul>
 </body>
