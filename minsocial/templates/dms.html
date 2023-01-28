@@ -16,8 +16,8 @@
     </ul>
 
     <ul>
-        {% for item in dms %}
-            <li>@{{item["sender_name"]}} - {{item["text"]}}</li>
+        {% for event in dms %}
+            <li>@{{users[event["sender_id"]]}} - {{event["text"]}}</li>
         {% endfor %}
     </ul>
 </body>

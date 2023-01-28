@@ -44,8 +44,6 @@ def dm():
     for user in direct_messages.includes["users"]:
         users[user.id] = user.username
 
-    print(users)
-
     return render_template("dms.html", dms=direct_messages.data, users=users)
 
 
