@@ -12,10 +12,11 @@ bp = Blueprint('home', __name__, url_prefix='/')
 def home():
 
     a = request.cookies.get("access_token")
-    user_id = request.cookies.get("id")
-
     client = tweepy.Client(a)
-    mentions = client.get_users_mentions(user_id)
+
+    user = client.get_me(user_auth=False)
+
+    mentions = client.get_users_mentions(user.data.id)
 
     return render_template("index.html", mentions=mentions.data)
 
