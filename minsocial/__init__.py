@@ -1,5 +1,4 @@
 from flask import Flask
-import json
 from minsocial import auth, queries
 
 def create_app():

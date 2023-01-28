@@ -1,19 +1,9 @@
-from flask import request
-from flask import make_response
-from flask import render_template
-from flask import redirect
-from datetime import datetime, timedelta
-import requests
-import urllib.parse
-import json
+from flask import (
+    Blueprint, redirect, render_template, request, url_for
+)
 from minsocial.decorators import login_required
-from minsocial import constants
 
 import tweepy
-
-from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
-)
 
 bp = Blueprint('home', __name__, url_prefix='/')
 

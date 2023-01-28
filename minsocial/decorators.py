@@ -1,10 +1,9 @@
+from flask import (
+    redirect, url_for, request, make_response
+)
 
-from flask import redirect
-from flask import request
 from functools import wraps
 import requests
-from flask import url_for
-from flask import make_response
 import json
 
 with open("config.json", "r", encoding="utf-8") as config_file:

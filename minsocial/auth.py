@@ -1,21 +1,13 @@
-from flask import g
-from flask import make_response
-from flask import redirect
-from flask import render_template
-from flask import request
-from flask import url_for
-from datetime import datetime, timedelta
+from flask import (
+    make_response, redirect, render_template, request, Blueprint
+)
+
 import requests
 import urllib.parse
 import json
 
-
-from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
-)
-
 with open("config.json", "r", encoding="utf-8") as config_file:
-        configs = json.loads(config_file.read())
+    configs = json.loads(config_file.read())
 
 bp = Blueprint('auth', __name__, url_prefix='/')
 
