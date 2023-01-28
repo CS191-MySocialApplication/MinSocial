@@ -9,6 +9,8 @@ import json
 from minsocial.decorators import login_required
 from minsocial import constants
 
+import tweepy
+
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
@@ -18,68 +20,48 @@ bp = Blueprint('home', __name__, url_prefix='/')
 @bp.route("/home")
 @login_required
 def home():
+
     a = request.cookies.get("access_token")
     user_id = request.cookies.get("id")
-        
-    url = constants.GET_MENTIONED["URL"].format(user_id)
-    headers = constants.GET_MENTIONED["HEADER"].copy()
-    headers["Authorization"] = headers["Authorization"].format(a)
 
-    r = requests.get(url, headers=headers)
+    client = tweepy.Client(a)
+    mentions = client.get_users_mentions(user_id)
 
-    mentions = r.json().get("data")
-
-    return render_template("index.html", mentions=mentions)
+    return render_template("index.html", mentions=mentions.data)
 
 @bp.route("/dm")
 @login_required
 def dm():
     a = request.cookies.get("access_token")
-    user_id = request.cookies.get("id")
+
+    client = tweepy.Client(a)
+    direct_messages = client.get_direct_message_events( dm_event_fields=["id", "text", "dm_conversation_id", "sender_id"], 
+                                                        expansions=["sender_id"], 
+                                                        user_fields=["username"], 
+                                                        user_auth=False)
         
-    url = constants.GET_DMS["URL"]
-    headers = constants.GET_DMS["HEADER"].copy()
-    headers["Authorization"] = headers["Authorization"].format(a)
+    users = {}
+    for user in direct_messages.includes["users"]:
+        users[user.id] = user.username
 
-    r = requests.get(url, headers=headers)
-    dms = r.json()["data"]
+    print(users)
 
-    data = []
-    for dm in dms:
-        dm_details = {}
-        dm_details["text"] = dm["text"]
-
-        # Convert to cache retrieval
-        new_url = constants.GET_USER["URL"].format(dm["sender_id"])
-        r2 = requests.get(new_url, headers=headers)
-
-        sender_det = r2.json()["data"]["username"]
-        dm_details["sender_name"] = sender_det
-
-        new_url = constants.GET_USER["URL"].format(dm["sender_id"])
-        r2 = requests.get(new_url, headers=headers)
-
-        sender_det = r2.json()["data"]["username"]
-
-        data.append(dm_details)
-
-
-    return render_template("dms.html", dms=data)
+    return render_template("dms.html", dms=direct_messages.data, users=users)
 
 
 @bp.route("/tweet/<tweet_id>")
 @login_required
-def view_tweet(tweet_id): # ADD MORE DETAILS
+def view_tweet(tweet_id): # TODO: ADD MORE DETAILS
     a = request.cookies.get("access_token")
 
-    url = constants.GET_TWEET["URL"].format(tweet_id)
-    headers = constants.GET_DMS["HEADER"].copy()
-    headers["Authorization"] = headers["Authorization"].format(a)
+    client = tweepy.Client(a)
 
-    r = requests.get(url, headers=headers)
-    tweet_details = r.text
+    tweet = client.get_tweet(   tweet_id, 
+                                expansions=["referenced_tweets.id", "in_reply_to_user_id"],
+                                tweet_fields=["conversation_id", "author_id", "in_reply_to_user_id", "referenced_tweets"],
+                                user_fields=["id", "username"])
 
-    return tweet_details
+    return tweet.data.text
 
 @bp.route("/compose", methods=['GET', 'POST'])
 @login_required
@@ -90,24 +72,13 @@ def compose_tweet():
     if request.form["text"] == None:
         return redirect(url_for("home.home"))
 
-    dataToSend = {
-        "text": request.form["text"]
-    }
+    a = request.cookies.get("access_token")
+    client = tweepy.Client(a)
 
-    headers = {
-        "Authorization" : "Bearer {}".format(request.cookies.get("access_token")),
-        "Content-Type": "application/json"
-    }
+    tweet = client.create_tweet(text=request.form['text'], user_auth=False)
     
-    URL = "https://api.twitter.com/2/tweets"
-
-    r = requests.post(URL, headers=headers, json=dataToSend)
-
-    print(r.text)
-
-    if r.status_code == 201:
-        data = r.json()["data"]
-        print(data)
+    if len(tweet.errors) == 0:
+        data = tweet.data
         return redirect(url_for('home.view_tweet', tweet_id=data["id"]))
 
     return redirect(url_for("home.home"))
