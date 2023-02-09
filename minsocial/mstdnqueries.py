@@ -1,13 +1,12 @@
 from flask import (
     Blueprint, redirect, render_template, request, url_for
 )
-from minsocial.decorators import twt_login_required
 
 from mastodon import Mastodon
 
 bp = Blueprint('mstdn', __name__, url_prefix='/mstdn/')
 
-@bp.route("/home") # @twt_login_required
+@bp.route("/home")
 def home():
     a = request.cookies.get("mstdn_access_token")
     client = Mastodon(api_base_url="https://social.up.edu.ph", access_token=a)
@@ -26,7 +25,7 @@ def dm():
 
 
 @bp.route("/status/<statusId>")
-def viewStatus(statusId): # TODO: ADD MORE DETAILS
+def viewStatus(statusId):
     a = request.cookies.get("mstdn_access_token")
     client = Mastodon(api_base_url="https://social.up.edu.ph", access_token=a)
 

@@ -2,4 +2,4 @@
 [~] - Installation Process (Optimize)
 
 [/] - Create wrappers for access token checking, refreshing and redirecting.
-[ ] - Replace URLS with the ones in constants.py
+[ ] - Create Status class (to simplify status posts coming from Mastodon or Twitter)
