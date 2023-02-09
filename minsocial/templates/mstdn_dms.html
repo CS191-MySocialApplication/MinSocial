@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FlaskApp</title>
+</head>
+<body>
+    <ul>
+        {% for conversation in conversations %}
+            <li>@{{conversation["accounts"][0]["username"]}} - {{conversation["last_status"]["content"] | safe}}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

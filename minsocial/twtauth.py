@@ -9,7 +9,7 @@ import json
 with open("config.json", "r", encoding="utf-8") as config_file:
     configs = json.loads(config_file.read())
 
-bp = Blueprint('auth', __name__, url_prefix='/')
+bp = Blueprint('twtauth', __name__, url_prefix='/')
 
 @bp.route("/")
 def log_in():

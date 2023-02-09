@@ -1,17 +1,17 @@
 from flask import (
     Blueprint, redirect, render_template, request, url_for
 )
-from minsocial.decorators import login_required
+from minsocial.decorators import twt_login_required
 
 import tweepy
 
 bp = Blueprint('home', __name__, url_prefix='/')
 
 @bp.route("/home")
-@login_required
+@twt_login_required
 def home():
 
-    a = request.cookies.get("access_token")
+    a = request.cookies.get("twt_access_token")
     client = tweepy.Client(a)
 
     user = client.get_me(user_auth=False)
@@ -21,7 +21,7 @@ def home():
     return render_template("index.html", mentions=mentions.data)
 
 @bp.route("/dm")
-@login_required
+@twt_login_required
 def dm():
     a = request.cookies.get("access_token")
 
@@ -39,7 +39,7 @@ def dm():
 
 
 @bp.route("/tweet/<tweet_id>")
-@login_required
+@twt_login_required
 def view_tweet(tweet_id): # TODO: ADD MORE DETAILS
     a = request.cookies.get("access_token")
 
@@ -53,7 +53,7 @@ def view_tweet(tweet_id): # TODO: ADD MORE DETAILS
     return tweet.data.text
 
 @bp.route("/compose", methods=['GET', 'POST'])
-@login_required
+@twt_login_required
 def compose_tweet():
     if request.method == "GET":
         return redirect(url_for("home.home"))
