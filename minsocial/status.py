@@ -23,14 +23,14 @@ class Status(metaclass=ABCMeta):
 class Tweet(Status):
     source = "Twitter"
     
-    def __init__(self, data: dict[str, any], author):
+    def __init__(self, data: dict[str, any], author: dict[str, any]):
 
         assert("id" in data)
         assert("author_id" in data)
         assert("created_at" in data)
         assert("text" in data) 
 
-        super().__init__(data["id"], data["author_id"], data["created_at"], data["text"])
+        super().__init__(data["id"], author, data["created_at"], data["text"])
 
 class Toot(Status):
     source = "Mastodon"
@@ -66,9 +66,21 @@ class Timeline:
         
         client = tweepy.Client(twtAccessKey)
         user = client.get_me(user_auth=False)
-        mentions = client.get_users_mentions(user.data.id)
-
         
+        assert("id" in user.data)
+        
+        response = client.get_users_mentions(user.data["id"], user_auth=False, expansions=["author_id"])
+
+        assert("users" in response.includes)
+
+        authors = dict()
+
+        for author in response.includes["users"]:
+            authors[author["id"]] = author
+
+        for tweet in response.data:
+            self.statusList.append(Tweet(tweet, authors[tweet["author_id"]]))
+
 
     def _mstdnGenerateTimeline(self, mstdnAccessKey):
         pass
