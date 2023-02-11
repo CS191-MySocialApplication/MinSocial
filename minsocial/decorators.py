@@ -16,7 +16,7 @@ def twt_login_required(f):
         if "refresh_token" not in request.cookies:
             return redirect(url_for("twtauth.log_in"))
         
-        if "twt_access_token" not in request.cookies:
+        if "access_token" not in request.cookies:
 
             url = "https://api.twitter.com/2/oauth2/token"
             headers = {"Content-Type": "application/x-www-form-urlencoded"}

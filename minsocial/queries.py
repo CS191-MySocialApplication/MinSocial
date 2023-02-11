@@ -11,7 +11,7 @@ bp = Blueprint('home', __name__, url_prefix='/')
 @twt_login_required
 def home():
 
-    a = request.cookies.get("twt_access_token")
+    a = request.cookies.get("access_token")
     client = tweepy.Client(a)
 
     user = client.get_me(user_auth=False)
