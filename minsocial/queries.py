@@ -16,9 +16,11 @@ def home():
 
     user = client.get_me(user_auth=False)
 
-    mentions = client.get_users_mentions(user.data.id)
+    mentions = client.get_users_mentions(user.data.id, user_auth=False, expansions=["author_id"])
 
-    return render_template("index.html", mentions=mentions.data)
+    return {"data": mentions.data[0].data, "authors":[ x.data for x in mentions.includes["users"]]}
+
+    # return render_template("index.html", mentions=mentions.data)
 
 @bp.route("/dm")
 @twt_login_required
