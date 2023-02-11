@@ -19,7 +19,8 @@ class Status(metaclass=ABCMeta):
     @abstractmethod
     def source(self):
         pass
-    
+
+
 class Tweet(Status):
     source = "Twitter"
     
@@ -32,6 +33,7 @@ class Tweet(Status):
 
         super().__init__(data["id"], author, data["created_at"], data["text"])
 
+
 class Toot(Status):
     source = "Mastodon"
 
@@ -43,7 +45,8 @@ class Toot(Status):
         assert("content" in toot)
 
         super().__init__(toot["id"], toot["account"], toot["created_at"], toot["content"])
-        
+
+
 class Timeline:
 
     def __init__(self, twtAccessKey = None, mstdnAccessKey = None):
@@ -92,6 +95,7 @@ class Timeline:
 
     def _processTweets():
         pass
+
 
     def __iter__():
         pass
