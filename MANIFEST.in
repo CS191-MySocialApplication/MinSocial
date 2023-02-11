@@ -1,0 +1,3 @@
+graft minsocial/static
+graft minsocial/templates
+global-exclude *.pyc
