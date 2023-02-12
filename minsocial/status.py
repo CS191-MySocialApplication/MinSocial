@@ -12,7 +12,7 @@ class Status(metaclass=ABCMeta):
 
         self.id = statusID
         self.author = author
-        self.created_time = createdTime
+        self.createdTime = createdTime
         self.content = content
 
     @property
@@ -72,7 +72,7 @@ class Timeline:
         
         assert("id" in user.data)
         
-        response = client.get_users_mentions(user.data["id"], user_auth=False, expansions=["author_id"])
+        response = client.get_users_mentions(user.data["id"], user_auth=False, expansions=["author_id"], tweet_fields=["id", "text", "created_at"])
 
         assert("users" in response.includes)
 
@@ -86,16 +86,25 @@ class Timeline:
 
 
     def _mstdnGenerateTimeline(self, mstdnAccessKey):
-        pass
         
+        client = Mastodon(api_base_url="https://social.up.edu.ph", access_token=mstdnAccessKey)
+        response = client.notifications(mentions_only=True)
+        
+        for notif in response:
+            self.statusList.append(Toot(notif["status"]))
 
-    def _sortStatusesByTime():
-        pass
+
+    def _sortStatusesByTime(self):
+        self.statusList.sort(key=lambda x: x.createdTime, reverse=True)
 
 
     def _processTweets():
         pass
+    
 
+    def __getitem__(self, index):
+        return self.statusList[index]
+    
 
-    def __iter__():
-        pass
+    def __iter__(self):
+        yield from self.statusList
