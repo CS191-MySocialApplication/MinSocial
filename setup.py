@@ -8,6 +8,7 @@ setup(
     install_requires=[
         'flask',
         'tweepy',
-        'Mastodon.py'
+        'Mastodon.py',
+        'httpretty'
     ],
 )

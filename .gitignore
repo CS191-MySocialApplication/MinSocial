@@ -13,4 +13,6 @@ dist/
 build/
 *.egg-info/
 
+tests/simulated_responses/
+
 config.json
