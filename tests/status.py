@@ -1,13 +1,6 @@
-from minsocial.status import (
+from minsocial.query.status import (
     Timeline, Tweet, Toot, Status
 )
-
-import json
-
-import tweepy
-
-from base64 import b64encode
-import requests
 
 import httpretty
 
