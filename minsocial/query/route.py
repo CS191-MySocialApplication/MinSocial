@@ -17,8 +17,6 @@ def home():
     mstdnAccess = request.cookies.get("mstdnAccessToken")
 
     timeline = Timeline(twtAccessKey=twtAccess, mstdnAccessKey=mstdnAccess)
-    
-    print(timeline)
 
     return render_template("index.html", mentions=timeline)
 
