@@ -8,7 +8,7 @@ bp = Blueprint('mstdn', __name__, url_prefix='/mstdn/')
 
 @bp.route("/home")
 def home():
-    a = request.cookies.get("mstdn_access_token")
+    a = request.cookies.get("mstdnAccessToken")
     client = Mastodon(api_base_url="https://social.up.edu.ph", access_token=a)
     posts = client.notifications(mentions_only=True)
 
@@ -16,7 +16,7 @@ def home():
 
 @bp.route("/dm")
 def dm():
-    a = request.cookies.get("mstdn_access_token")
+    a = request.cookies.get("mstdnAccessToken")
     client = Mastodon(api_base_url="https://social.up.edu.ph", access_token=a)
 
     conversations = client.conversations()
@@ -26,7 +26,7 @@ def dm():
 
 @bp.route("/status/<statusId>")
 def viewStatus(statusId):
-    a = request.cookies.get("mstdn_access_token")
+    a = request.cookies.get("mstdnAccessToken")
     client = Mastodon(api_base_url="https://social.up.edu.ph", access_token=a)
 
     status = client.status(statusId)
@@ -41,7 +41,7 @@ def compose_tweet():
     if request.form["text"] == None:
         return redirect(url_for("mstdn.home"))
 
-    a = request.cookies.get("access_token")
+    a = request.cookies.get("mstdnAccessToken")
     client = Mastodon(api_base_url="https://social.up.edu.ph", access_token=a)
 
     toot = client.toot(request.form["text"])

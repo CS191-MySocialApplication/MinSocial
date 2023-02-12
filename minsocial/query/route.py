@@ -1,31 +1,31 @@
 from flask import (
     Blueprint, redirect, render_template, request, url_for
 )
-from minsocial.decorators import twt_login_required
+
+from minsocial.decorators import login_required
+from minsocial.query.status import Timeline
 
 import tweepy
 
 bp = Blueprint('home', __name__, url_prefix='/')
 
 @bp.route("/home")
-@twt_login_required
+@login_required
 def home():
 
-    a = request.cookies.get("access_token")
-    client = tweepy.Client(a)
+    twtAccess = request.cookies.get("twtAccessToken")
+    mstdnAccess = request.cookies.get("mstdnAccessToken")
 
-    user = client.get_me(user_auth=False)
+    timeline = Timeline(twtAccessKey=twtAccess, mstdnAccessKey=mstdnAccess)
+    
+    print(timeline)
 
-    mentions = client.get_users_mentions(user.data.id, user_auth=False, expansions=["author_id"])
-
-    return {"data": mentions.data[0].data, "authors":[ x.data for x in mentions.includes["users"]]}
-
-    # return render_template("index.html", mentions=mentions.data)
+    return render_template("index.html", mentions=timeline)
 
 @bp.route("/dm")
-@twt_login_required
+@login_required
 def dm():
-    a = request.cookies.get("access_token")
+    a = request.cookies.get("twtAccessToken")
 
     client = tweepy.Client(a)
     direct_messages = client.get_direct_message_events( dm_event_fields=["id", "text", "dm_conversation_id", "sender_id"], 
@@ -41,9 +41,9 @@ def dm():
 
 
 @bp.route("/tweet/<tweet_id>")
-@twt_login_required
+@login_required
 def view_tweet(tweet_id): # TODO: ADD MORE DETAILS
-    a = request.cookies.get("access_token")
+    a = request.cookies.get("twtAccessToken")
 
     client = tweepy.Client(a)
 
@@ -55,7 +55,7 @@ def view_tweet(tweet_id): # TODO: ADD MORE DETAILS
     return tweet.data.text
 
 @bp.route("/compose", methods=['GET', 'POST'])
-@twt_login_required
+@login_required
 def compose_tweet():
     if request.method == "GET":
         return redirect(url_for("home.home"))
