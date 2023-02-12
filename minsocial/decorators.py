@@ -6,34 +6,30 @@ from functools import wraps
 import requests
 import json
 
-with open("config.json", "r", encoding="utf-8") as config_file:
-        configs = json.loads(config_file.read())
+from minsocial.userAuth.authHandler import TwtAuthHandler
 
-def twt_login_required(f):
+def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
 
-        if "refresh_token" not in request.cookies:
+        twtRefresh = request.cookies.get("twtRefreshToken")
+        twtAccess = request.cookies.get("twtAccessToken")
+
+        mstdnAccess = request.cookies.get("mstdnAccessToken")
+
+        if twtRefresh == None and mstdnAccess == None:
             return redirect(url_for("twtauth.log_in"))
         
-        if "access_token" not in request.cookies:
+        if twtRefresh and twtAccess == None:
 
-            url = "https://api.twitter.com/2/oauth2/token"
-            headers = {"Content-Type": "application/x-www-form-urlencoded"}
-            
-            dataToSend = {
-                "refresh_token": request.cookies.get("refresh_token"),
-                "grant_type":"refresh_token",
-                "client_id": configs["twitter_client_id"],
-            }
+            handler = TwtAuthHandler()
 
-            r = requests.post(url, headers=headers, data=dataToSend)
-            token = r.json()
+            token = handler.refresh_access_token(twtRefresh)
 
             response = redirect(request.url)
             response = make_response(response)
 
-            response.set_cookie("access_token", token["access_token"], max_age=3600)
+            response.set_cookie("twtAccessToken", token["access_token"], max_age=3600)
 
             return response
 
