@@ -7,7 +7,7 @@
 <body>
     <ul>
         <li>
-            <a href="{{ url_for('auth.logout') }}"> Log out </a>
+            <a href="{{ url_for('twtauth.logout') }}"> Log out </a>
         </li>
 
         <li>
@@ -17,7 +17,7 @@
 
     <ul>
         {% for event in dms %}
-            <li>@{{users[event["sender_id"]]}} - {{event["text"]}}</li>
+            <li><a href="{{ url_for('home.conversation', conversation_id=event['dm_conversation_id']) }}">@{{users[event["sender_id"]]}} - {{event["text"]}} - {{event["created_at"]}}</a></li>
         {% endfor %}
     </ul>
 </body>

@@ -20,22 +20,44 @@ def home():
 
     return render_template("index.html", mentions=timeline)
 
-@bp.route("/dm")
+@bp.route("/messages")
 @login_required
-def dm():
+def messages():
     a = request.cookies.get("twtAccessToken")
 
-    client = tweepy.Client(a)
-    direct_messages = client.get_direct_message_events( dm_event_fields=["id", "text", "dm_conversation_id", "sender_id"], 
+    client = tweepy.Client(a, return_type=dict)
+    direct_messages = client.get_direct_message_events( dm_event_fields=["id", "text", "dm_conversation_id", "sender_id", "created_at"], 
+                                                        event_types="MessageCreate",
                                                         expansions=["sender_id"], 
                                                         user_fields=["username"], 
                                                         user_auth=False)
         
     users = {}
-    for user in direct_messages.includes["users"]:
-        users[user.id] = user.username
+    for user in direct_messages["includes"]["users"]:
+        users[user["id"]] = user["username"]
 
-    return render_template("dms.html", dms=direct_messages.data, users=users)
+    unique_conversations = {}
+
+    for messages in direct_messages["data"]:
+        if messages["dm_conversation_id"] not in unique_conversations:
+            unique_conversations[messages["dm_conversation_id"]] = messages
+
+    conversations = unique_conversations.values()
+
+    return render_template("dms.html", dms=conversations, users=users)
+
+
+@bp.route("/messages/<conversation_id>")
+@login_required
+def conversation(conversation_id):
+    a = request.cookies.get("twtAccessToken")
+
+    client = tweepy.Client(a, return_type=dict)
+    
+    conversationEvents = client.get_direct_message_events(dm_conversation_id=conversation_id,
+                                                          user_auth=False)
+
+    return conversationEvents
 
 
 @bp.route("/tweet/<tweet_id>")
