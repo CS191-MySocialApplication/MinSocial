@@ -16,8 +16,8 @@
     </ul>
 
     <ul>
-        {% for event in dms %}
-            <li><a href="{{ url_for('home.conversation', conversation_id=event['dm_conversation_id']) }}">@{{users[event["sender_id"]]}} - {{event["text"]}} - {{event["created_at"]}}</a></li>
+        {% for message in conversations %}
+            <li><a href="">@{{message.author["username"]}} - {{message.content}} - {{message.createdTime}}</a></li>
         {% endfor %}
     </ul>
 </body>

@@ -4,6 +4,7 @@ from flask import (
 
 from minsocial.decorators import login_required
 from minsocial.query.status import Timeline
+from minsocial.query.conversations import ConversationList
 
 import tweepy
 
@@ -23,28 +24,13 @@ def home():
 @bp.route("/messages")
 @login_required
 def messages():
-    a = request.cookies.get("twtAccessToken")
 
-    client = tweepy.Client(a, return_type=dict)
-    direct_messages = client.get_direct_message_events( dm_event_fields=["id", "text", "dm_conversation_id", "sender_id", "created_at"], 
-                                                        event_types="MessageCreate",
-                                                        expansions=["sender_id"], 
-                                                        user_fields=["username"], 
-                                                        user_auth=False)
-        
-    users = {}
-    for user in direct_messages["includes"]["users"]:
-        users[user["id"]] = user["username"]
+    twtAccess = request.cookies.get("twtAccessToken")
+    mstdnAccess = request.cookies.get("mstdnAccessToken")
 
-    unique_conversations = {}
+    conversations = ConversationList(twtAccess, mstdnAccess)
 
-    for messages in direct_messages["data"]:
-        if messages["dm_conversation_id"] not in unique_conversations:
-            unique_conversations[messages["dm_conversation_id"]] = messages
-
-    conversations = unique_conversations.values()
-
-    return render_template("dms.html", dms=conversations, users=users)
+    return render_template("dms.html", conversations=conversations.conversationList)
 
 
 @bp.route("/messages/<conversation_id>")
