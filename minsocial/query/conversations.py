@@ -6,7 +6,7 @@ from mastodon import Mastodon
 
 import json
 
-class Message:
+class Message(metaclass=ABCMeta):
     # TODO: Group conversation handling 
     def __init__(self, messageID, content, author, conversationID, createdTime):
         self.messageID = messageID
@@ -21,8 +21,6 @@ class Message:
         pass
 
 
-    
-
 class TwtMsg(Message):
     source = "Twitter"
 
@@ -34,8 +32,8 @@ class TwtMsg(Message):
 class MstdnMsg(Message):
     source = "Mastodon"
 
-    def __init__(self, id, message):
-        super().__init__(message["id"], message["content"], message["account"], id, message["created_at"])
+    def __init__(self, conversationID, message):
+        super().__init__(message["id"], message["content"], message["account"], conversationID, message["created_at"])
 
 
 class ConversationList:

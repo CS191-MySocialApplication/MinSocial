@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, redirect, render_template, request, url_for
+    Blueprint, redirect, render_template, request, url_for, send_from_directory
 )
 
 from minsocial.decorators import login_required
@@ -9,6 +9,7 @@ from minsocial.query.conversations import ConversationList
 import tweepy
 
 bp = Blueprint('home', __name__, url_prefix='/')
+
 
 @bp.route("/home")
 @login_required
@@ -20,6 +21,7 @@ def home():
     timeline = Timeline(twtAccessKey=twtAccess, mstdnAccessKey=mstdnAccess)
 
     return render_template("index.html", mentions=timeline)
+
 
 @bp.route("/messages")
 @login_required
@@ -79,3 +81,8 @@ def compose_tweet():
         return redirect(url_for('home.view_tweet', tweet_id=data["id"]))
 
     return redirect(url_for("home.home"))
+
+
+@bp.route("/static/")
+def base(path):
+    return send_from_directory('static', path)
