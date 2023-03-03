@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, redirect, render_template, request, url_for, send_from_directory
+    Blueprint, redirect, render_template, request, url_for, send_from_directory, jsonify
 )
 
 from minsocial.decorators import login_required
@@ -20,7 +20,7 @@ def home():
 
     timeline = Timeline(twtAccessKey=twtAccess, mstdnAccessKey=mstdnAccess)
 
-    return render_template("index.html", mentions=timeline)
+    return jsonify(timeline.asdict())
 
 
 @bp.route("/messages")

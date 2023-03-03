@@ -11,9 +11,18 @@ class Status(metaclass=ABCMeta):
     def __init__(self, statusID, author, createdTime, content):
 
         self.id = statusID
-        self.author = author
+        self.author = author # TODO: Is there anyway to standardize this
         self.createdTime = createdTime
         self.content = content
+
+    def asdict(self):
+        return {
+            'source': self.source,
+            'id': self.id,
+            'author': self.author,
+            'createdTime': self.createdTime,
+            'content': self.content
+        }
 
     @property
     @abstractmethod
@@ -54,6 +63,7 @@ class Timeline:
         assert(twtAccessKey is not None or mstdnAccessKey is not None)
 
         self.statusList:list[Status] = []
+        self.dictStatusList:list[dict] = []
         self.errors:list[str] = []
 
         if twtAccessKey:
@@ -67,22 +77,24 @@ class Timeline:
 
     def _twtGenerateTimeline(self, twtAccessKey):
         
-        client = tweepy.Client(twtAccessKey)
+        client = tweepy.Client(twtAccessKey, return_type=dict)
         user = client.get_me(user_auth=False)
         
-        assert("id" in user.data)
+        assert("id" in user["data"])
         
-        response = client.get_users_mentions(user.data["id"], user_auth=False, expansions=["author_id"], tweet_fields=["id", "text", "created_at"])
+        response = client.get_users_mentions(user["data"]["id"], user_auth=False, expansions=["author_id"], tweet_fields=["id", "text", "created_at"])
 
-        assert("users" in response.includes)
+        assert("users" in response["includes"])
 
         authors = dict()
 
-        for author in response.includes["users"]:
+        for author in response["includes"]["users"]:
             authors[author["id"]] = author
 
-        for tweet in response.data:
-            self.statusList.append(Tweet(tweet, authors[tweet["author_id"]]))
+        for tweet in response["data"]:
+            tweet = Tweet(tweet, authors[tweet["author_id"]])
+            self.statusList.append(tweet)
+            self.dictStatusList.append(tweet.asdict())
 
 
     def _mstdnGenerateTimeline(self, mstdnAccessKey):
@@ -91,12 +103,17 @@ class Timeline:
         response = client.notifications(mentions_only=True)
         
         for notif in response:
-            self.statusList.append(Toot(notif["status"]))
+            toot = Toot(notif["status"])
+            self.statusList.append(toot)
+            self.dictStatusList.append(toot.asdict())
 
 
     def _sortStatusesByTime(self):
         self.statusList.sort(key=lambda x: x.createdTime, reverse=True)
 
+
+    def asdict(self):
+        return self.dictStatusList
 
     def _processTweets():
         pass
