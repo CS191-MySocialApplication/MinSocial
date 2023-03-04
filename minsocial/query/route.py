@@ -7,6 +7,7 @@ from minsocial.query.status import Timeline
 from minsocial.query.conversations import ConversationList
 
 import tweepy
+from mastodon import Mastodon
 
 bp = Blueprint('home', __name__, url_prefix='/')
 
@@ -61,6 +62,17 @@ def view_tweet(tweet_id): # TODO: ADD MORE DETAILS
                                 user_fields=["id", "username"])
 
     return tweet.data.text
+
+
+@bp.route("/toot/<toot_id>")
+def view_toot(toot_id): 
+    a = request.cookies.get("mstdnAccessToken")
+    client = Mastodon(api_base_url="https://social.up.edu.ph", access_token=a)
+
+    toot = client.status(toot_id)
+
+    return toot
+
 
 @bp.route("/compose", methods=['GET', 'POST'])
 @login_required
