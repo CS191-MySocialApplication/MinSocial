@@ -1,4 +1,5 @@
 <script>
+	import Index from "./index.svelte"
 
 	async function getAuthLink(){
 
@@ -18,6 +19,11 @@
 
 </script>
 
+<!--
+	The component for the main page. Uncomment this portion to see the front-end
+	This part is tentative
+	<Index />
+-->
 <main>
 
 	{#await auth_promise}
@@ -31,3 +37,6 @@
 	{/await}
 
 </main>
+
+<style>
+</style>
