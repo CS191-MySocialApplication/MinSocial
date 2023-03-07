@@ -1,5 +1,0 @@
-[/] - Authorization 25 minutes
-[~] - Installation Process (Optimize)
-
-[/] - Create wrappers for access token checking, refreshing and redirecting.
-[ ] - Create Status class (to simplify status posts coming from Mastodon or Twitter)

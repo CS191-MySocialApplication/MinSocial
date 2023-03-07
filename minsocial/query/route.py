@@ -103,11 +103,15 @@ def compose_tweet():
     return redirect(url_for("home.home"))
 
 
-@bp.route("/static/")
+@bp.route("/")
 def base():
     return send_from_directory('svelte/public/', "index.html")
 
 
-@bp.route("/static/<path>")
+@bp.route("/<path>")
 def sendfile(path):
     return send_from_directory('svelte/public/', path)
+
+@bp.route("/build/<path>")
+def sendbuild(path):
+    return send_from_directory('svelte/public/build', path)

@@ -1,5 +1,5 @@
 from flask import (
-    make_response, redirect, render_template, request, Blueprint, url_for
+    make_response, redirect, render_template, request, Blueprint, url_for, jsonify
 )
 
 import requests
@@ -8,14 +8,14 @@ import json
 
 from minsocial.userAuth.authHandler import MstdnAuthHandler
 
-bp = Blueprint('mstdnauth', __name__, url_prefix='/mstdn/')
+bp = Blueprint('mstdnauth', __name__, url_prefix='/auth/mstdn')
 
 @bp.route("/")
 def log_in():
     
     handler = MstdnAuthHandler()
 
-    return render_template('login.html', authlink=handler.get_auth_url())
+    return jsonify({"auth_url":handler.get_auth_url()})
 
 @bp.route("/logged", methods=['GET'])
 def logged():
