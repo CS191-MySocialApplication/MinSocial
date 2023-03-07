@@ -16,7 +16,11 @@
 
     <ul>
         {% for item in mentions %}
-            <li>({{item.source}})<a href="{{ url_for('home.view_tweet', tweet_id=item.id) }}">{{item.content}}</a> ({{item.createdTime}})</li>
+            {% if item.source == "Twitter" %}
+                <li>({{item.source}})<a href="{{ url_for('home.view_tweet', tweet_id=item.id) }}">{{item.content}}</a> ({{item.createdTime}})</li>
+            {% else %}
+                <li>({{item.source}})<a href="{{ url_for('home.view_toot', toot_id=item.id) }}">{{item.content}}</a> ({{item.createdTime}})</li>
+            {% endif %}
         {% endfor %}
     </ul>
 
