@@ -44,13 +44,15 @@ class ConversationList:
         self.errors:list[str] = []
 
         if twtAccessKey:
-            self._twtGenerateConversation(twtAccessKey)
+            self._twtGenerateConvList(twtAccessKey)
 
         if mstdnAccessKey:
-            self._mstdnGenerateConversation(mstdnAccessKey)
+            self._mstdnGenerateConvList(mstdnAccessKey)
+
+        # self._sortMessagesByTime()
 
 
-    def _twtGenerateConversation(self, twtAccessKey):
+    def _twtGenerateConvList(self, twtAccessKey):
         client = tweepy.Client(twtAccessKey, return_type=dict)
 
         direct_messages = client.get_direct_message_events( dm_event_fields=["id", "text", "dm_conversation_id", "sender_id", "created_at"], 
@@ -70,21 +72,46 @@ class ConversationList:
         self.conversationList.extend(convs.values())
 
 
-    def _mstdnGenerateConversation(self, mstdnAccessKey):
+    def _mstdnGenerateConvList(self, mstdnAccessKey):
         client = Mastodon(api_base_url="https://social.up.edu.ph", access_token=mstdnAccessKey)
 
         conversations = client.conversations()
 
         self.conversationList.extend([MstdnMsg(conv["id"], conv["last_status"]) for conv in conversations])
 
-class Conversation:
-    def __init__(self):
-        pass
 
-class MstdnConversation(Conversation):
-    def __init__(self):
-        pass
+    def _sortMessagesByTime(self):
+        self.conversationList.sort(key=lambda x: x.createdTime, reverse=True)
 
-class TwtConversation(Conversation):
-    def __init__(self):
-        pass
+
+class TwtConversation:
+
+    def __init__(self, twtAccessKey, convID):
+        
+        self.messagesList = []
+
+        self._twtGenerateConv(twtAccessKey, convID)
+        
+
+    def _twtGenerateConv(self, twtAccessKey, convID):
+        client = tweepy.Client(twtAccessKey, return_type=dict)
+        convs = client.get_direct_message_events(dm_conversation_id=convID, user_auth=False)
+
+        self.messagesList.extend(convs["data"])
+
+
+class MstdnConversation:
+
+    def __init__(self, mstdnAccessKey, messageID):
+
+        self.messagesList = []
+
+        self._mtsdnGenerateConv(mstdnAccessKey, messageID)
+
+    
+    def _mtsdnGenerateConv(self, mstdnAccessKey, messageID):
+        # TODO: Convert messages in mastodon to a uniform type
+        client = Mastodon(api_base_url="https://social.up.edu.ph", access_token=mstdnAccessKey)
+        response = client.status_context(messageID) 
+
+        self.messagesList.extend(response["ancestors"])

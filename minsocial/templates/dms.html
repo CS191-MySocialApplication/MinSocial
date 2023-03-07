@@ -17,7 +17,7 @@
 
     <ul>
         {% for message in conversations %}
-            <li><a href="">@{{message.author["username"]}} - {{message.content}} - {{message.createdTime}}</a></li>
+            <li><a href="">@{{message.author["username"]}} - {{message.content}} - {{message.conversationID}} - ({{message.messageID}})</a></li>
         {% endfor %}
     </ul>
 </body>

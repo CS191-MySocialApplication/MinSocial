@@ -72,7 +72,7 @@ class Timeline:
         if mstdnAccessKey:
             self._mstdnGenerateTimeline(mstdnAccessKey)
 
-        self._sortStatusesByTime()
+        # self._sortStatusesByTime()
 
 
     def _twtGenerateTimeline(self, twtAccessKey):
@@ -88,6 +88,7 @@ class Timeline:
 
         authors = dict()
 
+        # TODO: Refactor this
         for author in response["includes"]["users"]:
             authors[author["id"]] = author
 

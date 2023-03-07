@@ -4,7 +4,7 @@ from flask import (
 
 from minsocial.decorators import login_required
 from minsocial.query.status import Timeline
-from minsocial.query.conversations import ConversationList
+from minsocial.query.conversations import ConversationList, MstdnConversation, TwtConversation
 
 import tweepy
 
@@ -35,17 +35,25 @@ def messages():
     return render_template("dms.html", conversations=conversations.conversationList)
 
 
-@bp.route("/messages/<conversation_id>")
+@bp.route("/messages/twt/<conversation_id>")
 @login_required
-def conversation(conversation_id):
-    a = request.cookies.get("twtAccessToken")
-
-    client = tweepy.Client(a, return_type=dict)
+def twtconversation(conversation_id):
+    twtAccess = request.cookies.get("twtAccessToken")
     
-    conversationEvents = client.get_direct_message_events(dm_conversation_id=conversation_id,
-                                                          user_auth=False)
+    messageList = TwtConversation(twtAccess, conversation_id)
 
-    return conversationEvents
+    return messageList.messagesList
+
+
+@bp.route("/messages/mstdn/<conversation_id>")
+@login_required
+def mstdnconversation(conversation_id):
+    mstdnAccess = request.cookies.get("mstdnAccessToken")
+    
+    messageList = MstdnConversation(mstdnAccess, conversation_id)
+
+
+    return messageList.messagesList
 
 
 @bp.route("/tweet/<tweet_id>")
@@ -62,7 +70,7 @@ def view_tweet(tweet_id): # TODO: ADD MORE DETAILS
 
     return tweet.data.text
 
-@bp.route("/compose", methods=['GET', 'POST'])
+@bp.route("/compose", methods=['POST'])
 @login_required
 def compose_tweet():
     if request.method == "GET":
@@ -84,5 +92,10 @@ def compose_tweet():
 
 
 @bp.route("/static/")
-def base(path):
-    return send_from_directory('static', path)
+def base():
+    return send_from_directory('svelte/public/', "index.html")
+
+
+@bp.route("/static/<path>")
+def sendfile(path):
+    return send_from_directory('svelte/public/', path)
