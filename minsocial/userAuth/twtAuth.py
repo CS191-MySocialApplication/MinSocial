@@ -10,6 +10,7 @@ from minsocial.userAuth.authHandler import TwtAuthHandler
 
 bp = Blueprint('twtauth', __name__, url_prefix='/auth/twt')
 
+
 @bp.route("/")
 def log_in():
     
@@ -17,14 +18,15 @@ def log_in():
 
     return jsonify({"auth_url":handler.get_auth_url()})
 
-@bp.route("/logged", methods=['GET'])
+
+@bp.route("/callback", methods=['GET'])
 def logged():
     code = request.args["code"]
     
     handler = TwtAuthHandler(code=code)
     token = handler.get_tokens()
 
-    resp = make_response(redirect("/home"))
+    resp = make_response(jsonify({"status": "success"}))
     resp.set_cookie("twtAccessToken", token["access_token"], max_age=3600)
     resp.set_cookie("twtRefreshToken", token["refresh_token"], max_age=3600)
 

@@ -55,7 +55,7 @@ class TwtAuthHandler():
         
         r = requests.post(url, headers=headers, data=dataToSend)
 
-        assert(r.status_code == 200)
+        assert(r.status_code == 200), r.status_code
 
         return r.json()
     

@@ -9,7 +9,7 @@ from minsocial.query.conversations import ConversationList, MstdnConversation, T
 import tweepy
 from mastodon import Mastodon
 
-bp = Blueprint('home', __name__, url_prefix='/')
+bp = Blueprint('api', __name__, url_prefix='/api/')
 
 
 @bp.route("/home")
@@ -103,15 +103,3 @@ def compose_tweet():
     return redirect(url_for("home.home"))
 
 
-@bp.route("/")
-def base():
-    return send_from_directory('svelte/public/', "index.html")
-
-
-@bp.route("/<path>")
-def sendfile(path):
-    return send_from_directory('svelte/public/', path)
-
-@bp.route("/build/<path>")
-def sendbuild(path):
-    return send_from_directory('svelte/public/build', path)

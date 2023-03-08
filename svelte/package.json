@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "source": [
+    "./src/index.html"
+  ],
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "start": "sirv public --no-clear"
+    "start": "parcel --public-url .",
+    "build": "parcel build --public-url ."
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^24.0.0",
@@ -20,7 +22,9 @@
     "svelte": "^3.55.0"
   },
   "dependencies": {
+    "@plasmohq/parcel-transformer-svelte3": "^0.4.5",
     "node-sass": "^8.0.0",
+    "parcel": "^2.0.0-nightly.389",
     "sirv-cli": "^2.0.0",
     "svelte-preprocess": "^5.0.1"
   }
