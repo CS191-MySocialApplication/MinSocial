@@ -7,19 +7,18 @@ bp = Blueprint('pages', __name__, url_prefix='/')
 
 @bp.route("/")
 def base():
-    return send_from_directory('../client/build', "index.html")
+    return send_from_directory('../client/dist', "index.html")
 
 @bp.route("/logged")
 def logged():
-    return send_from_directory('../client/build', "logged.html")
+    return send_from_directory('../client/dist/callback', "index.html")
 
 
 @bp.route("/home")
 def home():
-    return send_from_directory('../client/build', "home.html")
+    return send_from_directory('../client/dist/home', "index.html")
 
 
 @bp.route("/<path:path>")
 def sendfile(path):
-    print(path)
-    return send_from_directory('../client/build', path)
+    return send_from_directory('../client/dist', path)

@@ -1,16 +1,36 @@
 <script>
+
+	async function getAuthLink(){
+
+		let res = await fetch('/auth/twt');
+		let text = await res.text();
+
+		if (res.ok){
+			let auth_json = JSON.parse(text)
+			return auth_json["auth_url"];
+		}else{
+			throw new Error(text);
+		}
+
+	}
+
+	let auth_promise = getAuthLink();
+
 </script>
 
-<div class="app">
+<main>
 
-	<main>
-		<slot />
-	</main>
+	{#await auth_promise}
+		<p>waiting...</p>
+	{:then url}
+		<p>
+			<a href={url}>Log-in Using Twitter</a>
+		</p>
+	{:catch error}
+		<p style="color: red">bla bla{error.message}</p>
+	{/await}
 
-	<footer>
-		<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
-	</footer>
-</div>
+</main>
 
 <style>
 	.app {
