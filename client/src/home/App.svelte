@@ -1,5 +1,5 @@
 <script>
-
+	import Header from "../components/Header.svelte";
 	import Postform from "../components/postform.svelte";
 
 	async function getHomeContent(){
@@ -19,6 +19,7 @@
 
 </script>
 
+<Header />
 <main>
 
 	<Postform/>
