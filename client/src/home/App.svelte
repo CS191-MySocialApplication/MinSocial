@@ -1,5 +1,5 @@
 <script>
-
+	import Header from "../components/Header.svelte";
 	async function getHomeContent(){
 
 		let res = await fetch('/api/home');
@@ -17,6 +17,7 @@
 
 </script>
 
+<Header />
 <main>
 
 	{#await auth_promise}
