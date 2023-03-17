@@ -2,6 +2,7 @@
 	import Header from "../components/Header.svelte";
 	import Postform from "../components/postform.svelte";
 	import Navbar_desktop from "../components/Navbar_desktop.svelte"
+	import Navbar_mobile from "../components/Navbar_mobile.svelte"
 
 	async function getHomeContent(){
 
@@ -46,7 +47,10 @@
 
 		</main>
 	</div>
+	<Navbar_mobile />
 </div>
+
+
 <style>
 
 	main {
