@@ -19,29 +19,29 @@
 
 </script>
 
-<Header />
-<main>
+	<Header />
+	<main>
 
-	<Postform/>
+		<Postform/>
 
-	{#await auth_promise}
-		<p>waiting...</p>
-	{:then timeline}
-        {#each timeline as status}
+		{#await auth_promise}
+			<p>waiting...</p>
+		{:then timeline}
+			{#each timeline as status}
 
-            <div>
-                <span>Source: {status["source"]}</span><br/>
-                <span>{status["author"]["username"]}</span><br/>
-                <span>{status["createdTime"]}</span><br/>
-                <p>{status["content"]}</p><br/><br/>
-            </div>
+				<div class="post">
+					<span id="source" class="impt-details">{status["source"]} |</span> 
+					<span id="username" class="impt-details">{status["author"]["username"]}</span><br/>
+					<span id="datetime">{status["createdTime"]}</span><br/>
+					<p>{status["content"]}</p><br/><br/>
+				</div>
 
-        {/each}
-	{:catch error}
-		<p style="color: red">{error.message}</p>
-	{/await}
+			{/each}
+		{:catch error}
+			<p style="color: red">{error.message}</p>
+		{/await}
 
-</main>
+	</main>
 
 <style>
 
