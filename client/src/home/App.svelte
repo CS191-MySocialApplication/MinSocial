@@ -1,5 +1,7 @@
 <script>
 
+	import Postform from "../components/postform.svelte";
+
 	async function getHomeContent(){
 
 		let res = await fetch('/api/home');
@@ -18,6 +20,8 @@
 </script>
 
 <main>
+
+	<Postform/>
 
 	{#await auth_promise}
 		<p>waiting...</p>
@@ -39,11 +43,6 @@
 </main>
 
 <style>
-	.app {
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-	}
 
 	main {
 		flex: 1;
@@ -56,21 +55,4 @@
 		box-sizing: border-box;
 	}
 
-	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 12px;
-	}
-
-	footer a {
-		font-weight: bold;
-	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 12px 0;
-		}
-	}
 </style>

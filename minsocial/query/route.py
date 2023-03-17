@@ -86,20 +86,20 @@ def view_toot(toot_id):
 @login_required
 def compose_tweet():
     if request.method == "GET":
-        return redirect(url_for("home.home"))
+        return "Hello"
 
     if request.form["text"] == None:
-        return redirect(url_for("home.home"))
+        return "hello"
 
-    a = request.cookies.get("access_token")
+    a = request.cookies.get("twtAccessToken")
     client = tweepy.Client(a)
 
     tweet = client.create_tweet(text=request.form['text'], user_auth=False)
     
     if len(tweet.errors) == 0:
         data = tweet.data
-        return redirect(url_for('home.view_tweet', tweet_id=data["id"]))
+        return "Good"
 
-    return redirect(url_for("home.home"))
+    return "hello"
 
 
