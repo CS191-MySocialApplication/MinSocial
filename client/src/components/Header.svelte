@@ -21,14 +21,14 @@
         letter-spacing: 0.5px;
     }
 
-    @media screen and (max-width:400px) {
+    @media screen and (max-width:479px) {
         h1 {
             padding: 24px 20px;
             letter-spacing: 0.6px;
             font-size: 18px;
         }
     }
-    @media screen and (min-width:401px) {
+    @media screen and (min-width:480px) {
         h1 {
             padding: 24px 20px;
             font-size: 20px;
