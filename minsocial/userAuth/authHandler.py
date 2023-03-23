@@ -1,3 +1,5 @@
+from minsocial import consts
+
 from requests_oauthlib import OAuth2Session
 
 import json
@@ -13,7 +15,7 @@ class TwtAuthHandler():
         with open("config.json", "r", encoding="utf-8") as config_file:
             configs = json.loads(config_file.read())
 
-        self.redirect_uri = "http://127.0.0.1:5000/callback/twt"
+        self.redirect_uri = "{}/callback/twt".format(consts.HOST)
         self.response_type = "code"
         self.client_id = configs["twitter_client_id"]
         self.scope = ["tweet.read", "tweet.write", "users.read", "follows.read", "offline.access", "dm.read"]
@@ -97,7 +99,7 @@ class MstdnAuthHandler():
         with open("config.json", "r", encoding="utf-8") as config_file:
             configs = json.loads(config_file.read())
 
-        self.redirect_uri = "http://127.0.0.1:5000/callback/mstdn"
+        self.redirect_uri = "{}/callback/mstdn".format(consts.HOST)
         self.response_type = "code"
         self.client_id = configs["mastodon_client_id"]
         self.client_secret = configs["mastodon_client_secret"]
