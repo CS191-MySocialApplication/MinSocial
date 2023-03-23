@@ -28,7 +28,7 @@ def callback():
     token = handler.get_tokens()
 
     resp = make_response(jsonify({"status": "success"}))
-    resp.set_cookie("mstdnAccessToken", token["access_token"], max_age=3600)
+    resp.set_cookie("mstdnAccessToken", token["access_token"], max_age=3600, samesite="lax")
 
     return resp
 
@@ -40,7 +40,7 @@ def logout():
     handler = MstdnAuthHandler()
     handler.revoke_tokens(a)
 
-    resp = make_response(redirect("/"))
-    resp.set_cookie("mstdnAccessToken", "", expires=0)
+    resp = make_response(jsonify({}))
+    resp.set_cookie("mstdnAccessToken", "", expires=0, samesite="lax")
 
-    return resp
+    return resp, 200

@@ -9,6 +9,78 @@
     import ClickedSettings from '../../public/clicked_settings.png';
     import HoverClickedSettings from '../../public/hover_clicked_settings.png';
     
+    import {onMount} from 'svelte';
+
+    let twtLogin = true;
+    let mstdnLogin = true;
+
+    let twtLoginLink = "";
+    let mstdnLoginLink = "";
+
+
+    onMount(async ()=>{
+        twtLogin = document.cookie.split(";").some((item) => item.trim().startsWith("twtAccessToken="));
+        mstdnLogin = document.cookie.split(";").some((item) => item.trim().startsWith("mstdnAccessToken="));
+
+        if(twtLogin == false && mstdnLogin == false){window.location.replace("/")};
+
+        if(twtLogin == false){
+            let res = await fetch('/auth/twt');
+            let text = await res.json();
+
+            if (res.ok){
+                twtLoginLink = text["auth_url"];
+            }
+
+        }
+
+        if(mstdnLogin == false){
+            let res = await fetch('/auth/mstdn');
+            let text = await res.json();
+
+            if (res.ok){
+                mstdnLoginLink = text["auth_url"];
+            }
+
+        }
+
+    });
+
+    async function sendTwtLogout(){
+        
+        let res = await fetch('/auth/twt/logout');
+		let text = await res.json();
+
+		if (res.ok){
+			if(mstdnLogin){
+                window.location.reload();
+            }else{
+                window.location.replace("/");
+            }
+		}else{
+			throw new Error(text);
+		} 
+
+    }
+
+    async function sendMstdnLogout(event){
+        console.log("sdfsdf")
+
+        let res = await fetch('/auth/mstdn/logout');
+		let text = await res.json();
+
+		if (res.ok){
+            if(twtLogin){
+                window.location.reload();
+            }else{
+                window.location.replace("/");
+            }
+		}else{
+			throw new Error(text);
+		} 
+    }
+    
+
 </script>
 
 <main>
@@ -33,8 +105,31 @@
             <img src={ClickedSettings} alt="clicked settings"/>
             <img src={HoverClickedSettings} class="hover_img" alt="hover clicked settings"/>
         </a>
-            
-    </nav>
+        
+        {#if !twtLogin}
+            <br/><br/><br/>
+            <a class="settings" href={twtLoginLink}>
+                Log in with Twitter
+            </a>
+        {:else}
+            <br/><br/><br/>
+            <a class="settings" on:click={sendTwtLogout} href="#0">
+                Log Out Twitter
+            </a>
+        {/if}
+        
+        {#if !mstdnLogin}
+            <br/><br/><br/>
+            <a class="settings" href={mstdnLoginLink}>
+                Log in with Mastodon
+            </a>
+        {:else}
+            <br/><br/><br/>
+            <a class="settings" on:click={sendMstdnLogout} href="#0">
+                Log Out Mastodon
+            </a>
+        {/if}
+    </nav>  
 </main>
 
 <style>

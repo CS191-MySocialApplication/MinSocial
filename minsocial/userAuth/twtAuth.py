@@ -27,8 +27,9 @@ def callback():
     token = handler.get_tokens()
 
     resp = make_response(jsonify({"status": "success"}))
-    resp.set_cookie("twtAccessToken", token["access_token"], max_age=3600)
-    resp.set_cookie("twtRefreshToken", token["refresh_token"], max_age=3600)
+    resp.set_cookie("twtAccessToken", token["access_token"], max_age=3600, samesite="lax")
+    resp.set_cookie("twtRefreshToken", token["refresh_token"], max_age=3600, samesite="lax")
+    
 
     return resp
 
@@ -40,8 +41,8 @@ def logout():
     handler = TwtAuthHandler()
     handler.revoke_tokens(a, b)
 
-    resp = make_response(redirect("/"))
-    resp.set_cookie("twtAccessToken", "", expires=0)
-    resp.set_cookie("twtRefreshToken", "", expires=0)
+    resp = make_response(jsonify({}))
+    resp.set_cookie("twtAccessToken", "", expires=0, samesite="lax")
+    resp.set_cookie("twtRefreshToken", "", expires=0, samesite="lax")
 
-    return resp
+    return resp, 200
