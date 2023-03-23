@@ -1,14 +1,11 @@
 <script>
+    export let mentions;
+    export let hoverMentions;
+    export let dm;
+    export let hoverDM;
+    export let settings;
+    export let hoverSettings;
 
-    import ClickedMentions from '../../public/clicked_mentions.png';
-    import HoverClickedMentions from '../../public/hover_clicked_mentions.png';
-    import UnClickedMentions from '../../public/hover_unclicked_mentions.png';
-    import HoverUnclickedMentions from '../../public/hover_unclicked_mentions.png';
-    import ClickedDM from '../../public/clicked_dm.png';
-    import HoverClickedDM from '../../public/hover_clicked_dm.png';
-    import ClickedSettings from '../../public/clicked_settings.png';
-    import HoverClickedSettings from '../../public/hover_clicked_settings.png';
-    
     import {onMount} from 'svelte';
 
     let twtLogin = true;
@@ -87,23 +84,17 @@
     <nav class="nav-bar-desktop">
         
         <a class="mentions" href="/home">
-            <div class="clicked">
-                <img src={ClickedMentions} alt="clicked mentions"/>
-                <img src={HoverClickedMentions} class="hover_img" alt="hover clicked mentions"/>
-            </div>
-            <div class="unclicked">
-                <img src={UnClickedMentions} alt="unclicked mentions"/>
-                <img src={HoverUnclickedMentions} class="hover_img" alt="hover unclicked mentions"/>
-            </div>
+            <img src={mentions} alt="mentions"/>
+            <img src={hoverMentions} class="hoverImg" alt="hover mentions"/>
         </a>
         <a class="dm" href="/messages">
-            <img src={ClickedDM} alt="clicked dm"/>
-            <img src={HoverClickedDM} class="hover_img" alt="hover clicked dm"/>
+            <img src={dm} alt="dm"/>
+            <img src={hoverDM} class="hoverImg" alt="hover dm"/>
         </a>
 
         <a class="settings" href="login.html">
-            <img src={ClickedSettings} alt="clicked settings"/>
-            <img src={HoverClickedSettings} class="hover_img" alt="hover clicked settings"/>
+            <img src={settings} alt="settings"/>
+            <img src={hoverSettings} class="hoverImg" alt="hover settings"/>
         </a>
         
         {#if !twtLogin}
@@ -134,9 +125,12 @@
 
 <style>
     main {
+        
         margin: 0;
         background-color: #50c0cb;
         color: white;
+
+        
     }
     @media screen and (max-width:479px) {
         main {
@@ -163,58 +157,44 @@
     }
 
     .mentions{
-        margin-left: 50px;
+        margin-left: 70px;
         margin-top: 30px;
         position: absolute;
         display: flex;
     }
-
-    .clicked{
-        position: absolute;
-        display: flex;
-    }
-    
+   
     .dm{
-        border:none;
-        background-color: inherit;
-        margin-left: 50px;
+        margin-left: 70px;
         margin-top: 100px;
         position: absolute;
         display: flex;
     }
 
     .settings{
-        border:none;
-        background-color: inherit;
-        margin-left: 50px;
+        margin-left: 70px;
         margin-top: 170px;
         position: absolute;
         display: flex;
     }
     
-    .hover_img{
+    .hoverImg{
         display: none;
         position: absolute;    
     }
 
-    .unclicked{
-        display: none;
-        position: absolute; 
-    }
-
-    .mentions:hover .hover_img{
+    .mentions:hover .hoverImg{
         display: inline;
         opacity:0.5;
         transition: 0.25s ease;
     }
     
-    .dm:hover .hover_img{
+    .dm:hover .hoverImg{
         display: flex;
         opacity:0.5;
         transition: 0.25s ease;
     }
     
-    .settings:hover .hover_img{
+    .settings:hover .hoverImg{
         display: flex;
         opacity:0.5;
         transition: 0.25s ease;

@@ -4,6 +4,12 @@
 	import Navbar_desktop from "../components/Navbar_desktop.svelte"
 	import Navbar_mobile from "../components/Navbar_mobile.svelte"
 
+	import ClickedMentions from '../../public/clicked_mentions.png';
+    import HoverClickedMentions from '../../public/hover_clicked_mentions.png';
+    import UnclickedDM from '../../public/unclicked_dm.png';
+    import HoverUnclickedDM from '../../public/hover_unclicked_dm.png';
+    import UnclickedSettings from '../../public/unclicked_settings.png';
+    import HoverUnclickedSettings from '../../public/hover_unclicked_settings.png';
 
 	async function getHomeContent(){
 
@@ -24,7 +30,14 @@
 </script>
 <div class="desktop-format">
 
-	<Navbar_desktop />
+	<Navbar_desktop
+	mentions={ClickedMentions}
+	hoverMentions={HoverClickedMentions}
+	dm={UnclickedDM}
+	hoverDM={HoverUnclickedDM}
+	settings={UnclickedSettings}
+	hoverSettings={HoverUnclickedSettings}
+	/>
 	<div class="content">
 		<Header title="Mentions"/>
 		<main>

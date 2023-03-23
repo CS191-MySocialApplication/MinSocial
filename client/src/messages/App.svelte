@@ -5,6 +5,13 @@
 	import Navbar_mobile from "../components/Navbar_mobile.svelte"
     import { each } from "svelte/internal";
 
+    import UnclickedMentions from '../../public/unclicked_mentions.png';
+    import HoverUnclickedMentions from '../../public/hover_unclicked_mentions.png';
+    import ClickedDM from '../../public/clicked_dm.png';
+    import HoverClickedDM from '../../public/hover_clicked_dm.png';
+    import UnclickedSettings from '../../public/unclicked_settings.png';
+    import HoverUnclickedSettings from '../../public/hover_unclicked_settings.png';
+
 	async function getMessageContent(){
 
 		let res = await fetch('/api/messages');
@@ -24,7 +31,14 @@
 
 
 <div class="desktop-format">
-	<Navbar_desktop />
+	<Navbar_desktop
+	mentions={UnclickedMentions}
+	hoverMentions={HoverUnclickedMentions}
+	dm={ClickedDM}
+	hoverDM={HoverClickedDM}
+	settings={UnclickedSettings}
+	hoverSettings={HoverUnclickedSettings}
+	class = "navbar"/>
 	<div class="content">
 		<Header title="Messages"/>
 		<main>
@@ -37,10 +51,10 @@
 				
 				{#each conversations as conversation}
 					<div class="conversation">
-						<span>{conversation["source"]}</span>
-						<span>{conversation["author"]["username"]}</span>
-						<span>{conversation["createdTime"]}</span>
-						<p>{conversation["content"]}</p>
+						<span id="source" class="impt-details">{conversation["source"]} |</span> 
+						<span id="username" class="impt-details">{conversation["author"]["username"]}</span><br/>
+						<span id="datetime">{conversation["createdTime"]}</span><br/>
+						<p>{conversation["content"]}</p><br/><br/>
 					</div>
 				{/each}
 			{:catch error}
@@ -66,7 +80,7 @@
 		margin: 0 auto;
 		box-sizing: border-box;
 	}
-
+	
 	@media (max-width: 479px) {
 		.desktop-format {  
             display: flex;

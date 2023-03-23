@@ -1,0 +1,27 @@
+$white: white;
+$teal: #50c0cb;
+$dark-gray: #252c2c;
+$light-gray: #acacac;
+
+body {
+    height: 100lvh;
+    width: 100lvw;
+    margin: 0;
+    background-color: $teal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    width: 265px;
+    height: 60px;
+    background-color: $dark-gray;
+    color: $white;
+    text-decoration: none;
+    margin: 24px;
+}
