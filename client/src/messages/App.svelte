@@ -65,7 +65,13 @@
 
 		</main>
 	</div>
-	<Navbar_mobile />
+	<Navbar_mobile 
+	mentions={UnclickedMentions}
+	hoverMentions={HoverUnclickedMentions}
+	dm={ClickedDM}
+	hoverDM={HoverClickedDM}
+	settings={UnclickedSettings}
+	hoverSettings={HoverUnclickedSettings}/>
 </div>
 
 
