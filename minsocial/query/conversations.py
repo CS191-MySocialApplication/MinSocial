@@ -72,15 +72,17 @@ class ConversationList:
                                                             user_fields=["username"], 
                                                             user_auth=False)
 
-        users = {user["id"]: user for user in direct_messages["includes"]["users"]}
+        if "includes" in direct_messages:
 
-        convs = {}
+            users = {user["id"]: user for user in direct_messages["includes"]["users"]}
 
-        for messages in direct_messages["data"]:
-            convs.setdefault(messages["dm_conversation_id"], 
-                             TwtMsg(messages, users[messages["sender_id"]]).asdict())
+            convs = {}
 
-        self.conversationList.extend(convs.values())
+            for messages in direct_messages["data"]:
+                convs.setdefault(messages["dm_conversation_id"], 
+                                TwtMsg(messages, users[messages["sender_id"]]).asdict())
+
+            self.conversationList.extend(convs.values())
 
 
     def _mstdnGenerateConvList(self, mstdnAccessKey):

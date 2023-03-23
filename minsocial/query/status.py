@@ -95,18 +95,20 @@ class Timeline:
         
         response = client.get_users_mentions(user["data"]["id"], user_auth=False, expansions=["author_id"], tweet_fields=["id", "text", "created_at"])
 
-        assert("users" in response["includes"])
+        # assert("users" in response["includes"])
 
-        authors = dict()
+        if "includes" in response:
 
-        # TODO: Refactor this
-        for author in response["includes"]["users"]:
-            authors[author["id"]] = author
+            authors = dict()
 
-        for tweet in response["data"]:
-            tweet = Tweet(tweet, authors[tweet["author_id"]])
-            self.statusList.append(tweet)
-            self.dictStatusList.append(tweet.asdict())
+            # TODO: Refactor this
+            for author in response["includes"]["users"]:
+                authors[author["id"]] = author
+
+            for tweet in response["data"]:
+                tweet = Tweet(tweet, authors[tweet["author_id"]])
+                self.statusList.append(tweet)
+                self.dictStatusList.append(tweet.asdict())
 
 
     def _mstdnGenerateTimeline(self, mstdnAccessKey):
