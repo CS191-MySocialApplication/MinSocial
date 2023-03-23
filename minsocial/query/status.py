@@ -6,6 +6,8 @@ from tweepy import Response
 
 from mastodon import Mastodon
 
+from datetime import datetime, timezone
+
 class Status(metaclass=ABCMeta):
 
     def __init__(self, statusID, author, createdTime, content):
@@ -20,7 +22,7 @@ class Status(metaclass=ABCMeta):
             'source': self.source,
             'id': self.id,
             'author': self.author,
-            'createdTime': self.createdTime,
+            'createdTime': self.createdTime.isoformat(),
             'content': self.content
         }
 
@@ -40,7 +42,10 @@ class Tweet(Status):
         assert("created_at" in data)
         assert("text" in data) 
 
-        super().__init__(data["id"], author, data["created_at"], data["text"])
+        createdTime = datetime.strptime(data["created_at"], "%Y-%m-%dT%H:%M:%S.%fZ")
+        createdTime = createdTime.replace(tzinfo=timezone.utc)
+
+        super().__init__(data["id"], author, createdTime, data["text"])
 
 
 class Toot(Status):
@@ -53,7 +58,10 @@ class Toot(Status):
         assert("created_at" in toot)
         assert("content" in toot)
 
-        super().__init__(toot["id"], toot["account"], toot["created_at"], toot["content"])
+        createdTime = toot["created_at"]
+        createdTime = createdTime.replace(tzinfo=timezone.utc)
+
+        super().__init__(toot["id"], toot["account"], createdTime, toot["content"])
 
 
 class Timeline:
@@ -64,15 +72,18 @@ class Timeline:
 
         self.statusList:list[Status] = []
         self.dictStatusList:list[dict] = []
+        self.accessed = []
         self.errors:list[str] = []
 
         if twtAccessKey:
             self._twtGenerateTimeline(twtAccessKey)
+            self.accessed.append("Twitter")
 
         if mstdnAccessKey:
             self._mstdnGenerateTimeline(mstdnAccessKey)
+            self.accessed.append("Mastodon")
 
-        # self._sortStatusesByTime()
+        self._sortStatusesByTime()
 
 
     def _twtGenerateTimeline(self, twtAccessKey):
@@ -116,9 +127,13 @@ class Timeline:
     def asdict(self):
         return self.dictStatusList
 
-    def _processTweets():
-        pass
-    
+
+    def response(self):
+        return {
+            "data": self.dictStatusList,
+            "accessed": self.accessed
+        }
+
 
     def __getitem__(self, index):
         return self.statusList[index]

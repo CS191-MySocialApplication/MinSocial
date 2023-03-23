@@ -2,7 +2,7 @@ from flask import (
     Blueprint, redirect, render_template, request, url_for, send_from_directory, jsonify
 )
 
-from minsocial.decorators import login_required
+from minsocial.decorators import wrap_json, authenticate
 from minsocial.query.status import Timeline
 from minsocial.query.conversations import ConversationList, MstdnConversation, TwtConversation
 
@@ -13,7 +13,8 @@ bp = Blueprint('api', __name__, url_prefix='/api/')
 
 
 @bp.route("/home")
-@login_required
+@authenticate
+@wrap_json
 def home():
 
     twtAccess = request.cookies.get("twtAccessToken")
@@ -21,11 +22,12 @@ def home():
 
     timeline = Timeline(twtAccessKey=twtAccess, mstdnAccessKey=mstdnAccess)
 
-    return jsonify(timeline.asdict())
+    return timeline.response()
 
 
 @bp.route("/messages")
-@login_required
+@authenticate
+@wrap_json
 def messages():
 
     twtAccess = request.cookies.get("twtAccessToken")
@@ -33,11 +35,12 @@ def messages():
 
     conversations = ConversationList(twtAccessKey=twtAccess, mstdnAccessKey=mstdnAccess)
 
-    return jsonify(conversations.conversationList)
+    return conversations.conversationList
 
 
 @bp.route("/messages/twt/<conversation_id>")
-@login_required
+@authenticate
+@wrap_json
 def twtconversation(conversation_id):
     twtAccess = request.cookies.get("twtAccessToken")
     
@@ -47,7 +50,8 @@ def twtconversation(conversation_id):
 
 
 @bp.route("/messages/mstdn/<conversation_id>")
-@login_required
+@authenticate
+@wrap_json
 def mstdnconversation(conversation_id):
     mstdnAccess = request.cookies.get("mstdnAccessToken")
     
@@ -58,7 +62,8 @@ def mstdnconversation(conversation_id):
 
 
 @bp.route("/tweet/<tweet_id>")
-@login_required
+@authenticate
+@wrap_json
 def view_tweet(tweet_id): # TODO: ADD MORE DETAILS
     a = request.cookies.get("twtAccessToken")
 
@@ -69,10 +74,12 @@ def view_tweet(tweet_id): # TODO: ADD MORE DETAILS
                                 tweet_fields=["conversation_id", "author_id", "in_reply_to_user_id", "referenced_tweets"],
                                 user_fields=["id", "username"])
 
-    return jsonify(dict(tweet.data))
+    return dict(tweet.data)
 
 
 @bp.route("/toot/<toot_id>")
+@authenticate
+@wrap_json
 def view_toot(toot_id): 
     a = request.cookies.get("mstdnAccessToken")
     client = Mastodon(api_base_url="https://social.up.edu.ph", access_token=a)
@@ -83,7 +90,8 @@ def view_toot(toot_id):
 
 
 @bp.route("/compose", methods=['GET', 'POST'])
-@login_required
+@authenticate
+@wrap_json
 def compose_tweet():
     if request.method == "GET":
         return "Hello"

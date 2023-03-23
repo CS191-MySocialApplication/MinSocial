@@ -4,18 +4,20 @@
 	import Navbar_desktop from "../components/Navbar_desktop.svelte"
 	import Navbar_mobile from "../components/Navbar_mobile.svelte"
 
+
 	async function getHomeContent(){
 
 		let res = await fetch('/api/home');
 		let text = await res.json();
 
-		if (res.ok){
+		if (res.status == 200 || res.status == 206){
 			return text;
 		}else{
 			throw new Error(text);
 		}
 
 	}
+
 
 	let auth_promise = getHomeContent();
 
@@ -31,8 +33,8 @@
 
 			{#await auth_promise}
 				<p>waiting...</p>
-			{:then timeline}
-				{#each timeline as status}
+			{:then response}
+				{#each response["data"] as status}
 
 					<div class="post">
 						<span id="source" class="impt-details">{status["source"]} |</span> 
