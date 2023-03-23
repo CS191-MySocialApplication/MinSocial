@@ -1,0 +1,22 @@
+body {
+  height: 100lvh;
+  width: 100lvw;
+  margin: 0;
+  background-color: #50c0cb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  width: 265px;
+  height: 60px;
+  background-color: #252c2c;
+  color: white;
+  text-decoration: none;
+  margin: 24px;
+}/*# sourceMappingURL=styles.css.map */
