@@ -19,7 +19,6 @@
 
 	let auth_promise = getHomeContent();
 
-
 </script>
 <div class="desktop-format">
 
@@ -41,7 +40,7 @@
 						<span id="datetime">{status["createdTime"]}</span><br/>
 						<p>{status["content"]}</p><br/><br/>
 					</div>
-
+					
 				{/each}
 			{:catch error}
 				<p style="color: red">{error.message}</p>
@@ -66,11 +65,13 @@
 		box-sizing: border-box;
 	}
 
+
 	@media (max-width: 479px) {
 		.desktop-format {  
             display: flex;
             flex-direction: column;
             align-items: stretch;
+			margin:0;
         }
 	}
 
@@ -78,6 +79,7 @@
 		.desktop-format {
             display: flex;
             flex-direction: row;
+			margin:0;
         }
 	}
 
