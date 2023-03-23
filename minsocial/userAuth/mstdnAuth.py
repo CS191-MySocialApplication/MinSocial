@@ -17,17 +17,21 @@ def log_in():
 
     return jsonify({"auth_url":handler.get_auth_url()})
 
-@bp.route("/logged", methods=['GET'])
-def logged():
+
+@bp.route("/callback", methods=['GET'])
+def callback():
     code = request.args["code"]
     
+    print(code)
+
     handler = MstdnAuthHandler(code)
     token = handler.get_tokens()
 
-    resp = make_response(redirect(url_for("mstdn.home")))
+    resp = make_response(jsonify({"status": "success"}))
     resp.set_cookie("mstdnAccessToken", token["access_token"], max_age=3600)
-    
+
     return resp
+
 
 @bp.route("/logout")
 def logout():

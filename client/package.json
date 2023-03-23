@@ -3,7 +3,8 @@
   "description": "Builds front-end files for MinSocial",
   "source": [
     "./src/index.html",
-    "./src/callback/index.html",
+    "./src/callback/twt/index.html",
+    "./src/callback/mstdn/index.html",
     "./src/home/index.html",
     "./src/messages/index.html"
   ],

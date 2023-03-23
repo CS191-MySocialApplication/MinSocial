@@ -13,7 +13,7 @@ class TwtAuthHandler():
         with open("config.json", "r", encoding="utf-8") as config_file:
             configs = json.loads(config_file.read())
 
-        self.redirect_uri = "http://127.0.0.1:5000/logged"
+        self.redirect_uri = "http://127.0.0.1:5000/callback/twt"
         self.response_type = "code"
         self.client_id = configs["twitter_client_id"]
         self.scope = ["tweet.read", "tweet.write", "users.read", "follows.read", "offline.access", "dm.read"]
@@ -97,7 +97,7 @@ class MstdnAuthHandler():
         with open("config.json", "r", encoding="utf-8") as config_file:
             configs = json.loads(config_file.read())
 
-        self.redirect_uri = "http://127.0.0.1:5000/mstdn/logged"
+        self.redirect_uri = "http://127.0.0.1:5000/callback/mstdn"
         self.response_type = "code"
         self.client_id = configs["mastodon_client_id"]
         self.client_secret = configs["mastodon_client_secret"]
@@ -136,6 +136,8 @@ class MstdnAuthHandler():
         }
         
         r = requests.post(url, headers=headers, data=dataToSend)
+
+        print(r.status_code)
 
         assert(r.status_code == 200)
 

@@ -10,9 +10,14 @@ def base():
     return send_from_directory('../client/dist', "index.html")
 
 
-@bp.route("/logged")
-def logged():
-    return send_from_directory('../client/dist/callback', "index.html")
+@bp.route("/callback/twt")
+def callbackTwt():
+    return send_from_directory('../client/dist/callback/twt', "index.html")
+
+
+@bp.route("/callback/mstdn")
+def callbackMstdn():
+    return send_from_directory('../client/dist/callback/mstdn', "index.html")
 
 
 @bp.route("/home")

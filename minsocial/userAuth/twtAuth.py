@@ -20,7 +20,7 @@ def log_in():
 
 
 @bp.route("/callback", methods=['GET'])
-def logged():
+def callback():
     code = request.args["code"]
     
     handler = TwtAuthHandler(code=code)

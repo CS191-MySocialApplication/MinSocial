@@ -33,6 +33,7 @@ def viewStatus(statusId):
 
     return status["content"]
 
+
 @bp.route("/compose", methods=['GET', 'POST'])
 def compose_tweet():
     if request.method == "GET":
