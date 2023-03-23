@@ -1,28 +1,37 @@
 <script>
+
+    import ClickedMentions from '../../public/clicked_mentions.png';
+    import HoverClickedMentions from '../../public/hover_clicked_mentions.png';
+    import UnClickedMentions from '../../public/hover_unclicked_mentions.png';
+    import HoverUnclickedMentions from '../../public/hover_unclicked_mentions.png';
+    import ClickedDM from '../../public/clicked_dm.png';
+    import HoverClickedDM from '../../public/hover_clicked_dm.png';
+    import ClickedSettings from '../../public/clicked_settings.png';
+    import HoverClickedSettings from '../../public/hover_clicked_settings.png';
     
 </script>
 
 <main>
     <nav class="nav-bar-desktop">
         
-        <a class="mentions" href="login.html">
+        <a class="mentions" href="/home">
             <div class="clicked">
-                <img src="/public/clicked_mentions.png" alt="clicked mentions"/>
-                <img src="/public/hover_clicked_mentions.png" class="hover_img" alt="hover clicked mentions"/>
+                <img src={ClickedMentions} alt="clicked mentions"/>
+                <img src={HoverClickedMentions} class="hover_img" alt="hover clicked mentions"/>
             </div>
             <div class="unclicked">
-                <img src="/public/unclicked_mentions.png" alt="unclicked mentions"/>
-                <img src="/public/hover_unclicked_mentions.png" class="hover_img" alt="hover unclicked mentions"/>
+                <img src={UnClickedMentions} alt="unclicked mentions"/>
+                <img src={HoverUnclickedMentions} class="hover_img" alt="hover unclicked mentions"/>
             </div>
         </a>
-        <a class="dm" href="login.html">
-            <img src="/public/clicked_dm.png" alt="clicked dm"/>
-            <img src="/public/hover_clicked_dm.png" class="hover_img" alt="hover clicked dm"/>
+        <a class="dm" href="/messages">
+            <img src={ClickedDM} alt="clicked dm"/>
+            <img src={HoverClickedDM} class="hover_img" alt="hover clicked dm"/>
         </a>
 
         <a class="settings" href="login.html">
-            <img src="/public/clicked_settings.png" alt="clicked settings"/>
-            <img src="/public/hover_clicked_settings.png" class="hover_img" alt="hover clicked settings"/>
+            <img src={ClickedSettings} alt="clicked settings"/>
+            <img src={HoverClickedSettings} class="hover_img" alt="hover clicked settings"/>
         </a>
             
     </nav>

@@ -19,8 +19,10 @@
 
 	let auth_promise = getHomeContent();
 
+
 </script>
 <div class="desktop-format">
+
 	<Navbar_desktop />
 	<div class="content">
 		<Header title="Mentions"/>
