@@ -99,24 +99,24 @@
         
         {#if !twtLogin}
             <br/><br/><br/>
-            <a class="settings" href={twtLoginLink}>
+            <a class="settings log" href={twtLoginLink}>
                 Log in with Twitter
             </a>
         {:else}
             <br/><br/><br/>
-            <a class="settings" on:click={sendTwtLogout} href="#0">
+            <a class="settings log" on:click={sendTwtLogout} href="#0">
                 Log Out Twitter
             </a>
         {/if}
         
         {#if !mstdnLogin}
             <br/><br/><br/>
-            <a class="settings" href={mstdnLoginLink}>
+            <a class="settings log" href={mstdnLoginLink}>
                 Log in with Mastodon
             </a>
         {:else}
             <br/><br/><br/>
-            <a class="settings" on:click={sendMstdnLogout} href="#0">
+            <a class="settings log" on:click={sendMstdnLogout} href="#0">
                 Log Out Mastodon
             </a>
         {/if}
@@ -198,7 +198,17 @@
         transition: 0.25s ease;
     }
 
-    
+    .log {
+        margin-left: 25px;
+    }
+    a {
+        color: #252c2c;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
 </style>
 
 
