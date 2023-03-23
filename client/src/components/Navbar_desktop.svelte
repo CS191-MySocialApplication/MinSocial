@@ -125,12 +125,10 @@
 
 <style>
     main {
-        
         margin: 0;
         background-color: #50c0cb;
         color: white;
-
-        
+        height: 100lvh;
     }
     @media screen and (max-width:479px) {
         main {

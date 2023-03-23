@@ -40,6 +40,7 @@
 	settings={UnclickedSettings}
 	hoverSettings={HoverUnclickedSettings}
 	class = "navbar"/>
+	
 	<div class="content">
 		<Header title="Messages" icon={MessagesHeader}/>
 		<main>
@@ -88,6 +89,12 @@
 		box-sizing: border-box;
 	}
 	
+	.content {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+
 	@media (max-width: 479px) {
 		.desktop-format {  
             display: flex;
