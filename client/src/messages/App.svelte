@@ -11,6 +11,7 @@
     import HoverClickedDM from '../../public/hover_clicked_dm.png';
     import UnclickedSettings from '../../public/unclicked_settings.png';
     import HoverUnclickedSettings from '../../public/hover_unclicked_settings.png';
+	import MessagesHeader from '../../public/dm_header.png';
 
 	async function getMessageContent(){
 
@@ -40,7 +41,7 @@
 	hoverSettings={HoverUnclickedSettings}
 	class = "navbar"/>
 	<div class="content">
-		<Header title="Messages"/>
+		<Header title="Messages" icon={MessagesHeader}/>
 		<main>
 
 			{#await auth_promise}
@@ -64,7 +65,13 @@
 
 		</main>
 	</div>
-	<Navbar_mobile />
+	<Navbar_mobile 
+	mentions={UnclickedMentions}
+	hoverMentions={HoverUnclickedMentions}
+	dm={ClickedDM}
+	hoverDM={HoverClickedDM}
+	settings={UnclickedSettings}
+	hoverSettings={HoverUnclickedSettings}/>
 </div>
 
 

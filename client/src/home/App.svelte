@@ -10,6 +10,7 @@
     import HoverUnclickedDM from '../../public/hover_unclicked_dm.png';
     import UnclickedSettings from '../../public/unclicked_settings.png';
     import HoverUnclickedSettings from '../../public/hover_unclicked_settings.png';
+	import MentionsHeader from '../../public/mentions_header.png';
 
 	async function getHomeContent(){
 
@@ -39,7 +40,7 @@
 	hoverSettings={HoverUnclickedSettings}
 	/>
 	<div class="content">
-		<Header title="Mentions"/>
+		<Header title="Mentions" icon={MentionsHeader}/>
 		<main>
 
 			<Postform/>
@@ -63,7 +64,13 @@
 
 		</main>
 	</div>
-	<Navbar_mobile />
+	<Navbar_mobile 
+	mentions={ClickedMentions}
+	hoverMentions={HoverClickedMentions}
+	dm={UnclickedDM}
+	hoverDM={HoverUnclickedDM}
+	settings={UnclickedSettings}
+	hoverSettings={HoverUnclickedSettings}/>
 </div>
 
 
