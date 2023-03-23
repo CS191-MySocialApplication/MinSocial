@@ -4,7 +4,8 @@
   "source": [
     "./src/index.html",
     "./src/callback/index.html",
-    "./src/home/index.html"
+    "./src/home/index.html",
+    "./src/messages/index.html"
   ],
   "scripts": {
     "start": "parcel",

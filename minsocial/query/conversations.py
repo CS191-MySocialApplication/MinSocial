@@ -15,6 +15,17 @@ class Message(metaclass=ABCMeta):
         self.conversationID = conversationID
         self.createdTime = createdTime
 
+    def asdict(self):
+        return {
+            'source': self.source,
+            'messageID': self.messageID,
+            'content': self.content,
+            'author': self.author,
+            'conversationID': self.conversationID,
+            'createdTime': self.createdTime,
+        }
+
+
     @property
     @abstractmethod
     def source(self):
@@ -67,7 +78,7 @@ class ConversationList:
 
         for messages in direct_messages["data"]:
             convs.setdefault(messages["dm_conversation_id"], 
-                             TwtMsg(messages, users[messages["sender_id"]]))
+                             TwtMsg(messages, users[messages["sender_id"]]).asdict())
 
         self.conversationList.extend(convs.values())
 
@@ -77,7 +88,7 @@ class ConversationList:
 
         conversations = client.conversations()
 
-        self.conversationList.extend([MstdnMsg(conv["id"], conv["last_status"]) for conv in conversations])
+        self.conversationList.extend([MstdnMsg(conv["id"], conv["last_status"]).asdict() for conv in conversations])
 
 
     def _sortMessagesByTime(self):

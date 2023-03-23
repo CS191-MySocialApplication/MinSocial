@@ -5,7 +5,8 @@
     <nav class="nav-bar-desktop">
         <!--No icons yet. li placed in the meantime-->
         <ul>
-            <li><a href="login.html">DMs</a></li>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/messages">Messages</a></li>
             <li><a href="login.html">Log out</a></li>
         </ul>
     </nav>

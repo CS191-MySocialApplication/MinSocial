@@ -31,19 +31,9 @@ def messages():
     twtAccess = request.cookies.get("twtAccessToken")
     mstdnAccess = request.cookies.get("mstdnAccessToken")
 
-    client = tweepy.Client(twtAccess, return_type=dict)
+    conversations = ConversationList(twtAccessKey=twtAccess, mstdnAccessKey=mstdnAccess)
 
-    TWTdms = client.get_direct_message_events( dm_event_fields=["id", "text", "dm_conversation_id", "sender_id", "created_at"], 
-                                                            event_types="MessageCreate",
-                                                            expansions=["sender_id"], 
-                                                            user_fields=["username"], 
-                                                            user_auth=False)
-
-    dictTWTDMs = dict(TWTdms) # Do this for Mastodon when it's implemented
-    for dm in dictTWTDMs["data"]:
-        dm.__setitem__('source', 'Twitter')
-
-    return jsonify(dictTWTDMs)
+    return jsonify(conversations.conversationList)
 
 
 @bp.route("/messages/twt/<conversation_id>")

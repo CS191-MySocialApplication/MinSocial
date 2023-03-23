@@ -1,9 +1,10 @@
 <script>
     import "@fontsource/open-sans"
+    export let title;
 </script>
 
 <main>
-    <h1 class="Menu">@ Mentions</h1>
+    <h1 class="Menu">{title}</h1>
 </main>
 
 <style>

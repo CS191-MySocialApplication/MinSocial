@@ -3,10 +3,11 @@
 	import Postform from "../components/postform.svelte";
 	import Navbar_desktop from "../components/Navbar_desktop.svelte"
 	import Navbar_mobile from "../components/Navbar_mobile.svelte"
+    import { each } from "svelte/internal";
 
-	async function getHomeContent(){
+	async function getMessageContent(){
 
-		let res = await fetch('/api/home');
+		let res = await fetch('/api/messages');
 		let text = await res.json();
 
 		if (res.ok){
@@ -17,33 +18,35 @@
 
 	}
 
-	let auth_promise = getHomeContent();
+	let auth_promise = getMessageContent();
 
 </script>
+
+
 <div class="desktop-format">
 	<Navbar_desktop />
 	<div class="content">
-		<Header title="Mentions"/>
+		<Header title="Messages"/>
 		<main>
 
-			<Postform/>
-
 			{#await auth_promise}
-				<p>waiting...</p>
-			{:then timeline}
-				{#each timeline as status}
+		
+				<p>Waiting...</p>
 
-					<div class="post">
-						<span id="source" class="impt-details">{status["source"]} |</span> 
-						<span id="username" class="impt-details">{status["author"]["username"]}</span><br/>
-						<span id="datetime">{status["createdTime"]}</span><br/>
-						<p>{status["content"]}</p><br/><br/>
+			{:then conversations}
+				
+				{#each conversations as conversation}
+					<div class="conversation">
+						<span>{conversation["source"]}</span>
+						<span>{conversation["author"]["username"]}</span>
+						<span>{conversation["createdTime"]}</span>
+						<p>{conversation["content"]}</p>
 					</div>
-
 				{/each}
 			{:catch error}
-				<p style="color: red">{error.message}</p>
+				<p style="color: red">{error.messages}</p>
 			{/await}
+
 
 		</main>
 	</div>

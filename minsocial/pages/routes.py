@@ -9,6 +9,7 @@ bp = Blueprint('pages', __name__, url_prefix='/')
 def base():
     return send_from_directory('../client/dist', "index.html")
 
+
 @bp.route("/logged")
 def logged():
     return send_from_directory('../client/dist/callback', "index.html")
@@ -17,6 +18,11 @@ def logged():
 @bp.route("/home")
 def home():
     return send_from_directory('../client/dist/home', "index.html")
+
+
+@bp.route("/messages")
+def message():
+    return send_from_directory('../client/dist/messages', "index.html")
 
 
 @bp.route("/<path:path>")
