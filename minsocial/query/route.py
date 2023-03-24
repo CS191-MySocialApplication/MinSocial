@@ -99,15 +99,19 @@ def compose_tweet():
     if request.form["text"] == None:
         return "hello"
 
-    a = request.cookies.get("twtAccessToken")
-    client = tweepy.Client(a)
+    twtAccess = request.cookies.get("twtAccessToken")
+    mstdnAccess = request.cookies.get("mstdnAccessToken")
 
-    tweet = client.create_tweet(text=request.form['text'], user_auth=False)
+    if twtAccess:
+        client = tweepy.Client(twtAccess, return_type=dict)
+        twtdata = client.create_tweet(text=request.form['text'], user_auth=False)
     
-    if len(tweet.errors) == 0:
-        data = tweet.data
-        return "Good"
 
-    return "hello"
+    if mstdnAccess:
+        client = Mastodon(api_base_url="https://social.up.edu.ph", access_token=mstdnAccess)
+        toot = client.status_post(request.form['text'])
+
+
+    return {"status": "success"}
 
 
