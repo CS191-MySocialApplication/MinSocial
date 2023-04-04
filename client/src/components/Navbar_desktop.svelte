@@ -81,22 +81,31 @@
 </script>
 
 <main>
-    <nav class="nav-bar-desktop">
-        
-        <a class="mentions" href="/home">
-            <img src={mentions} alt="mentions"/>
-            <img src={hoverMentions} class="hoverImg" alt="hover mentions"/>
-        </a>
-        <a class="dm" href="/messages">
-            <img src={dm} alt="dm"/>
-            <img src={hoverDM} class="hoverImg" alt="hover dm"/>
-        </a>
+    <nav class="navBarDesktop">
+        <div class="iconContainer">
 
-        <a class="settings" href="login.html">
-            <img src={settings} alt="settings"/>
-            <img src={hoverSettings} class="hoverImg" alt="hover settings"/>
-        </a>
-        
+            <div class="mentions">
+                <a class="icon" href="/home">
+                    <img src={mentions} class="noHover" alt="mentions"/>
+                    <img src={hoverMentions} class="hoverImg" alt="hover mentions"/>            
+                </a>
+            </div>
+
+            <div class="dm">
+                <a class="icon" href="/messages">
+                    <img src={dm} class="noHover" alt="dm"/>
+                    <img src={hoverDM} class="hoverImg" alt="hover dm"/>            
+                </a>
+            </div>
+
+            <div class="settings">
+                <a class="icon" href="login.html">
+                    <img src={settings} class="noHover" alt="settings"/>
+                    <img src={hoverSettings} class="hoverImg" alt="hover settings"/>
+                </a>
+            </div>    
+        </div>
+    
         {#if !twtLogin}
             <br/><br/><br/>
             <a class="settings log" href={twtLoginLink}>
@@ -125,35 +134,57 @@
 
 <style>
     main {
-        margin: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
         background-color: #50c0cb;
         color: white;
+        width: 12lvw;
         height: 100lvh;
     }
+
     @media screen and (max-width:479px) {
         main {
             display: none;
         }
     }
 
-    @media screen and (min-width:480px) and (max-width: 899px) {
-        main {
-            width: 24%;
-            margin-right: 20px;
-        }
+    .iconContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding-top: 30px;
     }
 
-    @media screen and (min-width:900px) {
-        main {
-            width: 14%;
-            margin-right: 20px;
-        }
+    .mentions, .dm, .settings {
+        height: 40px;
+        display: flex;
+        justify-content: center;
     }
-    img{
+
+    img, .icon {
         width: 40px;
         height: 40px;
     }
+    
+    .mentions:hover .noHover, .dm:hover .noHover, .settings:hover .noHover{
+        opacity:0.5;
+        transition: 0.25s ease;
+    }
 
+    .hoverImg {
+        position: absolute;
+        z-index: 1; 
+    }
+
+    .noHover {
+        position: absolute;
+        z-index: 2;
+    }
+
+    /*
     .mentions{
         margin-left: 70px;
         margin-top: 30px;
@@ -198,6 +229,7 @@
         transition: 0.25s ease;
     }
 
+    */
     .log {
         margin-left: 25px;
     }

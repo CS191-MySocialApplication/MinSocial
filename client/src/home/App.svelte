@@ -80,12 +80,12 @@
 		flex: 1;
 		display: flex;
 		flex-direction: column;
-		padding: 1rem;
+		padding: 2rem;
 		width: 100%;
-		max-width: 64rem;
+		/*max-width: 64rem;*/
 		margin: 0 auto;
 		box-sizing: border-box;
-	}
+	} 
 
 
 	@media (max-width: 479px) {
@@ -101,8 +101,14 @@
 		.desktop-format {
             display: flex;
             flex-direction: row;
-			margin:0;
+			margin: 0;
         }
+		.content {
+			display: flex;
+			flex-direction: column;
+			margin-left: 11.5%;
+			width:100%;
+		}
 	}
 
 </style>

@@ -23,6 +23,7 @@
         height: 27px;
         display:inline-block;
         vertical-align:middle;
+        margin-left: 1.5rem;
         margin-right: 5px;
     }
     h1 {
@@ -33,8 +34,6 @@
         vertical-align:middle;     
     }
     
-
-
     @media screen and (max-width:479px) {
         h1 {
             padding: 24px 0px;
