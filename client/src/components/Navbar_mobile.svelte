@@ -10,19 +10,28 @@
 
 <main>
     <nav class="nav-bar-mobile">
-        <a class="mentions" href="/home">
-            <img src={mentions} alt="mentions"/>
-            <img src={hoverMentions} class="hoverImg" alt="hover mentions"/>
-        </a>
-        <a class="dm" href="/messages">
-            <img src={dm} alt="dm"/>
-            <img src={hoverDM} class="hoverImg" alt="hover dm"/>
-        </a>
-
-        <a class="settings" href="login.html">
-            <img src={settings} alt="settings"/>
-            <img src={hoverSettings} class="hoverImg" alt="hover settings"/>
-        </a>
+        <div class="iconContainer">
+            <div class="mentions">
+                <a class="icon" href="/home">
+                    <img src={mentions} class="noHover" alt="mentions"/>
+                    <img src={hoverMentions} class="hoverImg" alt="hover mentions"/>
+                </a>
+            </div>
+    
+            <div class="dm">
+                <a class="icon" href="/messages">
+                    <img src={dm} class="noHover" alt="dm"/>
+                    <img src={hoverDM} class="hoverImg" alt="hover dm"/>
+                </a>
+            </div>
+            
+            <div class="settings">
+                <a class="icon" href="login.html">
+                    <img src={settings} class="noHover" alt="settings"/>
+                    <img src={hoverSettings} class="hoverImg" alt="hover settings"/>
+                </a>
+            </div>
+        </div>
     </nav>
 </main>
 
@@ -39,40 +48,38 @@
     }
 
     @media screen and (max-width:479px) {
-        img {
+        img, .icon {
             width: 40px;
             height: 40px;
         }
-        .mentions {
-            margin-top: 20px;
-            margin-left: 65px;
-            position: absolute;
+
+        .iconContainer {
             display: flex;
+            height: 80px;
+            padding: 0 16px;
+            justify-content: space-around;
+            align-items: center;
         }
 
-        .dm {
-            margin-top: 20px;
-            margin-left: 165px;
-            position: absolute;
+        .mentions, .dm, .settings {
+            width: 40px;
             display: flex;
-        }
-        
-        .settings {
-            margin-top: 20px;
-            margin-left: 265px;
-            position: absolute;
-            display: flex;   
-        }
-            
-        .hoverImg{
-            display: none;
-            position: absolute;    
+            justify-content: center;
         }
 
-        .mentions:hover .hoverImg, .dm:hover .hoverImg, .settings:hover .hoverImg {
-            display: inline;
+        .mentions:hover .noHover, .dm:hover .noHover, .settings:hover .noHover{
             opacity:0.5;
             transition: 0.25s ease;
+        }
+
+        .hoverImg {
+            position: absolute;
+            z-index: 1; 
+        }
+
+        .noHover {
+            position: absolute;
+            z-index: 2;
         }
     }
 
