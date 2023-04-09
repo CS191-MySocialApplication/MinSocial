@@ -158,9 +158,10 @@ class MstdnContext:
 
         context = client.status_context(self.status_ID)
 
+
         parents = []
 
-        if "ancenstors" in context:
-            parents.extend([Status(x).asdict() for x in context["ancestors"]])
+        if "ancestors" in context:
+            parents.extend([Toot(x).asdict() for x in context["ancestors"]])
 
         return parents
