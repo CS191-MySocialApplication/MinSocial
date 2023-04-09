@@ -3,7 +3,7 @@ from flask import (
 )
 
 from minsocial.decorators import wrap_json, authenticate
-from minsocial.query.status import Timeline
+from minsocial.query.status import Timeline, MstdnContext
 from minsocial.query.conversations import ConversationList, MstdnConversation, TwtConversation
 
 import tweepy
