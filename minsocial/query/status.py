@@ -154,7 +154,7 @@ class MstdnContext:
 
         
     def _retrieve_context(self, mstdn_access_ID):
-        client = Mastodon(mstdn_access_ID)
+        client = Mastodon(api_base_url="https://social.up.edu.ph", access_token=mstdn_access_ID)
 
         context = client.status_context(self.status_ID)
 
