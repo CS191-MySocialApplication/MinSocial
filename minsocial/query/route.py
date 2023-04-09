@@ -89,6 +89,17 @@ def view_toot(toot_id):
     return toot
 
 
+@bp.route("/context/toot/<toot_id>")
+@authenticate
+@wrap_json
+def view_toot_context(toot_id):
+    a = request.cookies.get("mstdnAccessToken")
+
+    context = MstdnContext(toot_id, a)
+
+    return context.context
+
+
 @bp.route("/compose", methods=['GET', 'POST'])
 @authenticate
 @wrap_json
