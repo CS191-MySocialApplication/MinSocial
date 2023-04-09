@@ -150,9 +150,7 @@ class MstdnContext:
     def __init__(self, status_ID, mstdn_access_ID):
         self.status_ID = status_ID
 
-        self.context = self._retrieve_context(mstdn_access_ID)
-
-        return self
+        self.context = self._retrieve_context(mstdn_access_ID)        
 
         
     def _retrieve_context(self, mstdn_access_ID):
