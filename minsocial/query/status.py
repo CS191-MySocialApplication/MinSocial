@@ -143,3 +143,26 @@ class Timeline:
 
     def __iter__(self):
         yield from self.statusList
+
+
+class MstdnContext:
+
+    def __init__(self, status_ID, mstdn_access_ID):
+        self.status_ID = status_ID
+
+        self.context = self._retrieve_context(mstdn_access_ID)
+
+        return self
+
+        
+    def _retrieve_context(self, mstdn_access_ID):
+        client = Mastodon(mstdn_access_ID)
+
+        context = client.status_context(self.status_ID)
+
+        parents = []
+
+        if "ancenstors" in context:
+            parents.extend([Status(x).asdict() for x in context["ancestors"]])
+
+        return parents
