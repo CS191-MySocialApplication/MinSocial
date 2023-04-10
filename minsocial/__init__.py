@@ -1,6 +1,6 @@
 from flask import Flask
-from minsocial.query import mstdnqueries
-from minsocial.query import route
+from minsocial.api import mstdnqueries
+from minsocial.api import route
 from minsocial.userAuth import mstdnAuth, twtAuth
 from minsocial.pages import routes
 
