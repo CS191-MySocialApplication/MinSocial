@@ -3,8 +3,8 @@ from flask import (
 )
 
 from minsocial.decorators import wrap_json, authenticate
-from minsocial.query.status import Timeline, MstdnContext
-from minsocial.query.conversations import ConversationList, MstdnConversation, TwtConversation
+from minsocial.api.status import Timeline, MstdnContext
+from minsocial.api.conversations import ConversationList, MstdnConversation, TwtConversation
 
 import tweepy
 from mastodon import Mastodon
