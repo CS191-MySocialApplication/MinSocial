@@ -17,6 +17,8 @@ def generate_mentions_timeline(twt_access_key=None, mstdn_access_key=None):
         mstdn_mentions = generate_mstdn_mentions(mstdn_access_key)
         mentions_timeline.extend(mstdn_mentions)
 
+    return mentions_timeline
+
 
 def generate_twt_mentions(twt_access_key): # ISSUE: Twitter API will eventually be unaccessible
 
