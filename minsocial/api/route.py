@@ -26,10 +26,10 @@ def home():
 
     # Returns a list of Statuses that mentions the current user.
 
-    twtAccess = request.cookies.get("twtAccessToken")
-    mstdnAccess = request.cookies.get("mstdnAccessToken")
+    twt_access_key = request.cookies.get("twtAccessToken")
+    mstdn_access_key = request.cookies.get("mstdnAccessToken")
 
-    timeline = generate_mentions_timeline(twt_access_key=twtAccess, mstdn_access_key=mstdnAccess)
+    timeline = generate_mentions_timeline(twt_access_key=twt_access_key, mstdn_access_key=mstdn_access_key)
 
     return timeline
 
@@ -41,10 +41,10 @@ def messages():
 
     # Returns a list of Conversations with the current user
 
-    twtAccess = request.cookies.get("twtAccessToken")
-    mstdnAccess = request.cookies.get("mstdnAccessToken")
+    twt_access_key = request.cookies.get("twtAccessToken")
+    mstdn_access_key = request.cookies.get("mstdnAccessToken")
 
-    conversations = generate_conversation_list(twtAccessKey=twtAccess, mstdnAccessKey=mstdnAccess)
+    conversations = generate_conversation_list(twt_access_key=twt_access_key, mstdn_access_key=mstdn_access_key)
 
     return conversations
 
