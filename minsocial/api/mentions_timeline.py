@@ -6,7 +6,7 @@ from minsocial.decorators import wrap_json, authenticate
 from minsocial.generators.timeline import generate_mentions_timeline
 
 
-bp = Blueprint('mentions', __name__, url_prefix='/mentions')
+mentions_bp = Blueprint('mentions', __name__, url_prefix='/mentions')
 
 @bp.route("/home")
 @authenticate
