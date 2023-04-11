@@ -6,6 +6,9 @@ from minsocial.decorators import wrap_json, authenticate
 from minsocial.api.status import Timeline, MstdnContext
 from minsocial.api.conversations import ConversationList, MstdnConversation, TwtConversation
 
+
+from minsocial.generators.timeline import generate_mentions_timeline
+
 import tweepy
 from mastodon import Mastodon
 
@@ -17,12 +20,14 @@ bp = Blueprint('api', __name__, url_prefix='/api/')
 @wrap_json
 def home():
 
+    # Returns a list of Statuses that mentions the current user.
+
     twtAccess = request.cookies.get("twtAccessToken")
     mstdnAccess = request.cookies.get("mstdnAccessToken")
 
-    timeline = Timeline(twtAccessKey=twtAccess, mstdnAccessKey=mstdnAccess)
+    timeline = generate_mentions_timeline(twtAccessKey=twtAccess, mstdnAccessKey=mstdnAccess)
 
-    return timeline.response()
+    return timeline
 
 
 @bp.route("/messages")
