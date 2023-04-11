@@ -31,4 +31,4 @@ def generate_mstdn_mentions(mstdn_access_key):
     response = client.notifications(mentions_only=True)
     
     for notif in response:
-        yield Toot(notif["status"])
+        yield Toot(notif["status"]).asdict()
