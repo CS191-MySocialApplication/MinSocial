@@ -5,7 +5,7 @@ from flask import (
 from minsocial.decorators import wrap_json, authenticate
 from minsocial.generators.conversation import generate_mstdn_conversation
 
-bp = Blueprint('conversation', __name__, url_prefix='/messages')
+conversation_bp = Blueprint('conversation', __name__, url_prefix='/messages')
 
 @bp.route("/messages/mstdn/<conversation_id>")
 @authenticate
