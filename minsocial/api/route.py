@@ -29,7 +29,9 @@ def home():
     twtAccess = request.cookies.get("twtAccessToken")
     mstdnAccess = request.cookies.get("mstdnAccessToken")
 
-    timeline = generate_mentions_timeline(twtAccessKey=twtAccess, mstdnAccessKey=mstdnAccess)
+    timeline = generate_mentions_timeline(twt_access_key=twtAccess, mstdn_access_key=mstdnAccess)
+
+    print(timeline)
 
     return timeline
 
