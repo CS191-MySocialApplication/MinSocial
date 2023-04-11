@@ -36,6 +36,8 @@ def home():
 @wrap_json
 def messages():
 
+    # Returns a list of Conversations with the current user
+
     twtAccess = request.cookies.get("twtAccessToken")
     mstdnAccess = request.cookies.get("mstdnAccessToken")
 
