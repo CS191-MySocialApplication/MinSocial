@@ -7,7 +7,7 @@ from minsocial.generators.conversation import generate_mstdn_conversation
 
 conversation_bp = Blueprint('conversation', __name__, url_prefix='/messages')
 
-@bp.route("/messages/mstdn/<conversation_id>")
+@conversation_bp.route("/messages/mstdn/<conversation_id>")
 @authenticate
 @wrap_json
 def mstdnconversation(conversation_id):

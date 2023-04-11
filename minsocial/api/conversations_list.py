@@ -7,7 +7,7 @@ from minsocial.generators.conversation_list import generate_conversation_list
 
 conversation_list_bp = Blueprint('messages', __name__, url_prefix='/messages')
 
-@bp.route("/messages")
+@conversation_list_bp.route("/messages")
 @authenticate
 @wrap_json
 def messages():

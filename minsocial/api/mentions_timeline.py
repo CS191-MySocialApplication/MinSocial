@@ -8,7 +8,7 @@ from minsocial.generators.timeline import generate_mentions_timeline
 
 mentions_bp = Blueprint('mentions', __name__, url_prefix='/mentions')
 
-@bp.route("/home")
+@mentions_bp.route("/home")
 @authenticate
 @wrap_json
 def home():
