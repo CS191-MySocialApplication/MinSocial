@@ -48,8 +48,7 @@
 			{#await auth_promise}
 				<p>waiting...</p>
 			{:then response}
-				{#each response["data"] as status}
-
+				{#each response as status}
 					<div class="post">
 						<span id="source" class="impt-details">{status["source"]} |</span> 
 						<span id="username" class="impt-details">{status["author"]["username"]}</span><br/>
