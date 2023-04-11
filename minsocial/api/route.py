@@ -9,6 +9,7 @@ from minsocial.api.conversations import ConversationList, MstdnConversation, Twt
 
 from minsocial.generators.timeline import generate_mentions_timeline
 from minsocial.generators.conversation_list import generate_conversation_list
+from minsocial.generators.conversation import generate_mstdn_conversation
 
 import tweepy
 from mastodon import Mastodon
@@ -61,10 +62,12 @@ def twtconversation(conversation_id):
 @authenticate
 @wrap_json
 def mstdnconversation(conversation_id):
+
+    # From a status id, return the conversation.
+
     mstdnAccess = request.cookies.get("mstdnAccessToken")
     
-    messageList = MstdnConversation(mstdnAccess, conversation_id)
-
+    messageList = generate_mstdn_conversation(mstdnAccess, conversation_id)
 
     return messageList.messagesList
 
