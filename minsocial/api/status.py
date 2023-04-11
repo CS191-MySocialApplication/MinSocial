@@ -1,6 +1,8 @@
 from abc import ABCMeta, abstractmethod
 from enum import Enum
 
+from minsocial import consts
+
 import tweepy
 from tweepy import Response
 
@@ -113,7 +115,7 @@ class Timeline:
 
     def _mstdnGenerateTimeline(self, mstdnAccessKey):
         
-        client = Mastodon(api_base_url="https://social.up.edu.ph", access_token=mstdnAccessKey)
+        client = Mastodon(api_base_url=consts.MSTDN_API_BASE_URL, access_token=mstdnAccessKey)
         response = client.notifications(mentions_only=True)
         
         for notif in response:
@@ -154,7 +156,7 @@ class MstdnContext:
 
         
     def _retrieve_context(self, mstdn_access_ID):
-        client = Mastodon(api_base_url="https://social.up.edu.ph", access_token=mstdn_access_ID)
+        client = Mastodon(api_base_url=consts.MSTDN_API_BASE_URL, access_token=mstdn_access_ID)
 
         context = client.status_context(self.status_ID)
 

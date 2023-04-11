@@ -11,6 +11,8 @@ from minsocial.generators.timeline import generate_mentions_timeline
 from minsocial.generators.conversation_list import generate_conversation_list
 from minsocial.generators.conversation import generate_mstdn_conversation
 
+from minsocial import consts
+
 import tweepy
 from mastodon import Mastodon
 
@@ -93,7 +95,7 @@ def view_tweet(tweet_id): # TODO: ADD MORE DETAILS
 @wrap_json
 def view_toot(toot_id): 
     a = request.cookies.get("mstdnAccessToken")
-    client = Mastodon(api_base_url="https://social.up.edu.ph", access_token=a)
+    client = Mastodon(api_base_url=consts.MSTDN_API_BASE_URL, access_token=a)
 
     toot = client.status(toot_id)
 
@@ -130,7 +132,7 @@ def compose_tweet():
     
 
     if mstdnAccess:
-        client = Mastodon(api_base_url="https://social.up.edu.ph", access_token=mstdnAccess)
+        client = Mastodon(api_base_url=consts.MSTDN_API_BASE_URL, access_token=mstdnAccess)
         toot = client.status_post(request.form['text'])
 
 

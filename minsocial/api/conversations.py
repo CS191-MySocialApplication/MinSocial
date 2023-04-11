@@ -4,6 +4,8 @@ from abc import ABCMeta, abstractmethod
 
 from mastodon import Mastodon
 
+from minsocial import consts
+
 import json
 
 class Message(metaclass=ABCMeta):
@@ -86,7 +88,7 @@ class ConversationList:
 
 
     def _mstdnGenerateConvList(self, mstdnAccessKey):
-        client = Mastodon(api_base_url="https://social.up.edu.ph", access_token=mstdnAccessKey)
+        client = Mastodon(api_base_url=consts.MSTDN_API_BASE_URL, access_token=mstdnAccessKey)
 
         conversations = client.conversations()
 
@@ -124,7 +126,7 @@ class MstdnConversation:
     
     def _mtsdnGenerateConv(self, mstdnAccessKey, messageID):
         # TODO: Convert messages in mastodon to a uniform type
-        client = Mastodon(api_base_url="https://social.up.edu.ph", access_token=mstdnAccessKey)
+        client = Mastodon(api_base_url=consts.MSTDN_API_BASE_URL, access_token=mstdnAccessKey)
         response = client.status_context(messageID) 
 
         self.messagesList.extend(response["ancestors"])

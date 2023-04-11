@@ -110,7 +110,7 @@ class MstdnAuthHandler():
 
 
     def get_auth_url(self):
-        url = "https://social.up.edu.ph/oauth/authorize?"
+        url = consts.MSTDN_API_BASE_URL+"/oauth/authorize?"
         parameters = {
             "redirect_uri": self.redirect_uri,
             "response_type": self.response_type,
@@ -125,7 +125,7 @@ class MstdnAuthHandler():
     def get_tokens(self):
         assert(self.code != None)
 
-        url = "https://social.up.edu.ph/oauth/token"
+        url = consts.MSTDN_API_BASE_URL+"/oauth/token"
         headers = {"Content-Type": "application/x-www-form-urlencoded"}
     
         dataToSend = {
@@ -146,7 +146,7 @@ class MstdnAuthHandler():
         return r.json()
     
     def revoke_tokens(self, accessToken):
-        url = "https://social.up.edu.ph/oauth/revoke"
+        url = consts.MSTDN_API_BASE_URL+"/oauth/revoke"
         headers = {"Content-Type": "application/x-www-form-urlencoded"}
 
         if accessToken is not None:
