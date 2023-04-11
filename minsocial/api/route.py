@@ -31,8 +31,6 @@ def home():
 
     timeline = generate_mentions_timeline(twt_access_key=twtAccess, mstdn_access_key=mstdnAccess)
 
-    print(timeline)
-
     return timeline
 
 
