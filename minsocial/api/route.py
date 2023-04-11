@@ -69,7 +69,7 @@ def mstdnconversation(conversation_id):
     
     messageList = generate_mstdn_conversation(mstdnAccess, conversation_id)
 
-    return messageList.messagesList
+    return messageList
 
 
 @bp.route("/tweet/<tweet_id>")
