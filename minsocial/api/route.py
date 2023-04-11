@@ -45,6 +45,7 @@ def messages():
 
     return conversations
 
+
 @bp.route("/messages/twt/<conversation_id>")
 @authenticate
 @wrap_json
