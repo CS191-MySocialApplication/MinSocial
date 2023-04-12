@@ -14,8 +14,8 @@ def mstdnconversation(conversation_id):
 
     # From a status id, return the conversation.
 
-    mstdnAccess = request.cookies.get("mstdnAccessToken")
+    mstdn_access_key = request.cookies.get("mstdnAccessToken")
     
-    messageList = generate_mstdn_conversation(mstdnAccess, conversation_id)
+    messageList = generate_mstdn_conversation(mstdn_access_key, conversation_id)
 
     return messageList

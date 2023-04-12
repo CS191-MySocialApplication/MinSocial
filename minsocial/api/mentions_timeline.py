@@ -6,9 +6,9 @@ from minsocial.decorators import wrap_json, authenticate
 from minsocial.generators.timeline import generate_mentions_timeline
 
 
-mentions_bp = Blueprint('mentions', __name__, url_prefix='/mentions')
+mentions_bp = Blueprint('mentions', __name__, url_prefix='/home')
 
-@mentions_bp.route("/home")
+@mentions_bp.route("/")
 @authenticate
 @wrap_json
 def home():
@@ -16,8 +16,8 @@ def home():
     # Returns a list of Statuses that mentions the current user.
 
     twtAccess = request.cookies.get("twtAccessToken")
-    mstdnAccess = request.cookies.get("mstdnAccessToken")
+    mstdn_access_key = request.cookies.get("mstdnAccessToken")
 
-    timeline = generate_mentions_timeline(twtAccessKey=twtAccess, mstdnAccessKey=mstdnAccess)
+    timeline = generate_mentions_timeline(twtAccessKey=twtAccess, mstdn_access_key=mstdn_access_key)
 
     return timeline
