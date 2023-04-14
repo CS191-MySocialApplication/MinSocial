@@ -8,7 +8,7 @@ from minsocial.api.context import context_bp
 from minsocial.api.compose import compose_bp
 
 
-api_blueprint = Blueprint("api", __name__, url_prefix="/api/v2")
+api_blueprint = Blueprint("apiv2", __name__, url_prefix="/api")
 
 api_blueprint.register_blueprint(conversation_bp)
 api_blueprint.register_blueprint(conversation_list_bp)

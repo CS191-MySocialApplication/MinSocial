@@ -1,6 +1,7 @@
 from flask import Flask
 from minsocial.api import mstdnqueries
 from minsocial.api import route
+from minsocial.api import api
 from minsocial.userAuth import mstdnAuth, twtAuth
 from minsocial.pages import routes
 
@@ -9,8 +10,8 @@ def create_app():
 
     app.register_blueprint(twtAuth.bp)
     app.register_blueprint(mstdnAuth.bp)
-    app.register_blueprint(route.bp)
-    # app.register_blueprint(mstdnqueries.bp)
+    # app.register_blueprint(route.bp)
+    app.register_blueprint(api.api_blueprint)
     app.register_blueprint(routes.bp)
 
     return app
