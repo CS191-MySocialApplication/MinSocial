@@ -15,9 +15,9 @@ def home():
 
     # Returns a list of Statuses that mentions the current user.
 
-    twtAccess = request.cookies.get("twtAccessToken")
+    twt_access_key = request.cookies.get("twtAccessToken")
     mstdn_access_key = request.cookies.get("mstdnAccessToken")
 
-    timeline = generate_mentions_timeline(twtAccessKey=twtAccess, mstdn_access_key=mstdn_access_key)
+    timeline = generate_mentions_timeline(twt_access_key=twt_access_key, mstdn_access_key=mstdn_access_key)
 
     return timeline
