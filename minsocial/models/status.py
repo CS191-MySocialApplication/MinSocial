@@ -55,4 +55,4 @@ class Toot(Status):
         createdTime = toot["created_at"]
         createdTime = createdTime.replace(tzinfo=timezone.utc)
 
-        super().__init__(toot["id"], toot["account"], createdTime, toot["content"])
+        super().__init__(str(toot["id"]), toot["account"], createdTime, toot["content"])

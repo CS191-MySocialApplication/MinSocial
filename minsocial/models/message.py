@@ -39,4 +39,4 @@ class MstdnMsg(Message):
     source = "Mastodon"
 
     def __init__(self, conversationID, message):
-        super().__init__(message["id"], message["content"], message["account"], conversationID, message["created_at"])
+        super().__init__(str(message["id"]), message["content"], message["account"], str(conversationID), message["created_at"])
