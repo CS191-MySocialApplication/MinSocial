@@ -5,7 +5,7 @@ from flask import (
 from minsocial.decorators import wrap_json, authenticate
 from minsocial.generators.conversation_list import generate_conversation_list
 
-conversation_list_bp = Blueprint('messages', __name__, url_prefix='/messages')
+conversation_list_bp = Blueprint('messages', __name__, url_prefix='/')
 
 @conversation_list_bp.route("/messages")
 @authenticate
