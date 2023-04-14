@@ -5,7 +5,7 @@ from flask import (
 from minsocial.decorators import wrap_json, authenticate
 from minsocial.generators.context import generate_mstdn_context
 
-context_bp = Blueprint('mentions', __name__, url_prefix='/home')
+context_bp = Blueprint('context', __name__, url_prefix='/')
 
 
 @context_bp.route("/context/toot/<toot_id>")
