@@ -20,7 +20,7 @@
 
 		if (res.ok){
 			return text;
-		}else{
+		} else{
 			throw new Error(text);
 		}
 
@@ -32,6 +32,7 @@
 
 
 <div class="desktop-format">
+
 	<Navbar_desktop
 	mentions={UnclickedMentions}
 	hoverMentions={HoverUnclickedMentions}
@@ -44,11 +45,8 @@
 	<div class="content">
 		<Header title="Messages" icon={MessagesHeader}/>
 		<main>
-
 			{#await auth_promise}
-		
 				<p>Waiting...</p>
-
 			{:then conversations}
 				
 				{#each conversations as conversation}
@@ -62,10 +60,9 @@
 			{:catch error}
 				<p style="color: red">{error.messages}</p>
 			{/await}
-
-
 		</main>
 	</div>
+
 	<Navbar_mobile 
 	mentions={UnclickedMentions}
 	hoverMentions={HoverUnclickedMentions}
@@ -77,14 +74,12 @@
 
 
 <style>
-
 	main {
 		flex: 1;
 		display: flex;
 		flex-direction: column;
 		padding: 2rem;
 		width: 100%;
-		/*max-width: 64rem;*/
 		margin: 0 auto;
 		box-sizing: border-box;
 	}
@@ -115,5 +110,4 @@
 			width:100%;
 		}
 	}
-
 </style>
