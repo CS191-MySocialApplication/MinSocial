@@ -1,6 +1,6 @@
 <script>
 	import Header from "../components/Header.svelte";
-	import Postform from "../components/postform.svelte";
+	import Postform from "../components/Postform.svelte";
 	import Navbar_desktop from "../components/Navbar_desktop.svelte"
 	import Navbar_mobile from "../components/Navbar_mobile.svelte"
     import { each } from "svelte/internal";
