@@ -23,30 +23,30 @@
 </script>
 
 
-<div id="postcontainer">
+<div id="postContainer">
     <form action="/api/compose" on:submit|preventDefault={handleOnSubmit}>
-        <div id="containertitle">
+        <div id="containerTitle">
             <p>
                 Write your thoughts
             </p>
         </div>
 
-        <div id="containerarea">
+        <div id="containerArea">
             <textarea id="text" name="text" rows="5" cols="33" bind:value={statusText}/> <br> 
         </div>
 
-        <div id="containerfooter">
+        <div id="containerFooter">
             <div>
 
             </div>
-            <input id="submitbutton" type="submit">
+            <input id="submitButton" type="submit">
         </div>
 
     </form>
 </div>
 
 <style>
-    #postcontainer {
+    #postContainer {
         display: flex;
         border-width: 2px;
         border-style: solid;
@@ -55,14 +55,14 @@
         margin: 0 auto;
     }
 
-    #containertitle{
+    #containerTitle{
         border-bottom: 2px;
         border-bottom-style: solid;
         border-color: black;
         padding: 0px 10px; 
     }
 
-    #containerfooter{
+    #containerFooter{
         display:flex;
         justify-content: space-between;
         border-top: 2px;
