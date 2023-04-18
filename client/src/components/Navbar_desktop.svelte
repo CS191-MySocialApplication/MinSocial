@@ -101,7 +101,7 @@
                     <img src={hoverSettings} class="hoverImg" alt="hover settings"/>
                 </a>
             </div>    
-            
+
         </div>
     
         {#if !twtLogin}
@@ -194,7 +194,3 @@
         text-decoration: underline;
     }
 </style>
-
-
-
-

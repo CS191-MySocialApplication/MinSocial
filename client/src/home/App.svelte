@@ -19,16 +19,16 @@
 
 		if (res.status == 200 || res.status == 206){
 			return text;
-		}else{
+		} else{
 			throw new Error(text);
 		}
-
 	}
 
 
 	let auth_promise = getHomeContent();
 
 </script>
+
 <div class="desktop-format">
 
 	<Navbar_desktop

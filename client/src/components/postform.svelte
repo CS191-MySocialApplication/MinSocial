@@ -18,9 +18,7 @@
         fetch(ACTION_URL, {
             method: 'POST',
             body: data
-        });
-
-        
+        });        
     }
 </script>
 
@@ -72,5 +70,4 @@
         border-color: black;
         padding: 5px 10px; 
     }
-
 </style>
