@@ -15,7 +15,7 @@
     let mstdnLoginLink = "";
 
 
-    onMount(async ()=>{
+    onMount(async () =>{
         twtLogin = document.cookie.split(";").some((item) => item.trim().startsWith("twtAccessToken="));
         mstdnLogin = document.cookie.split(";").some((item) => item.trim().startsWith("mstdnAccessToken="));
 
@@ -28,7 +28,6 @@
             if (res.ok){
                 twtLoginLink = text["auth_url"];
             }
-
         }
 
         if(mstdnLogin == false){
@@ -38,9 +37,7 @@
             if (res.ok){
                 mstdnLoginLink = text["auth_url"];
             }
-
         }
-
     });
 
     async function sendTwtLogout(){
@@ -51,10 +48,10 @@
 		if (res.ok){
 			if(mstdnLogin){
                 window.location.reload();
-            }else{
+            } else{
                 window.location.replace("/");
             }
-		}else{
+		} else{
 			throw new Error(text);
 		} 
 
@@ -69,10 +66,10 @@
 		if (res.ok){
             if(twtLogin){
                 window.location.reload();
-            }else{
+            } else{
                 window.location.replace("/");
             }
-		}else{
+		} else{
 			throw new Error(text);
 		} 
     }
@@ -104,6 +101,7 @@
                     <img src={hoverSettings} class="hoverImg" alt="hover settings"/>
                 </a>
             </div>    
+            
         </div>
     
         {#if !twtLogin}
@@ -184,52 +182,6 @@
         z-index: 2;
     }
 
-    /*
-    .mentions{
-        margin-left: 70px;
-        margin-top: 30px;
-        position: absolute;
-        display: flex;
-    }
-   
-    .dm{
-        margin-left: 70px;
-        margin-top: 100px;
-        position: absolute;
-        display: flex;
-    }
-
-    .settings{
-        margin-left: 70px;
-        margin-top: 170px;
-        position: absolute;
-        display: flex;
-    }
-    
-    .hoverImg{
-        display: none;
-        position: absolute;    
-    }
-
-    .mentions:hover .hoverImg{
-        display: inline;
-        opacity:0.5;
-        transition: 0.25s ease;
-    }
-    
-    .dm:hover .hoverImg{
-        display: flex;
-        opacity:0.5;
-        transition: 0.25s ease;
-    }
-    
-    .settings:hover .hoverImg{
-        display: flex;
-        opacity:0.5;
-        transition: 0.25s ease;
-    }
-
-    */
     .log {
         margin-left: 25px;
     }

@@ -54,7 +54,6 @@
         border-style: solid;
         border-color: black;
         border-radius: 25px;
-
         margin: 0 auto;
     }
 

@@ -11,6 +11,7 @@
 <main>
     <nav class="nav-bar-mobile">
         <div class="iconContainer">
+
             <div class="mentions">
                 <a class="icon" href="/home">
                     <img src={mentions} class="noHover" alt="mentions"/>
@@ -31,6 +32,7 @@
                     <img src={hoverSettings} class="hoverImg" alt="hover settings"/>
                 </a>
             </div>
+            
         </div>
     </nav>
 </main>

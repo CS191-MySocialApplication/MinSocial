@@ -37,14 +37,14 @@
 	dm={UnclickedDM}
 	hoverDM={HoverUnclickedDM}
 	settings={UnclickedSettings}
-	hoverSettings={HoverUnclickedSettings}
-	/>
+	hoverSettings={HoverUnclickedSettings}/>
+
 	<div class="content">
 		<Header title="Mentions" icon={MentionsHeader}/>
+		
 		<main>
-
 			<Postform/>
-
+			
 			{#await auth_promise}
 				<p>waiting...</p>
 			{:then response}
@@ -60,9 +60,9 @@
 			{:catch error}
 				<p style="color: red">{error.message}</p>
 			{/await}
-
 		</main>
 	</div>
+
 	<Navbar_mobile 
 	mentions={ClickedMentions}
 	hoverMentions={HoverClickedMentions}
@@ -70,29 +70,27 @@
 	hoverDM={HoverUnclickedDM}
 	settings={UnclickedSettings}
 	hoverSettings={HoverUnclickedSettings}/>
+
 </div>
 
 
 <style>
-
 	main {
 		flex: 1;
 		display: flex;
 		flex-direction: column;
 		padding: 2rem;
 		width: 100%;
-		/*max-width: 64rem;*/
 		margin: 0 auto;
 		box-sizing: border-box;
 	} 
-
 
 	@media (max-width: 479px) {
 		.desktop-format {  
             display: flex;
             flex-direction: column;
             align-items: stretch;
-			margin:0;
+			margin: 0;
         }
 	}
 
@@ -109,5 +107,4 @@
 			width:100%;
 		}
 	}
-
 </style>
