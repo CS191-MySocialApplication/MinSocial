@@ -9,7 +9,7 @@
 </script>
 
 <main>
-    <nav class="nav-bar-mobile">
+    <nav class="navBarMobile">
         <div class="iconContainer">
 
             <div class="mentions">
@@ -49,16 +49,24 @@
         color: white;
     }
 
+    /*Touch screen*/
     @media screen and (hover: none) {
         img, .icon {
             width: 40px;
             height: 40px;
         }
 
+        .navBarMobile {
+            display: flex;
+            max-width: 100%;
+            justify-content: center;
+        }
+        
         .iconContainer {
             display: flex;
+            flex: 1 1 auto;
             height: 80px;
-            padding: 0 16px;
+            max-width: 400px;
             justify-content: space-around;
             align-items: center;
         }
@@ -85,6 +93,7 @@
         }
     }
 
+    /*Desktop or Laptop*/
     @media screen and (hover: hover) {
         main {
             display: none;
