@@ -49,7 +49,7 @@
         color: white;
     }
 
-    @media screen and (max-width:479px) {
+    @media screen and (hover: none) {
         img, .icon {
             width: 40px;
             height: 40px;
@@ -85,7 +85,7 @@
         }
     }
 
-    @media screen and (min-width:480px) {
+    @media screen and (hover: hover) {
         main {
             display: none;
         }

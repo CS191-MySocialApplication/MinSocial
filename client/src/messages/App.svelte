@@ -90,7 +90,7 @@
 		width: 100%;
 	}
 
-	@media (max-width: 479px) {
+	@media screen and (hover: none) {
 		.desktop-format {  
             display: flex;
             flex-direction: column;
@@ -98,7 +98,7 @@
         }
 	}
 
-	@media (min-width: 480px) {
+	@media screen and (hover: hover) {
 		.desktop-format {
             display: flex;
             flex-direction: row;

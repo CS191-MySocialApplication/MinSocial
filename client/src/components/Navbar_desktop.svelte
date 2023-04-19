@@ -143,7 +143,7 @@
         height: 100lvh;
     }
 
-    @media screen and (max-width:479px) {
+    @media screen and (hover: none) {
         main {
             display: none;
         }
