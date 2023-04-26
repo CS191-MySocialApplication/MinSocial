@@ -1,110 +1,108 @@
 <script>
-	import Header from "../components/Header.svelte";
-	import Postform from "../components/Postform.svelte";
-	import Navbar_desktop from "../components/Navbar_desktop.svelte"
-	import Navbar_mobile from "../components/Navbar_mobile.svelte"
+  import Header from "../components/Header.svelte";
+  import Postform from "../components/Postform.svelte";
+  import Navbar_desktop from "../components/Navbar_desktop.svelte";
+  import Navbar_mobile from "../components/Navbar_mobile.svelte";
 
-	import ClickedMentions from '../../public/clicked_mentions.png';
-    import HoverClickedMentions from '../../public/hover_clicked_mentions.png';
-    import UnclickedDM from '../../public/unclicked_dm.png';
-    import HoverUnclickedDM from '../../public/hover_unclicked_dm.png';
-    import UnclickedSettings from '../../public/unclicked_settings.png';
-    import HoverUnclickedSettings from '../../public/hover_unclicked_settings.png';
-	import MentionsHeader from '../../public/mentions_header.png';
+  import ClickedMentions from "../../public/clicked_mentions.png";
+  import HoverClickedMentions from "../../public/hover_clicked_mentions.png";
+  import UnclickedDM from "../../public/unclicked_dm.png";
+  import HoverUnclickedDM from "../../public/hover_unclicked_dm.png";
+  import UnclickedSettings from "../../public/unclicked_settings.png";
+  import HoverUnclickedSettings from "../../public/hover_unclicked_settings.png";
+  import MentionsHeader from "../../public/mentions_header.png";
 
-	async function getHomeContent(){
+  async function getHomeContent() {
+    let res = await fetch("/api/home");
+    let text = await res.json();
 
-		let res = await fetch('/api/home');
-		let text = await res.json();
+    if (res.status == 200 || res.status == 206) {
+      return text;
+    } else {
+      throw new Error(text);
+    }
+  }
 
-		if (res.status == 200 || res.status == 206){
-			return text;
-		} else{
-			throw new Error(text);
-		}
-	}
-
-
-	let auth_promise = getHomeContent();
-
+  let auth_promise = getHomeContent();
 </script>
 
-<div class="desktop-format">
+<div class="desktopFormat">
+  <Navbar_desktop
+    mentions={ClickedMentions}
+    hoverMentions={HoverClickedMentions}
+    dm={UnclickedDM}
+    hoverDM={HoverUnclickedDM}
+    settings={UnclickedSettings}
+    hoverSettings={HoverUnclickedSettings}
+  />
 
-	<Navbar_desktop
-	mentions={ClickedMentions}
-	hoverMentions={HoverClickedMentions}
-	dm={UnclickedDM}
-	hoverDM={HoverUnclickedDM}
-	settings={UnclickedSettings}
-	hoverSettings={HoverUnclickedSettings}/>
+  <div class="content">
+    <Header title="Mentions" icon={MentionsHeader} />
 
-	<div class="content">
-		<Header title="Mentions" icon={MentionsHeader}/>
-		
-		<main>
-			<Postform/>
-			
-			{#await auth_promise}
-				<p>waiting...</p>
-			{:then response}
-				{#each response as status}
-					<div class="post">
-						<span id="source" class="impt-details">{status["source"]} |</span> 
-						<span id="username" class="impt-details">{status["author"]["username"]}</span><br/>
-						<span id="datetime">{status["createdTime"]}</span><br/>
-						<p>{status["content"]}</p><br/><br/>
-					</div>
-					
-				{/each}
-			{:catch error}
-				<p style="color: red">{error.message}</p>
-			{/await}
-		</main>
-	</div>
+    <main>
+      <Postform />
 
-	<Navbar_mobile 
-	mentions={ClickedMentions}
-	hoverMentions={HoverClickedMentions}
-	dm={UnclickedDM}
-	hoverDM={HoverUnclickedDM}
-	settings={UnclickedSettings}
-	hoverSettings={HoverUnclickedSettings}/>
+      {#await auth_promise}
+        <p>waiting...</p>
+      {:then response}
+        {#each response as status}
+          <div class="post">
+            <span id="source" class="imptDetails">{status["source"]} |</span>
+            <span id="username" class="imptDetails"
+              >{status["author"]["username"]}</span
+            ><br />
+            <span id="dateTime">{status["createdTime"]}</span><br />
+            <p>{status["content"]}</p>
+            <br /><br />
+          </div>
+        {/each}
+      {:catch error}
+        <p style="color: red">{error.message}</p>
+      {/await}
+    </main>
+  </div>
 
+  <Navbar_mobile
+    mentions={ClickedMentions}
+    hoverMentions={HoverClickedMentions}
+    dm={UnclickedDM}
+    hoverDM={HoverUnclickedDM}
+    settings={UnclickedSettings}
+    hoverSettings={HoverUnclickedSettings}
+  />
 </div>
 
-
 <style>
-	main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		padding: 2rem;
-		width: 100%;
-		margin: 0 auto;
-		box-sizing: border-box;
-	} 
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
 
-	@media screen and (hover: none) {
-		.desktop-format {  
-            display: flex;
-            flex-direction: column;
-            align-items: stretch;
-			margin: 0;
-        }
-	}
+  @media screen and (hover: none) {
+    .desktopFormat {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      margin: 0;
+    }
+  }
 
-	@media screen and (hover: hover) {
-		.desktop-format {
-            display: flex;
-            flex-direction: row;
-			margin: 0;
-        }
-		.content {
-			display: flex;
-			flex-direction: column;
-			margin-left: 11.5%;
-			width:100%;
-		}
-	}
+  @media screen and (hover: hover) {
+    .desktopFormat {
+      display: flex;
+      flex-direction: row;
+      margin: 0;
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
+      margin-left: 11.5%;
+      width: 100%;
+    }
+  }
 </style>

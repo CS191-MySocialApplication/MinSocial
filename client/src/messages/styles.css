@@ -7,16 +7,16 @@ main {
   color: white;
 }
 
-.impt-details, p {
+.imptDetails, p {
   font-size: 14px;
 }
 
-.impt-details {
+.imptDetails {
   letter-spacing: 0.5px;
   font-weight: 700;
 }
 
-#datetime {
+#dateTime {
   color: #acacac;
   font-weight: 600;
   font-size: 12px;
