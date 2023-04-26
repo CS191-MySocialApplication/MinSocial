@@ -1,8 +1,8 @@
 <script>
   import Header from "../components/Header.svelte";
   import Postform from "../components/Postform.svelte";
-  import Navbar_desktop from "../components/NavbarDesktop.svelte";
-  import Navbar_mobile from "../components/NavbarMobile.svelte";
+  import NavbarDesktop from "../components/NavbarDesktop.svelte";
+  import NavbarMobile from "../components/NavbarMobile.svelte";
 
   import ClickedMentions from "../../public/clicked_mentions.png";
   import HoverClickedMentions from "../../public/hover_clicked_mentions.png";
@@ -27,7 +27,7 @@
 </script>
 
 <div class="desktopFormat">
-  <Navbar_desktop
+  <NavbarDesktop
     mentions={ClickedMentions}
     hoverMentions={HoverClickedMentions}
     dm={UnclickedDM}
@@ -62,7 +62,7 @@
     </main>
   </div>
 
-  <Navbar_mobile
+  <NavbarMobile
     mentions={ClickedMentions}
     hoverMentions={HoverClickedMentions}
     dm={UnclickedDM}
