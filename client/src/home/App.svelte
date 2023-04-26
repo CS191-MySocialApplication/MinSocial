@@ -1,8 +1,8 @@
 <script>
   import Header from "../components/Header.svelte";
   import Postform from "../components/Postform.svelte";
-  import Navbar_desktop from "../components/Navbar_desktop.svelte";
-  import Navbar_mobile from "../components/Navbar_mobile.svelte";
+  import Navbar_desktop from "../components/NavbarDesktop.svelte";
+  import Navbar_mobile from "../components/NavbarMobile.svelte";
 
   import ClickedMentions from "../../public/clicked_mentions.png";
   import HoverClickedMentions from "../../public/hover_clicked_mentions.png";
