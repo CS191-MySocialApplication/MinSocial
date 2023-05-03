@@ -4,6 +4,16 @@
 
 This is a capstone project for CS 191/192 (Software Engineering I & II) in the University of the Philippines - Diliman.
 
+## Dependencies
+
+- OS: Preferably Ubuntu
+- Front-end:
+	- NVM (Preferably to install latest Node.js and NPM versions)
+	- Node.js 19.9.0
+	- NPM 9.6.0
+- Back-end:
+	- Python 3
+
 ## Installation
 
 1. Register the application
