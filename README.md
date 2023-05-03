@@ -53,11 +53,14 @@ After setting up the virtual environment, enter the command <code>pip install -r
 
 #### Install front-end dependences
 
-After doing this, open up a second terminal (on the same directory) and <code>cd</code> into <code>/client</code>. Then enter the following:
+After doing this, open up a second terminal (on the same directory) then enter the following:
 
-1. <code>npm i</code>
-2. <code>npm i @fontsource/open-sans</code> (to install the fonts used)
-3. <code>npm run build</code>
+```
+nvm install 19.9.0
+cd client
+npm i
+npm run build
+```
 
 ### Running the server
 
