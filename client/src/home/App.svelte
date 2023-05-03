@@ -53,7 +53,7 @@
 						<span id="source" class="impt-details">{status["source"]} |</span> 
 						<span id="username" class="impt-details">{status["author"]["username"]}</span><br/>
 						<span id="datetime">{status["createdTime"]}</span><br/>
-						<p>{status["content"]}</p><br/><br/>
+						<p>{@html status["content"]}</p><br/><br/>
 					</div>
 					
 				{/each}
