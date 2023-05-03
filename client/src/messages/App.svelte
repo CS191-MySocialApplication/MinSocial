@@ -56,7 +56,7 @@
 						<span id="source" class="impt-details">{conversation["source"]} |</span> 
 						<span id="username" class="impt-details">{conversation["author"]["username"]}</span><br/>
 						<span id="datetime">{conversation["createdTime"]}</span><br/>
-						<p>{conversation["content"]}</p><br/><br/>
+						<p>{@html conversation["content"]}</p><br/><br/>
 					</div>
 				{/each}
 			{:catch error}
