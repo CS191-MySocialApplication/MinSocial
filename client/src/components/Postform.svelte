@@ -46,6 +46,9 @@
     #postContainer {
         display: flex;
         border-radius: 15px;   
+        border: solid;
+        border-color:#3c4444;
+        border-width:4px;
         background-color: #3c4444 ; /*#50c0cb #3c4444 #36676c;  */
         margin: 0 auto;
         width: 100%;
@@ -75,7 +78,7 @@
         background-color: #252c2c;
         font-family:"Open Sans";  
         font-size: 12px;   
-        width: 96.5%;
+        width: 100%;
         border-width: 0;
         resize: none;
         outline: none;

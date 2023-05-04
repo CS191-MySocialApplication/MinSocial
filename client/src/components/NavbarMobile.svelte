@@ -3,9 +3,62 @@
   export let hoverMentions;
   export let dm;
   export let hoverDM;
-  export let settings;
-  export let hoverSettings;
+  export let reply;
+  export let hoverReply;
+  export let logout;
+  export let hoverLogout;
+
+  import {onMount} from 'svelte';
+
+  let twtLogin = true;
+  let mstdnLogin = true;
+
+  let twtLoginLink = "";
+  let mstdnLoginLink = "";
+
+  onMount(async () =>{
+        twtLogin = document.cookie.split(";").some((item) => item.trim().startsWith("twtAccessToken="));
+        mstdnLogin = document.cookie.split(";").some((item) => item.trim().startsWith("mstdnAccessToken="));
+
+        if(twtLogin == false && mstdnLogin == false){window.location.replace("/")};
+
+        if(twtLogin == false){
+            let res = await fetch('/auth/twt');
+            let text = await res.json();
+
+            if (res.ok){
+                twtLoginLink = text["auth_url"];
+            }
+        }
+
+        if(mstdnLogin == false){
+            let res = await fetch('/auth/mstdn');
+            let text = await res.json();
+
+            if (res.ok){
+                mstdnLoginLink = text["auth_url"];
+            }
+        }
+    });
+
+    async function sendMstdnLogout(event){
+        console.log("sdfsdf")
+
+        let res = await fetch('/auth/mstdn/logout');
+		    let text = await res.json();
+
+		    if (res.ok){
+          if(twtLogin){
+            window.location.reload();
+          } else{
+            window.location.replace("/");
+          }
+		    } else{
+			    throw new Error(text);
+		    } 
+    }
 </script>
+
 
 <main>
   <nav class="navBarMobile">
@@ -17,6 +70,13 @@
         </a>
       </div>
 
+      <div class="reply">
+        <a class="icon" href="login.html">
+          <img src={reply} class="noHover" alt="reply" />
+          <img src={hoverReply} class="hoverImg" alt="hover reply" />
+        </a>
+      </div>
+
       <div class="dm">
         <a class="icon" href="/messages">
           <img src={dm} class="noHover" alt="dm" />
@@ -24,12 +84,15 @@
         </a>
       </div>
 
-      <div class="settings">
-        <a class="icon" href="login.html">
-          <img src={settings} class="noHover" alt="settings" />
-          <img src={hoverSettings} class="hoverImg" alt="hover settings" />
-        </a>
-      </div>
+      {#if mstdnLogin}
+        <div class="logout">
+          <a class="icon" on:click={sendMstdnLogout} href="#0">
+            <!--Log Out Mastodon-->
+            <img src={logout} class="noHover" alt="logout"/>
+            <img src={hoverLogout} class="hoverImg" alt="hover logout"/>
+          </a>
+        </div>
+      {/if}
     </div>
   </nav>
 </main>
@@ -71,7 +134,8 @@
 
     .mentions,
     .dm,
-    .settings {
+    .reply,
+    .logout {
       width: 40px;
       display: flex;
       justify-content: center;
@@ -79,7 +143,8 @@
 
     .mentions:hover .noHover,
     .dm:hover .noHover,
-    .settings:hover .noHover {
+    .reply:hover .noHover
+    .logout:hover .noHover {
       opacity: 0.5;
       transition: 0.25s ease;
     }
