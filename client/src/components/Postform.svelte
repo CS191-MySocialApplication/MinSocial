@@ -26,20 +26,17 @@
 <div id="postContainer">
     <form action="/api/compose" on:submit|preventDefault={handleOnSubmit}>
         <div id="containerTitle">
-            <p>
+            <span>
                 Write your thoughts
-            </p>
+            </span>
         </div>
 
         <div id="containerArea">
-            <textarea id="text" name="text" rows="5" cols="33" bind:value={statusText}/> <br> 
+            <textarea id="text" name="text" rows="3" bind:value={statusText}/>
         </div>
 
         <div id="containerFooter">
-            <div>
-
-            </div>
-            <input id="submitButton" type="submit">
+            <input id="submitButton" type="submit" value="Post">
         </div>
 
     </form>
@@ -48,26 +45,70 @@
 <style>
     #postContainer {
         display: flex;
-        border-width: 2px;
-        border-style: solid;
-        border-color: black;
-        border-radius: 25px;
+        border-radius: 15px;   
+        background-color: #3c4444 ; /*#50c0cb #3c4444 #36676c;  */
         margin: 0 auto;
+        width: 100%;
     }
+    
+    form {
+        width: 100%;    
+    }
+    
 
     #containerTitle{
+        /*
         border-bottom: 2px;
         border-bottom-style: solid;
         border-color: black;
-        padding: 0px 10px; 
+        */
+        font-size: 14px;
+        padding: 10px 15px;
+        font-weight: bold;
+        color: white;
     }
-
+    #containerArea{
+        display: flex;
+    }
+    textarea {
+        color: #acacac;
+        background-color: #252c2c;
+        font-family:"Open Sans";  
+        font-size: 12px;   
+        width: 96.5%;
+        border-width: 0;
+        resize: none;
+        outline: none;
+        padding: 15px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
     #containerFooter{
-        display:flex;
-        justify-content: space-between;
+        /*
         border-top: 2px;
         border-top-style: solid;
         border-color: black;
-        padding: 5px 10px; 
+        */
+        padding: 5px 15px; 
+        text-align: right;
+    }
+
+    input[type="submit"] {
+        background-color: #50c0cb;
+        color: #252c2c;
+        font-family:"Open Sans";  
+        font-size: 14px;
+        font-weight: bold;
+        border: none;
+        padding: 5px 15px;
+        border-radius: 15px; 
+    }
+
+    input[type="submit"]:hover {
+        background-color: #50c0cb; /*#a7dfe5;*/
+        opacity: 0.5;
+ 
     }
 </style>

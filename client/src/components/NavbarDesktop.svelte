@@ -3,8 +3,12 @@
     export let hoverMentions;
     export let dm;
     export let hoverDM;
-    export let settings;
-    export let hoverSettings;
+    export let reply;
+    export let hoverReply;
+    export let logout;
+    export let hoverLogout;
+    //export let settings;
+    //export let hoverSettings;
 
     import {onMount} from 'svelte';
 
@@ -88,50 +92,62 @@
                 </a>
             </div>
 
+            <div class="reply">
+                <a class="icon" href="login.html">
+                    <img src={reply} class="noHover" alt="reply"/>
+                    <img src={hoverReply} class="hoverImg" alt="hover reply"/>            
+                </a>
+            </div>
+
             <div class="dm">
                 <a class="icon" href="/messages">
                     <img src={dm} class="noHover" alt="dm"/>
                     <img src={hoverDM} class="hoverImg" alt="hover dm"/>            
                 </a>
             </div>
-
+            <!--
             <div class="settings">
                 <a class="icon" href="login.html">
                     <img src={settings} class="noHover" alt="settings"/>
                     <img src={hoverSettings} class="hoverImg" alt="hover settings"/>
                 </a>
             </div>    
-
+            -->
         </div>
     
         {#if !twtLogin}
             <br/><br/><br/>
-            <a class="settings log" href={twtLoginLink}>
+            <a class="settingsLog" href={twtLoginLink}>
                 Log in with Twitter
             </a>
         {:else}
             <br/><br/><br/>
-            <a class="settings log" on:click={sendTwtLogout} href="#0">
+            <a class="settingsLog" on:click={sendTwtLogout} href="#0">
                 Log Out Twitter
             </a>
         {/if}
         
         {#if !mstdnLogin}
             <br/><br/><br/>
-            <a class="settings log" href={mstdnLoginLink}>
+            <a class="settingsLog" href={mstdnLoginLink}>
                 Log in with Mastodon
             </a>
         {:else}
-            <br/><br/><br/>
-            <a class="settings log" on:click={sendMstdnLogout} href="#0">
-                Log Out Mastodon
-            </a>
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <div class="logout">
+                <a class="icon" on:click={sendMstdnLogout} href="#0">
+                    <!--Log Out Mastodon-->
+                    <img src={logout} class="noHover" alt="logout"/>
+                    <img src={hoverLogout} class="hoverImg" alt="hover logout"/>
+                </a>
+            </div>
         {/if}
     </nav>  
 </main>
 
 <style>
     main {
+        z-index: 2;
         position: fixed;
         top: 0;
         left: 0;
@@ -156,7 +172,7 @@
         padding-top: 30px;
     }
 
-    .mentions, .dm, .settings {
+    .mentions, .dm, .reply, .logout{
         height: 40px;
         display: flex;
         justify-content: center;
@@ -167,7 +183,7 @@
         height: 40px;
     }
     
-    .mentions:hover .noHover, .dm:hover .noHover, .settings:hover .noHover{
+    .mentions:hover .noHover, .dm:hover .noHover, .reply:hover .noHover, .logout:hover .noHover{
         opacity:0.5;
         transition: 0.25s ease;
     }
@@ -182,9 +198,7 @@
         z-index: 2;
     }
 
-    .log {
-        margin-left: 25px;
-    }
+    /*
     a {
         color: #252c2c;
         text-decoration: none;
@@ -192,5 +206,5 @@
 
     a:hover {
         text-decoration: underline;
-    }
+    }*/
 </style>

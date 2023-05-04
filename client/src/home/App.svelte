@@ -8,8 +8,14 @@
   import HoverClickedMentions from "../../public/hover_clicked_mentions.png";
   import UnclickedDM from "../../public/unclicked_dm.png";
   import HoverUnclickedDM from "../../public/hover_unclicked_dm.png";
-  import UnclickedSettings from "../../public/unclicked_settings.png";
-  import HoverUnclickedSettings from "../../public/hover_unclicked_settings.png";
+  import UnclickedReply from "../../public/unclicked_reply.png";
+  import HoverUnclickedReply from "../../public/hover_unclicked_reply.png";
+
+  import Logout from "../../public/logout.png";
+  import HoverLogout from "../../public/hover_logout.png";
+  
+  //import UnclickedSettings from "../../public/unclicked_settings.png";
+  //import HoverUnclickedSettings from "../../public/hover_unclicked_settings.png";
   import MentionsHeader from "../../public/mentions_header.png";
 
   async function getHomeContent() {
@@ -32,29 +38,27 @@
     hoverMentions={HoverClickedMentions}
     dm={UnclickedDM}
     hoverDM={HoverUnclickedDM}
-    settings={UnclickedSettings}
-    hoverSettings={HoverUnclickedSettings}
+    reply={UnclickedReply}
+    hoverReply={HoverUnclickedReply}
+    logout={Logout}
+    hoverLogout={HoverLogout}
   />
 
   <div class="content">
     <Header title="Mentions" icon={MentionsHeader} />
-
     <main>
       <Postform />
-
+      <br/>
       {#await auth_promise}
         <p>waiting...</p>
       {:then response}
         {#each response as status}
-          <div class="post">
-            <span id="source" class="imptDetails">{status["source"]} |</span>
-            <span id="username" class="imptDetails"
-              >{status["author"]["username"]}</span
-            ><br />
+          <a class="post" href="/messages">
+            <!--Change href to mentions thread-->
+            <p id="source" class="imptDetails">{status["source"]} | {status["author"]["username"]}</p>
             <span id="dateTime">{status["createdTime"]}</span><br />
             <p>{status["content"]}</p>
-            <br /><br />
-          </div>
+          </a>
         {/each}
       {:catch error}
         <p style="color: red">{error.message}</p>
@@ -67,19 +71,21 @@
     hoverMentions={HoverClickedMentions}
     dm={UnclickedDM}
     hoverDM={HoverUnclickedDM}
-    settings={UnclickedSettings}
-    hoverSettings={HoverUnclickedSettings}
+    reply={UnclickedReply}
+    hoverReply={HoverUnclickedReply}
+    logout={Logout}
+    hoverLogout={HoverLogout}
   />
 </div>
 
 <style>
   main {
+    margin-top: 90px;
     flex: 1;
     display: flex;
     flex-direction: column;
     padding: 2rem;
     width: 100%;
-    margin: 0 auto;
     box-sizing: border-box;
   }
 
@@ -104,5 +110,22 @@
       margin-left: 11.5%;
       width: 100%;
     }
+  }
+
+  a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-style: none none solid none;
+    border-color: #50c0cb;
+    border-width: 2px;
+    padding: 0px 14px;
+  }
+  a:hover {
+    background-color: #3c4444;
+    fill-opacity: 0.5;
+  }
+  .imptDetails {
+    margin-bottom: 0;
   }
 </style>

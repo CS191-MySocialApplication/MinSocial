@@ -11,11 +11,15 @@
 
 <style>
     main {
+        position: fixed;
+        z-index: 1;
+        width: 100%;
         font-family: "Open Sans", "sans-serif";
-        margin: 0;
         background-color: #252c2c;
         color: white;
         border-bottom: 3px solid #50c0cb;
+        margin: -8px 0px 0px 0px;
+
     }
     
     img{
@@ -27,7 +31,7 @@
         margin-right: 5px;
     }
     h1 {
-        margin: 0;
+        margin-top: 8px;
         font-weight: 700;
         letter-spacing: 0.5px;   
         display:inline-block;
