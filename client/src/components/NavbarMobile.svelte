@@ -15,9 +15,7 @@
 
   onMount(async () =>{
         mstdnLogin = document.cookie.split(";").some((item) => item.trim().startsWith("mstdnAccessToken="));
-
-        if(mstdnLogin == false){window.location.replace("/")};
-
+        
         if(mstdnLogin == false){
             let res = await fetch('/auth/mstdn');
             let text = await res.json();
@@ -35,11 +33,7 @@
 		    let text = await res.json();
 
 		    if (res.ok){
-          if(twtLogin){
-            window.location.reload();
-          } else{
-            window.location.replace("/");
-          }
+          window.location.replace("/");
 		    } else{
 			    throw new Error(text);
 		    } 
