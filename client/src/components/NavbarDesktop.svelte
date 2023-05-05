@@ -7,32 +7,17 @@
     export let hoverReply;
     export let logout;
     export let hoverLogout;
-    //export let settings;
-    //export let hoverSettings;
 
     import {onMount} from 'svelte';
 
-    let twtLogin = true;
     let mstdnLogin = true;
-
-    let twtLoginLink = "";
     let mstdnLoginLink = "";
 
 
     onMount(async () =>{
-        twtLogin = document.cookie.split(";").some((item) => item.trim().startsWith("twtAccessToken="));
         mstdnLogin = document.cookie.split(";").some((item) => item.trim().startsWith("mstdnAccessToken="));
 
-        if(twtLogin == false && mstdnLogin == false){window.location.replace("/")};
-
-        if(twtLogin == false){
-            let res = await fetch('/auth/twt');
-            let text = await res.json();
-
-            if (res.ok){
-                twtLoginLink = text["auth_url"];
-            }
-        }
+        if(mstdnLogin == false){window.location.replace("/")};
 
         if(mstdnLogin == false){
             let res = await fetch('/auth/mstdn');
@@ -43,24 +28,7 @@
             }
         }
     });
-
-    async function sendTwtLogout(){
-        
-        let res = await fetch('/auth/twt/logout');
-		let text = await res.json();
-
-		if (res.ok){
-			if(mstdnLogin){
-                window.location.reload();
-            } else{
-                window.location.replace("/");
-            }
-		} else{
-			throw new Error(text);
-		} 
-
-    }
-
+    
     async function sendMstdnLogout(event){
         console.log("sdfsdf")
 
@@ -105,34 +73,7 @@
                     <img src={hoverDM} class="hoverImg" alt="hover dm"/>            
                 </a>
             </div>
-            <!--
-            <div class="settings">
-                <a class="icon" href="login.html">
-                    <img src={settings} class="noHover" alt="settings"/>
-                    <img src={hoverSettings} class="hoverImg" alt="hover settings"/>
-                </a>
-            </div>    
-            -->
         </div>
-    
-        {#if !twtLogin}
-            <br/><br/><br/>
-            <a class="settingsLog" href={twtLoginLink}>
-                Log in with Twitter
-            </a>
-        {:else}
-            <br/><br/><br/>
-            <a class="settingsLog" on:click={sendTwtLogout} href="#0">
-                Log Out Twitter
-            </a>
-        {/if}
-        
-        {#if !mstdnLogin}
-            <br/><br/><br/>
-            <a class="settingsLog" href={mstdnLoginLink}>
-                Log in with Mastodon
-            </a>
-        {:else}
             <br/><br/><br/><br/><br/><br/><br/><br/><br/>
             <div class="logout">
                 <a class="icon" on:click={sendMstdnLogout} href="#0">
@@ -141,7 +82,7 @@
                     <img src={hoverLogout} class="hoverImg" alt="hover logout"/>
                 </a>
             </div>
-        {/if}
+        
     </nav>  
 </main>
 

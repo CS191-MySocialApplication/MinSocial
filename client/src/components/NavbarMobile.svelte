@@ -10,26 +10,13 @@
 
   import {onMount} from 'svelte';
 
-  let twtLogin = true;
   let mstdnLogin = true;
-
-  let twtLoginLink = "";
   let mstdnLoginLink = "";
 
   onMount(async () =>{
-        twtLogin = document.cookie.split(";").some((item) => item.trim().startsWith("twtAccessToken="));
         mstdnLogin = document.cookie.split(";").some((item) => item.trim().startsWith("mstdnAccessToken="));
 
-        if(twtLogin == false && mstdnLogin == false){window.location.replace("/")};
-
-        if(twtLogin == false){
-            let res = await fetch('/auth/twt');
-            let text = await res.json();
-
-            if (res.ok){
-                twtLoginLink = text["auth_url"];
-            }
-        }
+        if(mstdnLogin == false){window.location.replace("/")};
 
         if(mstdnLogin == false){
             let res = await fetch('/auth/mstdn');
@@ -84,15 +71,13 @@
         </a>
       </div>
 
-      {#if mstdnLogin}
-        <div class="logout">
-          <a class="icon" on:click={sendMstdnLogout} href="#0">
-            <!--Log Out Mastodon-->
-            <img src={logout} class="noHover" alt="logout"/>
-            <img src={hoverLogout} class="hoverImg" alt="hover logout"/>
-          </a>
-        </div>
-      {/if}
+      <div class="logout">
+        <a class="icon" on:click={sendMstdnLogout} href="#0">
+          <!--Log Out Mastodon-->
+          <img src={logout} class="noHover" alt="logout"/>
+          <img src={hoverLogout} class="hoverImg" alt="hover logout"/>
+        </a>
+      </div>
     </div>
   </nav>
 </main>
