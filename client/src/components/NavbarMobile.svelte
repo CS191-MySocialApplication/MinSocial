@@ -15,7 +15,7 @@
 
   onMount(async () =>{
         mstdnLogin = document.cookie.split(";").some((item) => item.trim().startsWith("mstdnAccessToken="));
-        
+
         if(mstdnLogin == false){
             let res = await fetch('/auth/mstdn');
             let text = await res.json();
@@ -51,12 +51,14 @@
         </a>
       </div>
 
+      <!---
       <div class="reply">
         <a class="icon" href="login.html">
           <img src={reply} class="noHover" alt="reply" />
           <img src={hoverReply} class="hoverImg" alt="hover reply" />
         </a>
       </div>
+      -->
 
       <div class="dm">
         <a class="icon" href="/messages">
