@@ -1,113 +1,131 @@
 <script>
-	import Header from "../components/Header.svelte";
-	import Postform from "../components/postform.svelte";
-	import Navbar_desktop from "../components/Navbar_desktop.svelte"
-	import Navbar_mobile from "../components/Navbar_mobile.svelte"
+  import Header from "../components/Header.svelte";
+  import Postform from "../components/Postform.svelte";
+  import NavbarDesktop from "../components/NavbarDesktop.svelte";
+  import NavbarMobile from "../components/NavbarMobile.svelte";
 
-	import ClickedMentions from '../../public/clicked_mentions.png';
-    import HoverClickedMentions from '../../public/hover_clicked_mentions.png';
-    import UnclickedDM from '../../public/unclicked_dm.png';
-    import HoverUnclickedDM from '../../public/hover_unclicked_dm.png';
-    import UnclickedSettings from '../../public/unclicked_settings.png';
-    import HoverUnclickedSettings from '../../public/hover_unclicked_settings.png';
-	import MentionsHeader from '../../public/mentions_header.png';
+  import ClickedMentions from "../../public/clicked_mentions.png";
+  import HoverClickedMentions from "../../public/hover_clicked_mentions.png";
+  import UnclickedDM from "../../public/unclicked_dm.png";
+  import HoverUnclickedDM from "../../public/hover_unclicked_dm.png";
+  import UnclickedReply from "../../public/unclicked_reply.png";
+  import HoverUnclickedReply from "../../public/hover_unclicked_reply.png";
 
-	async function getHomeContent(){
+  import Logout from "../../public/logout.png";
+  import HoverLogout from "../../public/hover_logout.png";
+  
+  //import UnclickedSettings from "../../public/unclicked_settings.png";
+  //import HoverUnclickedSettings from "../../public/hover_unclicked_settings.png";
+  import MentionsHeader from "../../public/mentions_header.png";
 
-		let res = await fetch('/api/home');
-		let text = await res.json();
+  async function getHomeContent() {
+    let res = await fetch("/api/home");
+    let text = await res.json();
 
-		if (res.status == 200 || res.status == 206){
-			return text;
-		}else{
-			throw new Error(text);
-		}
+    if (res.status == 200 || res.status == 206) {
+      return text;
+    } else {
+      throw new Error(text);
+    }
+  }
 
-	}
-
-
-	let auth_promise = getHomeContent();
-
+  let auth_promise = getHomeContent();
 </script>
-<div class="desktop-format">
 
-	<Navbar_desktop
-	mentions={ClickedMentions}
-	hoverMentions={HoverClickedMentions}
-	dm={UnclickedDM}
-	hoverDM={HoverUnclickedDM}
-	settings={UnclickedSettings}
-	hoverSettings={HoverUnclickedSettings}
-	/>
-	<div class="content">
-		<Header title="Mentions" icon={MentionsHeader}/>
-		<main>
+<div class="desktopFormat">
+  <NavbarDesktop
+    mentions={ClickedMentions}
+    hoverMentions={HoverClickedMentions}
+    dm={UnclickedDM}
+    hoverDM={HoverUnclickedDM}
+    reply={UnclickedReply}
+    hoverReply={HoverUnclickedReply}
+    logout={Logout}
+    hoverLogout={HoverLogout}
+  />
 
-			<Postform/>
+  <div class="content">
+    <Header title="Mentions" icon={MentionsHeader} />
+    <main>
+      <Postform />
+      <br/>
+      {#await auth_promise}
+        <p>waiting...</p>
+      {:then response}
+        {#each response as status}
+          <a class="post" href="/messages">
+            <!--Change href to mentions thread-->
+            <p id="source" class="imptDetails">{status["source"]} | {status["author"]["username"]}</p>
+            <span id="dateTime">{status["createdTime"]}</span><br />
+            <p>{@html status["content"]}</p>
+          </a>
+        {/each}
+      {:catch error}
+        <p style="color: red">{error.message}</p>
+      {/await}
+    </main>
+  </div>
 
-			{#await auth_promise}
-				<p>waiting...</p>
-			{:then response}
-				{#each response as status}
-					<div class="post">
-						<span id="source" class="impt-details">{status["source"]} |</span> 
-						<span id="username" class="impt-details">{status["author"]["username"]}</span><br/>
-						<span id="datetime">{status["createdTime"]}</span><br/>
-						<p>{@html status["content"]}</p><br/><br/>
-					</div>
-					
-				{/each}
-			{:catch error}
-				<p style="color: red">{error.message}</p>
-			{/await}
-
-		</main>
-	</div>
-	<Navbar_mobile 
-	mentions={ClickedMentions}
-	hoverMentions={HoverClickedMentions}
-	dm={UnclickedDM}
-	hoverDM={HoverUnclickedDM}
-	settings={UnclickedSettings}
-	hoverSettings={HoverUnclickedSettings}/>
+  <NavbarMobile
+    mentions={ClickedMentions}
+    hoverMentions={HoverClickedMentions}
+    dm={UnclickedDM}
+    hoverDM={HoverUnclickedDM}
+    reply={UnclickedReply}
+    hoverReply={HoverUnclickedReply}
+    logout={Logout}
+    hoverLogout={HoverLogout}
+  />
 </div>
 
-
 <style>
+  main {
+    margin-top: 90px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
 
-	main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		padding: 2rem;
-		width: 100%;
-		/*max-width: 64rem;*/
-		margin: 0 auto;
-		box-sizing: border-box;
-	} 
+  @media screen and (hover: none) {
+    .desktopFormat {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      margin: 0;
+    }
+  }
 
+  @media screen and (hover: hover) {
+    .desktopFormat {
+      display: flex;
+      flex-direction: row;
+      margin: 0;
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
+      margin-left: 11.5%;
+      width: 100%;
+    }
+  }
 
-	@media (max-width: 479px) {
-		.desktop-format {  
-            display: flex;
-            flex-direction: column;
-            align-items: stretch;
-			margin:0;
-        }
-	}
-
-	@media (min-width: 480px) {
-		.desktop-format {
-            display: flex;
-            flex-direction: row;
-			margin: 0;
-        }
-		.content {
-			display: flex;
-			flex-direction: column;
-			margin-left: 11.5%;
-			width:100%;
-		}
-	}
-
+  a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-style: none none solid none;
+    border-color: #50c0cb;
+    border-width: 2px;
+    padding: 0px 14px;
+  }
+  a:hover {
+    background-color: #3c4444;
+    fill-opacity: 0.5;
+  }
+  .imptDetails {
+    margin-bottom: 0;
+  }
 </style>
