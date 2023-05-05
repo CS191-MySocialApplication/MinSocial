@@ -28,7 +28,6 @@
     });
     
     async function sendMstdnLogout(event){
-        console.log("sdfsdf")
 
         let res = await fetch('/auth/mstdn/logout');
 		let text = await res.json();
@@ -45,30 +44,30 @@
 
 <main>
     <nav class="navBarDesktop">
-        <div class="iconContainer">
+        <div class="iconContainerOutside">
+            <div class="iconContainer">
 
-            <div class="mentions">
-                <a class="icon" href="/home">
-                    <img src={mentions} class="noHover" alt="mentions"/>
-                    <img src={hoverMentions} class="hoverImg" alt="hover mentions"/>            
-                </a>
-            </div>
+                <div class="mentions">
+                    <a class="icon" href="/home">
+                        <img src={mentions} class="noHover" alt="mentions"/>
+                        <img src={hoverMentions} class="hoverImg" alt="hover mentions"/>            
+                    </a>
+                </div>
 
-            <div class="reply">
-                <a class="icon" href="login.html">
-                    <img src={reply} class="noHover" alt="reply"/>
-                    <img src={hoverReply} class="hoverImg" alt="hover reply"/>            
-                </a>
-            </div>
+                <div class="reply">
+                    <a class="icon" href="login.html">
+                        <img src={reply} class="noHover" alt="reply"/>
+                        <img src={hoverReply} class="hoverImg" alt="hover reply"/>            
+                    </a>
+                </div>
 
-            <div class="dm">
-                <a class="icon" href="/messages">
-                    <img src={dm} class="noHover" alt="dm"/>
-                    <img src={hoverDM} class="hoverImg" alt="hover dm"/>            
-                </a>
+                <div class="dm">
+                    <a class="icon" href="/messages">
+                        <img src={dm} class="noHover" alt="dm"/>
+                        <img src={hoverDM} class="hoverImg" alt="hover dm"/>            
+                    </a>
+                </div>
             </div>
-        </div>
-            <br/><br/><br/><br/><br/><br/><br/><br/><br/>
             <div class="logout">
                 <a class="icon" on:click={sendMstdnLogout} href="#0">
                     <!--Log Out Mastodon-->
@@ -76,7 +75,7 @@
                     <img src={hoverLogout} class="hoverImg" alt="hover logout"/>
                 </a>
             </div>
-        
+        </div>
     </nav>  
 </main>
 
@@ -99,12 +98,21 @@
             display: none;
         }
     }
-
+    .iconContainerOutside {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
     .iconContainer {
+        padding-top: 30px;
         display: flex;
         flex-direction: column;
         gap: 15px;
-        padding-top: 30px;
+    }
+    .logout {
+        position: absolute;
+        bottom: 0;
+        padding-bottom: 30px;
     }
 
     .mentions, .dm, .reply, .logout{
