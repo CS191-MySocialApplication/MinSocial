@@ -44,13 +44,14 @@
 
 <style>
     #postContainer {
+        box-sizing: border-box;
         display: flex;
         border-radius: 15px;   
         border: solid;
         border-color:#3c4444;
         border-width:4px;
         background-color: #3c4444 ; /*#50c0cb #3c4444 #36676c;  */
-        margin: 0 auto;
+        margin: 0 0 32px 0;
         width: 100%;
     }
     
