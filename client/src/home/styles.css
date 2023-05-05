@@ -21,3 +21,8 @@ main {
   font-weight: 600;
   font-size: 12px;
 }/*# sourceMappingURL=styles.css.map */
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
