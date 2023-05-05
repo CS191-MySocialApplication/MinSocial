@@ -56,7 +56,7 @@
             <!--Change href to mentions thread-->
             <p id="source" class="imptDetails">{status["source"]} | {status["author"]["username"]}</p>
             <span id="dateTime">{status["createdTime"]}</span><br />
-            <p>{@html status["content"]}</p>
+            <p id="content">{@html status["content"]}</p>
           </a>
         {/each}
       {:catch error}
@@ -127,4 +127,5 @@
   .imptDetails {
     margin-bottom: 0;
   }
+  
 </style>
