@@ -121,7 +121,7 @@
     color: inherit;
     border-style: none none solid none;
     border-color: #50c0cb;
-    border-width: 2px;
+    border-width: 1px;
     padding: 0px 14px;
   }
   a:hover {
