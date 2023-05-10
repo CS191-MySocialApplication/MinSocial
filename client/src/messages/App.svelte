@@ -1,6 +1,6 @@
 <script>
   import Header from "../components/Header.svelte";
-  //import Postform from "../components/Postform.svelte";
+  import Messageform from "../components/Messageform.svelte";
   import NavbarDesktop from "../components/NavbarDesktop.svelte";
   import NavbarMobile from "../components/NavbarMobile.svelte";
   import { each } from "svelte/internal";
@@ -47,6 +47,7 @@
   <div class="content">
     <Header title="Messages" icon={MessagesHeader} />
     <main>
+      <Messageform />
       {#await auth_promise}
         <p>waiting...</p>
       {:then conversations}

@@ -29,7 +29,7 @@ class Status(metaclass=ABCMeta):
 class Tweet(Status):
     source = "Twitter"
     
-    def __init__(self, data: dict[str, any], author: dict[str, any]):
+    def __init__(self, data, author):
 
         assert("id" in data)
         assert("author_id" in data)
@@ -45,7 +45,7 @@ class Tweet(Status):
 class Toot(Status):
     source = "Mastodon"
 
-    def __init__(self, toot: dict[str, any]):
+    def __init__(self, toot):
         
         assert("id" in toot)
         assert("account" in toot)
