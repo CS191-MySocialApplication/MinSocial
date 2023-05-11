@@ -2,7 +2,9 @@
   "extends": ["@parcel/config-default"],
   "transformers": {
     "*.svelte": ["@plasmohq/parcel-transformer-svelte3"],
-    "*.{ts,tsx}": ["@parcel/transformer-typescript-tsc"],
     "*.{sass, scss}": ["@parcel/transformer-sass"]
+  },
+  "optimizers": {
+    "*.{js,mjs,cjs}": ["@parcel/optimizer-swc"]
   }
 }

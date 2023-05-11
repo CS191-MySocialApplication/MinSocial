@@ -14,14 +14,13 @@
     "watch": "parcel watch"
   },
   "devDependencies": {
-    "@parcel/transformer-typescript-tsc": "^2.8.3",
+    "@parcel/optimizer-swc": "^2.8.3",
     "@plasmohq/parcel-transformer-svelte3": "^0.4.5",
     "parcel": "^2.8.3",
     "svelte": "^3.56.0",
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "@fontsource/open-sans": "^4.5.14",
-    "esbuild": "^0.17.11"
+    "@fontsource/open-sans": "^4.5.14"
   }
 }
