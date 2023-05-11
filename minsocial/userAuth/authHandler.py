@@ -1,12 +1,10 @@
-from minsocial import consts
+
 
 from requests_oauthlib import OAuth2Session
-
 import json
-
 import urllib.parse
-
 import requests
+import os
 
 ### DEPRECATED
 class TwtAuthHandler():
@@ -97,13 +95,10 @@ class TwtAuthHandler():
 class MstdnAuthHandler():
     def __init__(self, code = None):
 
-        with open("config.json", "r", encoding="utf-8") as config_file:
-            configs = json.loads(config_file.read())
-
-        self.redirect_uri = "{}/callback/mstdn".format(consts.HOST)
+        self.redirect_uri = "{}/callback/mstdn".format(os.getenv("server_host_url"))
         self.response_type = "code"
-        self.client_id = configs["mastodon_client_id"]
-        self.client_secret = configs["mastodon_client_secret"]
+        self.client_id = os.getenv("mastodon_client_id")
+        self.client_secret = os.getenv("mastodon_client_secret")
         self.scope = ["read","write","follow"]
         self.state = "state"
         self.force_login = "true"
@@ -111,7 +106,7 @@ class MstdnAuthHandler():
 
 
     def get_auth_url(self):
-        url = consts.MSTDN_API_BASE_URL+"/oauth/authorize?"
+        url = os.getenv("mastodon_api_base_url")+"/oauth/authorize?"
         parameters = {
             "redirect_uri": self.redirect_uri,
             "response_type": self.response_type,
@@ -126,7 +121,7 @@ class MstdnAuthHandler():
     def get_tokens(self):
         assert(self.code != None)
 
-        url = consts.MSTDN_API_BASE_URL+"/oauth/token"
+        url = os.getenv("mastodon_api_base_url")+"/oauth/token"
         headers = {"Content-Type": "application/x-www-form-urlencoded"}
     
         dataToSend = {
@@ -147,7 +142,7 @@ class MstdnAuthHandler():
         return r.json()
     
     def revoke_tokens(self, accessToken):
-        url = consts.MSTDN_API_BASE_URL+"/oauth/revoke"
+        url = os.getenv("mastodon_api_base_url")+"/oauth/revoke"
         headers = {"Content-Type": "application/x-www-form-urlencoded"}
 
         if accessToken is not None:
