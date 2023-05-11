@@ -2,7 +2,7 @@ from mastodon import Mastodon
 
 from minsocial.models.message import MstdnMsg
 
-from minsocial import consts
+import os
 
 def generate_conversation_list(twt_access_key=None, mstdn_access_key=None):
     assert(twt_access_key is not None or mstdn_access_key is not None)
@@ -29,7 +29,7 @@ def generate_twt_conversation_list(twt_access_key):
 
 def generate_mstdn_conversation_list(mstdn_access_key):
 
-    client = Mastodon(api_base_url=consts.MSTDN_API_BASE_URL, access_token=mstdn_access_key)
+    client = Mastodon(api_base_url=os.getenv("mastodon_api_base_url"), access_token=mstdn_access_key)
 
     conversations_list = client.conversations()
 
