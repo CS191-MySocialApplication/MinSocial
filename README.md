@@ -54,7 +54,7 @@ Then we proceed to set up your Mastodon Application:
 5. In the User authentication settings, press set up.
 6. Set App permissions to Read and write and Direct Message.
 7. Set Type of App to Native App.
-8. Set callback URL to http://127.0.0.1:5000/callback/mstdn.
+8. Set callback URL to http://127.0.0.1:5000/callback/twt.
 9. Set website URL to anything.
 10. Copy the Client ID and paste it into client_id.json.
   
@@ -80,3 +80,11 @@ npm run build
 ### Running the server
 
 Go back to the first terminal (root directory) and enter <code>flask --app minsocial run</code>
+
+### Running as server in a local network
+
+To run as a server in a local network, do the following steps.
+
+1. Find your local network IP address (seen in `ifconfig`). Let this be `YOUR_IP_ADDRESS_IN_THE_NETWORK`.
+2. Add the following to the redirect URI form in the Mastodon App Dashboard: `http://YOUR_IP_ADDRESS_IN_THE_NETWORK:5000/callback/mstdn` (Also see Mastodon Installation Guide).
+3. Go to the project folder and enter `flask --app minsocial run --host=0.0.0.0`
