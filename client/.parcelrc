@@ -5,6 +5,7 @@
     "*.{sass, scss}": ["@parcel/transformer-sass"]
   },
   "optimizers": {
-    "*.{js,mjs,cjs}": ["@parcel/optimizer-swc"]
+    "*.{js,mjs,cjs}": ["@parcel/optimizer-swc"],
+    "*.png": []
   }
 }
