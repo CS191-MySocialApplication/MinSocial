@@ -28,9 +28,24 @@ This is a capstone project for CS 191/192 (Software Engineering I & II) in the U
 
 #### Linking the Application with Mastodon
 
-1. Access the Mastodon Developer Portal.
+When linking the application with Mastodon, you would have to chose a Mastodon instance with your account. Let its URL be `INSTANCE_URL`.
 
-#### Linking the Application with Twitter
+Place the URL of the instance in the `.env` file in the project folder in the field `mastodon_api_base_url`.
+
+Then we proceed to set up your Mastodon Application:
+
+1. Access the <b>Mastodon Developer Dashboard</b> at `[INSTANCE_URL]/settings/applications`. Note that you might need to sign up first before proceeding to the next step.
+2. Press *`New application`*.
+3. Set the name of the application
+4. Add the following in the `Redirect URI` text area:
+	- http://127.0.0.1:5000/callback/mstdn
+	- http://YOUR_IP_ADDRESS_IN_THE_NETWORK:5000/callback/mstdn (optional. Add this if you want to run your server in a local network. See section on this below)
+5. Press `Submit`
+6. Select the newly created application in the dashboard
+7. Copy the `Client Key` and `Client Secret`
+8. Paste the Mastodon `Client Key` and `Client Secret` to `PROJECT_FOLDER/.env`.
+
+#### Linking the Application with Twitter (DEPRECATED)
 
 1. Access the <a href="https://developer.twitter.com/en/portal/dashboard">Twitter Developer Portal </a>. Note that you might need to sign up first before proceeding to the next step.
 2. Create a project then add an app.
@@ -39,7 +54,7 @@ This is a capstone project for CS 191/192 (Software Engineering I & II) in the U
 5. In the User authentication settings, press set up.
 6. Set App permissions to Read and write and Direct Message.
 7. Set Type of App to Native App.
-8. Set callback URL to http://127.0.0.1:5000/callback/mstdn.
+8. Set callback URL to http://127.0.0.1:5000/callback/twt.
 9. Set website URL to anything.
 10. Copy the Client ID and paste it into client_id.json.
   
@@ -65,3 +80,11 @@ npm run build
 ### Running the server
 
 Go back to the first terminal (root directory) and enter <code>flask --app minsocial run</code>
+
+### Running as server in a local network
+
+To run as a server in a local network, do the following steps.
+
+1. Find your local network IP address (seen in `ifconfig`). Let this be `YOUR_IP_ADDRESS_IN_THE_NETWORK`.
+2. Add the following to the redirect URI form in the Mastodon App Dashboard: `http://YOUR_IP_ADDRESS_IN_THE_NETWORK:5000/callback/mstdn` (Also see Mastodon Installation Guide).
+3. Go to the project folder and enter `flask --app minsocial run --host=0.0.0.0`

@@ -1,4 +1,4 @@
-new-env/
+.venv/
 
 *.pyc
 __pycache__/
@@ -16,3 +16,5 @@ build/
 tests/simulated_responses/
 
 config.json
+
+.env

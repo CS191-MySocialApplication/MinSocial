@@ -3,7 +3,7 @@ from flask import (
 )
 
 from minsocial.decorators import wrap_json, authenticate
-from minsocial import consts
+import os
 
 import tweepy
 from mastodon import Mastodon
@@ -27,7 +27,7 @@ def compose_tweet():
     
 
     if mstdnAccess:
-        client = Mastodon(api_base_url=consts.MSTDN_API_BASE_URL, access_token=mstdnAccess)
+        client = Mastodon(api_base_url=os.getenv("mastodon_api_base_url"), access_token=mstdnAccess)
         toot = client.status_post(request.form['text'])
 
 
