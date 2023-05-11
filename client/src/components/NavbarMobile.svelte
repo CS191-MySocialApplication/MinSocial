@@ -27,7 +27,6 @@
     });
 
     async function sendMstdnLogout(event){
-        console.log("sdfsdf")
 
         let res = await fetch('/auth/mstdn/logout');
 		    let text = await res.json();

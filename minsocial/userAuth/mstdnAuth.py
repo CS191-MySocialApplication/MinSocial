@@ -22,8 +22,6 @@ def log_in():
 def callback():
     code = request.args["code"]
     
-    print(code)
-
     handler = MstdnAuthHandler(code)
     token = handler.get_tokens()
 

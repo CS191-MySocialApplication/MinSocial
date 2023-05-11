@@ -135,8 +135,6 @@ class MstdnAuthHandler():
         
         r = requests.post(url, headers=headers, data=dataToSend)
 
-        print(r.status_code)
-
         assert(r.status_code == 200)
 
         return r.json()
