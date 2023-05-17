@@ -12,7 +12,8 @@ main {
     color: $white;
 }
 
-.imptDetails, p {
+.imptDetails,
+p {
     font-size: 14px;
 }
 
@@ -25,4 +26,9 @@ main {
     color: $light-gray;
     font-weight: 600;
     font-size: 12px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
 }
