@@ -29,7 +29,7 @@
         background-color: #252c2c;
         color: white;
         border-bottom: 3px solid #50c0cb;
-        margin: -8px 0px 0px 8px;
+        margin: -8px 0px 0px 0px;
     }
     .headerContainer {
         display: flex;
