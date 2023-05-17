@@ -2,7 +2,7 @@ from mastodon import Mastodon
 from minsocial.models.status import Toot
 
 import os
-
+from datetime import datetime, timezone, timedelta
 
 def generate_mentions_timeline(twt_access_key=None, mstdn_access_key=None):
     assert(twt_access_key or mstdn_access_key)
@@ -30,7 +30,25 @@ def generate_twt_mentions(twt_access_key): # ISSUE: Twitter API will eventually 
 def generate_mstdn_mentions(mstdn_access_key):
     
     client = Mastodon(api_base_url=os.getenv("mastodon_api_base_url"), access_token=mstdn_access_key)
-    response = client.notifications(mentions_only=True)
+    tl = []
+
+    user = client.account_verify_credentials()
+    owntoots = client.account_statuses(id=user["id"], exclude_reblogs=True, exclude_replies=True) 
+    for toots in owntoots:
+        tootTime = toots['created_at']
+        now = datetime.now(timezone.utc)
+        timeDiff = now-tootTime
+        maxTimeDiff = timedelta(hours=0, minutes=1, seconds=0, microseconds=0)
+        if maxTimeDiff > timeDiff:
+            tl.append(toots)
+        break
     
+    response = client.notifications(mentions_only=True)
+
     for notif in response:
-        yield Toot(notif["status"]).asdict()
+        tl.append(notif["status"])
+
+    sortTL = sorted(tl, key=lambda d: d['created_at'], reverse=True)
+
+    for post in sortTL:
+        yield Toot(post).asdict()
