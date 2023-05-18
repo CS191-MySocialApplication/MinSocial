@@ -29,6 +29,9 @@ def home():
 def message():
     return send_from_directory('../client/dist/messages', "index.html")
 
+@bp.route("/replies")
+def reply():
+    return send_from_directory('../client/dist/replies', "index.html")
 
 @bp.route("/<path:path>")
 def sendfile(path):
