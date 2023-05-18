@@ -7,7 +7,8 @@
     "./src/callback/mstdn/index.html",
     "./src/home/index.html",
     "./src/messages/index.html",
-    "./src/replies/index.html"
+    "./src/replies/index.html",
+    "./src/post/index.html"
   ],
   "scripts": {
     "start": "parcel",

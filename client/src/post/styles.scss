@@ -1,0 +1,34 @@
+$white: white;
+$teal: #50c0cb;
+$dark-gray: #252c2c;
+$light-gray: #acacac;
+
+html {
+    background-color: $dark-gray;
+}
+
+main {
+    font-family: "Open Sans", "sans-serif";
+    color: $white;
+}
+
+.imptDetails,
+p {
+    font-size: 14px;
+}
+
+.imptDetails {
+    letter-spacing: 0.5px;
+    font-weight: 700;
+}
+
+#dateTime {
+    color: $light-gray;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}

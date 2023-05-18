@@ -1,8 +1,7 @@
 <script>
-  // Works when you place the component in the same directory
   import Header from "../components/Header.svelte";
   import Postform from "../components/Postform.svelte";
-  import NavbarDesktop from "../components/NavbarDesktop.svelte"; 
+  import NavbarDesktop from "../components/NavbarDesktop.svelte";
   import NavbarMobile from "../components/NavbarMobile.svelte";
 
   import ClickedMentions from "../../public/clicked_mentions.png";
@@ -17,7 +16,7 @@
   
   //import UnclickedSettings from "../../public/unclicked_settings.png";
   //import HoverUnclickedSettings from "../../public/hover_unclicked_settings.png";
-  import ReplyHeader from "../../public/reply_header.png";
+  import MentionsHeader from "../../public/mentions_header.png";
 
   async function getHomeContent() {
     let res = await fetch("/api/home");
@@ -46,23 +45,7 @@
   />
 
   <div class="content">
-    <Header title="Replies" icon={ReplyHeader} />
     <main>
-      <Postform />
-      {#await auth_promise}
-        <p>waiting...</p>
-      {:then response}
-        {#each response as status}
-          <a class="post" href="/messages">
-            <!--Change href to mentions thread-->
-            <p id="source" class="imptDetails">{status["source"]} | {status["author"]["username"]}</p>
-            <span id="dateTime">{status["createdTime"]}</span><br />
-            <p>{@html status["content"]}</p>
-          </a>
-        {/each}
-      {:catch error}
-        <p style="color: red">{error.message}</p>
-      {/await}
     </main>
   </div>
 
