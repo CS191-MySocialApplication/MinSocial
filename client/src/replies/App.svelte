@@ -5,12 +5,12 @@
   import NavbarDesktop from "../componentsFolder/NavbarDesktop.svelte"; 
   import NavbarMobile from "../componentsFolder/NavbarMobile.svelte";
 
-  import ClickedMentions from "../../public/clicked_mentions.png";
-  import HoverClickedMentions from "../../public/hover_clicked_mentions.png";
+  import UnclickedMentions from "../../public/unclicked_mentions.png";
+  import HoverUnclickedMentions from "../../public/hover_unclicked_mentions.png";
   import UnclickedDM from "../../public/unclicked_dm.png";
   import HoverUnclickedDM from "../../public/hover_unclicked_dm.png";
-  import UnclickedReply from "../../public/unclicked_reply.png";
-  import HoverUnclickedReply from "../../public/hover_unclicked_reply.png";
+  import ClickedReply from "../../public/clicked_reply.png";
+  import HoverClickedReply from "../../public/hover_clicked_reply.png";
 
   import Logout from "../../public/logout.png";
   import HoverLogout from "../../public/hover_logout.png";
@@ -35,12 +35,12 @@
 
 <div class="desktopFormat">
   <NavbarDesktop
-    mentions={ClickedMentions}
-    hoverMentions={HoverClickedMentions}
+    mentions={UnclickedMentions}
+    hoverMentions={HoverUnclickedMentions}
     dm={UnclickedDM}
     hoverDM={HoverUnclickedDM}
-    reply={UnclickedReply}
-    hoverReply={HoverUnclickedReply}
+    reply={ClickedReply}
+    hoverReply={HoverClickedReply}
     logout={Logout}
     hoverLogout={HoverLogout}
   />
@@ -48,7 +48,6 @@
   <div class="content">
     <Header title="Replies" icon={ReplyHeader} />
     <main>
-      <Postform />
       {#await auth_promise}
         <p>waiting...</p>
       {:then response}
@@ -67,12 +66,12 @@
   </div>
 
   <NavbarMobile
-    mentions={ClickedMentions}
-    hoverMentions={HoverClickedMentions}
+    mentions={UnclickedMentions}
+    hoverMentions={HoverUnclickedMentions}
     dm={UnclickedDM}
     hoverDM={HoverUnclickedDM}
-    reply={UnclickedReply}
-    hoverReply={HoverUnclickedReply}
+    reply={ClickedReply}
+    hoverReply={HoverClickedReply}
     logout={Logout}
     hoverLogout={HoverLogout}
   />
