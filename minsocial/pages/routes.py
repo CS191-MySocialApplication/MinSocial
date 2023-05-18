@@ -33,9 +33,9 @@ def message():
 def reply():
     return send_from_directory('../client/dist/replies', "index.html")
 
-@bp.route("/post")
-def post():
-    return send_from_directory('../client/dist/post', "index.html")
+@bp.route("/indivMention")
+def indivMention():
+    return send_from_directory('../client/dist/indivMention', "index.html")
 
 @bp.route("/<path:path>")
 def sendfile(path):

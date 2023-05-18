@@ -8,7 +8,7 @@
     "./src/home/index.html",
     "./src/messages/index.html",
     "./src/replies/index.html",
-    "./src/post/index.html"
+    "./src/indivMention/index.html"
   ],
   "scripts": {
     "start": "parcel",
