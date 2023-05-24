@@ -79,5 +79,7 @@ a {
   color: white;
   text-decoration: none;
   margin: 24px;
+  font-family: "Open Sans";
+  font-size: medium;
 }/*# sourceMappingURL=styles.css.map */
 </style>
