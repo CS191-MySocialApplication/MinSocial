@@ -9,15 +9,14 @@
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.8.3",
-    "@parcel/transformer-typescript-tsc": "^2.8.3",
+    "@parcel/optimizer-swc": "^2.8.3",
     "@plasmohq/parcel-transformer-svelte3": "^0.4.5",
     "parcel": "^2.8.3",
     "svelte": "^3.56.0",
-    "typescript": "^4.9.5"
+    "typescript": "^5.0.4"
   },
   "dependencies": {
     "@fontsource/open-sans": "^4.5.14",
-    "esbuild": "^0.17.11",
     "sass": "^1.62.1",
     "svelte-spa-router": "^3.3.0"
   }
