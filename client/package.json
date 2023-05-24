@@ -1,19 +1,14 @@
 {
   "name": "client",
   "description": "Builds front-end files for MinSocial",
-  "source": [
-    "./src/index.html",
-    "./src/callback/twt/index.html",
-    "./src/callback/mstdn/index.html",
-    "./src/home/index.html",
-    "./src/messages/index.html"
-  ],
+  "source": "./src/index.html",
   "scripts": {
     "start": "parcel",
     "build": "parcel build",
     "watch": "parcel watch"
   },
   "devDependencies": {
+    "@parcel/transformer-sass": "^2.8.3",
     "@parcel/transformer-typescript-tsc": "^2.8.3",
     "@plasmohq/parcel-transformer-svelte3": "^0.4.5",
     "parcel": "^2.8.3",
@@ -22,6 +17,8 @@
   },
   "dependencies": {
     "@fontsource/open-sans": "^4.5.14",
-    "esbuild": "^0.17.11"
+    "esbuild": "^0.17.11",
+    "sass": "^1.62.1",
+    "svelte-spa-router": "^3.3.0"
   }
 }
