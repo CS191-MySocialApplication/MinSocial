@@ -53,14 +53,13 @@
                         <img src={hoverMentions} class="hoverImg" alt="hover mentions"/>            
                     </a>
                 </div>
-                <!--
+                
                 <div class="reply">
-                    <a class="icon" href="login.html">
+                    <a class="icon" href="/replies">
                         <img src={reply} class="noHover" alt="reply"/>
                         <img src={hoverReply} class="hoverImg" alt="hover reply"/>            
                     </a>
                 </div>
-                -->
 
                 <div class="dm">
                     <a class="icon" href="/messages">

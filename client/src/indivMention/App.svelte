@@ -1,6 +1,5 @@
 <script>
   import Header from "../componentsFolder/Header.svelte";
-  import Postform from "../componentsFolder/Postform.svelte";
   import NavbarDesktop from "../componentsFolder/NavbarDesktop.svelte";
   import NavbarMobile from "../componentsFolder/NavbarMobile.svelte";
 
@@ -13,10 +12,8 @@
 
   import Logout from "../../public/logout.png";
   import HoverLogout from "../../public/hover_logout.png";
-  
-  //import UnclickedSettings from "../../public/unclicked_settings.png";
-  //import HoverUnclickedSettings from "../../public/hover_unclicked_settings.png";
-  import MentionsHeader from "../../public/mentions_header.png";
+
+  import backButton from "../../public/back.png";
 
   async function getHomeContent() {
     let res = await fetch("/api/home");
@@ -45,23 +42,8 @@
   />
 
   <div class="content">
-    <Header title="Mentions" icon={MentionsHeader} />
+    <Header title="Toot" icon={backButton} />
     <main>
-      <Postform />
-      {#await auth_promise}
-        <p>waiting...</p>
-      {:then response}
-        {#each response as status}
-          <a class="post" href="/indivMention">
-            <!--Change href to mentions thread-->
-            <p id="source" class="imptDetails">{status["source"]} | {status["author"]["username"]}</p>
-            <span id="dateTime">{status["createdTime"]}</span><br />
-            <p>{@html status["content"]}</p>
-          </a>
-        {/each}
-      {:catch error}
-        <p style="color: red">{error.message}</p>
-      {/await}
     </main>
   </div>
 

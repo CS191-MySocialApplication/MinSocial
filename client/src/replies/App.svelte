@@ -1,22 +1,20 @@
 <script>
+
   import Header from "../componentsFolder/Header.svelte";
-  import Postform from "../componentsFolder/Postform.svelte";
-  import NavbarDesktop from "../componentsFolder/NavbarDesktop.svelte";
+  import ReplyHeader from "../../public/reply_header.png";
+  import NavbarDesktop from "../componentsFolder/NavbarDesktop.svelte"; 
   import NavbarMobile from "../componentsFolder/NavbarMobile.svelte";
 
-  import ClickedMentions from "../../public/clicked_mentions.png";
-  import HoverClickedMentions from "../../public/hover_clicked_mentions.png";
+  import UnclickedMentions from "../../public/unclicked_mentions.png";
+  import HoverUnclickedMentions from "../../public/hover_unclicked_mentions.png";
   import UnclickedDM from "../../public/unclicked_dm.png";
   import HoverUnclickedDM from "../../public/hover_unclicked_dm.png";
-  import UnclickedReply from "../../public/unclicked_reply.png";
-  import HoverUnclickedReply from "../../public/hover_unclicked_reply.png";
+  import ClickedReply from "../../public/clicked_reply.png";
+  import HoverClickedReply from "../../public/hover_clicked_reply.png";
 
   import Logout from "../../public/logout.png";
   import HoverLogout from "../../public/hover_logout.png";
-  
-  //import UnclickedSettings from "../../public/unclicked_settings.png";
-  //import HoverUnclickedSettings from "../../public/hover_unclicked_settings.png";
-  import MentionsHeader from "../../public/mentions_header.png";
+  let value;
 
   async function getHomeContent() {
     let res = await fetch("/api/home");
@@ -34,26 +32,24 @@
 
 <div class="desktopFormat">
   <NavbarDesktop
-    mentions={ClickedMentions}
-    hoverMentions={HoverClickedMentions}
+    mentions={UnclickedMentions}
+    hoverMentions={HoverUnclickedMentions}
     dm={UnclickedDM}
     hoverDM={HoverUnclickedDM}
-    reply={UnclickedReply}
-    hoverReply={HoverUnclickedReply}
+    reply={ClickedReply}
+    hoverReply={HoverClickedReply}
     logout={Logout}
     hoverLogout={HoverLogout}
   />
 
   <div class="content">
-    <Header title="Mentions" icon={MentionsHeader} />
-    <main>
-      <Postform />
+    <Header bind:value={value} title="Replies" icon={ReplyHeader} />
+    <main style="display:{value}">
       {#await auth_promise}
         <p>waiting...</p>
       {:then response}
         {#each response as status}
-          <a class="post" href="/indivMention">
-            <!--Change href to mentions thread-->
+          <a class="post" href="/messages">
             <p id="source" class="imptDetails">{status["source"]} | {status["author"]["username"]}</p>
             <span id="dateTime">{status["createdTime"]}</span><br />
             <p>{@html status["content"]}</p>
@@ -66,12 +62,12 @@
   </div>
 
   <NavbarMobile
-    mentions={ClickedMentions}
-    hoverMentions={HoverClickedMentions}
+    mentions={UnclickedMentions}
+    hoverMentions={HoverUnclickedMentions}
     dm={UnclickedDM}
     hoverDM={HoverUnclickedDM}
-    reply={UnclickedReply}
-    hoverReply={HoverUnclickedReply}
+    reply={ClickedReply}
+    hoverReply={HoverClickedReply}
     logout={Logout}
     hoverLogout={HoverLogout}
   />

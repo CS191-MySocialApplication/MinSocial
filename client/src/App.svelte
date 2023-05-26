@@ -23,7 +23,7 @@
 		<p>waiting...</p>
 	{:then url}
 		<p>
-			<a href={url}>Log-in Using Mastodon</a>
+			<a href={url}>Login Using Mastodon</a>
 		</p>
 	{:catch error}
 		<p style="color: red">{error.message}</p>

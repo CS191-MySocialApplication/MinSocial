@@ -6,7 +6,9 @@
     "./src/callback/twt/index.html",
     "./src/callback/mstdn/index.html",
     "./src/home/index.html",
-    "./src/messages/index.html"
+    "./src/messages/index.html",
+    "./src/replies/index.html",
+    "./src/indivMention/index.html"
   ],
   "scripts": {
     "start": "parcel",

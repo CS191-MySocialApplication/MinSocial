@@ -23,7 +23,11 @@ p {
   font-size: 12px;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+nav {
+  background-color: #50c0cb;
+}
+
+img {
+  width: 40px;
+  height: 40px;
 }/*# sourceMappingURL=styles.css.map */
