@@ -1,0 +1,29 @@
+html {
+  background-color: #252c2c;
+}
+
+main {
+  font-family: "Open Sans", "sans-serif";
+  color: white;
+}
+
+.imptDetails,
+p {
+  font-size: 14px;
+}
+
+.imptDetails {
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+
+#dateTime {
+  color: #acacac;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}/*# sourceMappingURL=styles.css.map */

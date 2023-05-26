@@ -26,7 +26,13 @@
     .slider {
         display: flex;
         align-items: center;
-        padding: 0px 24px;
+    }
+
+    @media screen and (hover: none) {
+        .slider {
+            width: 150px;
+            padding-right: 16px;
+        }
     }
     .slider button {
         width: 3em;
