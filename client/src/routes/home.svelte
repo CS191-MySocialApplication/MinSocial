@@ -17,6 +17,8 @@
     //import UnclickedSettings from "../../public/unclicked_settings.png";
     //import HoverUnclickedSettings from "../../public/hover_unclicked_settings.png";
     import MentionsHeader from "../../public/mentions_header.png";
+
+    import {link} from 'svelte-spa-router';
   
     async function getHomeContent() {
       let res = await fetch("/api/home");
@@ -53,7 +55,7 @@
           <p>waiting...</p>
         {:then response}
           {#each response as status}
-            <a class="post" href="/messages">
+            <a class="post" href="/toot/{status["id"]}" use:link>
               <!--Change href to mentions thread-->
               <p id="source" class="imptDetails">{status["source"]} | {status["author"]["username"]}</p>
               <span id="dateTime">{status["createdTime"]}</span><br />
