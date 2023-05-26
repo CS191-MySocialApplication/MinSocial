@@ -1,75 +1,75 @@
 <script>
-  import Header from "../componentsFolder/Header.svelte";
-  import Postform from "../componentsFolder/Postform.svelte";
-  import NavbarDesktop from "../componentsFolder/NavbarDesktop.svelte";
-  import NavbarMobile from "../componentsFolder/NavbarMobile.svelte";
+  import Header from "../components/Header.svelte";
+  //import Postform from "../components/Postform.svelte";
+  import NavbarDesktop from "../components/NavbarDesktop.svelte";
+  import NavbarMobile from "../components/NavbarMobile.svelte";
 
-  import ClickedMentions from "../../public/clicked_mentions.png";
-  import HoverClickedMentions from "../../public/hover_clicked_mentions.png";
-  import UnclickedDM from "../../public/unclicked_dm.png";
-  import HoverUnclickedDM from "../../public/hover_unclicked_dm.png";
+  import UnclickedMentions from "../../public/unclicked_mentions.png";
+  import HoverUnclickedMentions from "../../public/hover_unclicked_mentions.png";
   import UnclickedReply from "../../public/unclicked_reply.png";
   import HoverUnclickedReply from "../../public/hover_unclicked_reply.png";
-
-  import Logout from "../../public/logout.png";
-  import HoverLogout from "../../public/hover_logout.png";
-  
+  import ClickedDM from "../../public/clicked_dm.png";
+  import HoverClickedDM from "../../public/hover_clicked_dm.png";
   //import UnclickedSettings from "../../public/unclicked_settings.png";
   //import HoverUnclickedSettings from "../../public/hover_unclicked_settings.png";
-  import MentionsHeader from "../../public/mentions_header.png";
+  import Logout from "../../public/logout.png";
+  import HoverLogout from "../../public/hover_logout.png";
+  import MessagesHeader from "../../public/dm_header.png";
 
-  async function getHomeContent() {
-    let res = await fetch("/api/home");
+  async function getMessageContent() {
+    let res = await fetch("/api/messages");
     let text = await res.json();
 
-    if (res.status == 200 || res.status == 206) {
+    if (res.ok) {
       return text;
     } else {
       throw new Error(text);
     }
   }
 
-  let auth_promise = getHomeContent();
+  let auth_promise = getMessageContent();
+
 </script>
 
 <div class="desktopFormat">
   <NavbarDesktop
-    mentions={ClickedMentions}
-    hoverMentions={HoverClickedMentions}
-    dm={UnclickedDM}
-    hoverDM={HoverUnclickedDM}
+    mentions={UnclickedMentions}
+    hoverMentions={HoverUnclickedMentions}
+    dm={ClickedDM}
+    hoverDM={HoverClickedDM}
     reply={UnclickedReply}
     hoverReply={HoverUnclickedReply}
     logout={Logout}
     hoverLogout={HoverLogout}
+    class="navbar"
   />
-
+  
   <div class="content">
-    <Header title="Mentions" icon={MentionsHeader} />
+    <Header title="Messages" icon={MessagesHeader} />
     <main>
-      <Postform />
       {#await auth_promise}
         <p>waiting...</p>
-      {:then response}
-        {#each response as status}
-          <a class="post" href="/indivMention">
-            <!--Change href to mentions thread-->
-            <p id="source" class="imptDetails">{status["source"]} | {status["author"]["username"]}</p>
-            <span id="dateTime">{status["createdTime"]}</span><br />
-            <p>{@html status["content"]}</p>
+      {:then conversations}
+        {#each conversations as conversation}
+          <a class="conversation" href="/messages">
+            <!--Change href to conversation thread-->
+            <p id="source" class="imptDetails">
+              {conversation["author"]["username"]}</p>
+            <span id="dateTime">{conversation["createdTime"]}</span><br />
+            <p>{@html conversation["content"]}</p>
           </a>
         {/each}
       {:catch error}
-        <p style="color: red">{error.message}</p>
+        <p style="color: red">{error.messages}</p>
       {/await}
     </main>
   </div>
 
   <NavbarMobile
-    mentions={ClickedMentions}
-    hoverMentions={HoverClickedMentions}
-    dm={UnclickedDM}
-    hoverDM={HoverUnclickedDM}
+    mentions={UnclickedMentions}
+    hoverMentions={HoverUnclickedMentions}
+    dm={ClickedDM}
+    hoverDM={HoverClickedDM}
     reply={UnclickedReply}
     hoverReply={HoverUnclickedReply}
     logout={Logout}
@@ -78,7 +78,7 @@
 </div>
 
 <style>
-  main {
+    main {
     margin-top: 90px;
     flex: 1;
     display: flex;

@@ -95,7 +95,7 @@ class TwtAuthHandler():
 class MstdnAuthHandler():
     def __init__(self, code = None):
 
-        self.redirect_uri = "{}/callback/mstdn".format(os.getenv("server_host_url"))
+        self.redirect_uri = "{}".format(os.getenv("server_host_url"))
         self.response_type = "code"
         self.client_id = os.getenv("mastodon_client_id")
         self.client_secret = os.getenv("mastodon_client_secret")
