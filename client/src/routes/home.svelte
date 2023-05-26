@@ -57,7 +57,7 @@
           {#each response as status}
             <a class="post" href="/toot/{status["id"]}" use:link>
               <!--Change href to mentions thread-->
-              <p id="source" class="imptDetails">{status["source"]} | {status["author"]["username"]}</p>
+              <p id="source" class="imptDetails">{status["author"]["username"]}</p>
               <span id="dateTime">{status["createdTime"]}</span><br />
               <p>{@html status["content"]}</p>
             </a>

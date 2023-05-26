@@ -54,7 +54,7 @@
           <a class="conversation" href="/messages">
             <!--Change href to conversation thread-->
             <p id="source" class="imptDetails">
-              {conversation["source"]} | {conversation["author"]["username"]}</p>
+              {conversation["author"]["username"]}</p>
             <span id="dateTime">{conversation["createdTime"]}</span><br />
             <p>{@html conversation["content"]}</p>
           </a>
