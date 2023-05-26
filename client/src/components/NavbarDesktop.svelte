@@ -55,7 +55,7 @@
                 </div>
                 
                 <div class="reply">
-                    <a class="icon" href="/replies">
+                    <a class="icon" href="/#/replies">
                         <img src={reply} class="noHover" alt="reply"/>
                         <img src={hoverReply} class="hoverImg" alt="hover reply"/>            
                     </a>

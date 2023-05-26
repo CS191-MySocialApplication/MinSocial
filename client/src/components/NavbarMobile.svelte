@@ -44,21 +44,21 @@
   <nav class="navBarMobile">
     <div class="iconContainer">
       <div class="mentions">
-        <a class="icon" href="/home">
+        <a class="icon" href="/#/home">
           <img src={mentions} class="noHover" alt="mentions" />
           <img src={hoverMentions} class="hoverImg" alt="hover mentions" />
         </a>
       </div>
 
       <div class="reply">
-        <a class="icon" href="/replies">
+        <a class="icon" href="/#/replies">
           <img src={reply} class="noHover" alt="reply" />
           <img src={hoverReply} class="hoverImg" alt="hover reply" />
         </a>
       </div>
 
       <div class="dm">
-        <a class="icon" href="/messages">
+        <a class="icon" href="/#/messages">
           <img src={dm} class="noHover" alt="dm" />
           <img src={hoverDM} class="hoverImg" alt="hover dm" />
         </a>
