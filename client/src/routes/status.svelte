@@ -19,21 +19,9 @@
   
     export let params = {};
 
-    async function getStatus() {
-
-        if(params && params.id){
-            let res = await fetch("/api/toot/"+String(params.id));
-            let text = await res.json();
-            console.log(text)
-            if (res.status == 200 || res.status == 206) {
-                return text;
-            } else {
-                throw new Error(text);
-            }
-        }
-    }
+    import { getStatus } from "../sdk/status"
   
-    let auth_promise = getStatus();
+    let auth_promise = getStatus(params);
   </script>
   
   <div class="desktopFormat">
