@@ -7,7 +7,8 @@ main {
   color: white;
 }
 
-.imptDetails, p {
+.imptDetails,
+p {
   font-size: 14px;
 }
 
@@ -20,9 +21,9 @@ main {
   color: #acacac;
   font-weight: 600;
   font-size: 12px;
-}/*# sourceMappingURL=styles.css.map */
+}
 
 a {
   text-decoration: none;
   color: inherit;
-}
+}/*# sourceMappingURL=styles.css.map */

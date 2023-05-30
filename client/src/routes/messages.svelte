@@ -3,7 +3,6 @@
   //import Postform from "../components/Postform.svelte";
   import NavbarDesktop from "../components/NavbarDesktop.svelte";
   import NavbarMobile from "../components/NavbarMobile.svelte";
-  import { each } from "svelte/internal";
 
   import UnclickedMentions from "../../public/unclicked_mentions.png";
   import HoverUnclickedMentions from "../../public/hover_unclicked_mentions.png";
@@ -17,18 +16,10 @@
   import HoverLogout from "../../public/hover_logout.png";
   import MessagesHeader from "../../public/dm_header.png";
 
-  async function getMessageContent() {
-    let res = await fetch("/api/messages");
-    let text = await res.json();
-
-    if (res.ok) {
-      return text;
-    } else {
-      throw new Error(text);
-    }
-  }
+  import { getMessageContent } from "../sdk/conversations";
 
   let auth_promise = getMessageContent();
+
 </script>
 
 <div class="desktopFormat">
@@ -54,7 +45,7 @@
           <a class="conversation" href="/messages">
             <!--Change href to conversation thread-->
             <p id="source" class="imptDetails">
-              {conversation["source"]} | {conversation["author"]["username"]}</p>
+              {conversation["author"]["username"]}</p>
             <span id="dateTime">{conversation["createdTime"]}</span><br />
             <p>{@html conversation["content"]}</p>
           </a>
@@ -78,8 +69,8 @@
 </div>
 
 <style>
-  main {
-    margin-top:90px;
+    main {
+    margin-top: 90px;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -88,17 +79,12 @@
     box-sizing: border-box;
   }
 
-  .content {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-
   @media screen and (hover: none) {
     .desktopFormat {
       display: flex;
       flex-direction: column;
       align-items: stretch;
+      margin: 0;
     }
   }
 
@@ -106,6 +92,7 @@
     .desktopFormat {
       display: flex;
       flex-direction: row;
+      margin: 0;
     }
     .content {
       display: flex;
@@ -131,4 +118,5 @@
   .imptDetails {
     margin-bottom: 0;
   }
+  
 </style>

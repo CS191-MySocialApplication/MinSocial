@@ -1,22 +1,28 @@
-body {
-  height: 100lvh;
-  width: 100lvw;
-  margin: 0;
-  background-color: #50c0cb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+html {
+  background-color: #252c2c;
 }
 
-a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  width: 265px;
-  height: 60px;
-  background-color: #252c2c;
+main {
+  font-family: "Open Sans", "sans-serif";
   color: white;
-  text-decoration: none;
-  margin: 24px;
+}
+
+.imptDetails, p {
+  font-size: 14px;
+}
+
+.imptDetails {
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+
+#dateTime {
+  color: #acacac;
+  font-weight: 600;
+  font-size: 12px;
 }/*# sourceMappingURL=styles.css.map */
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

@@ -9,7 +9,16 @@
 <main>
     <div class="headerContainer">
         <div class="headerContent">
-            <img src={icon} class="headerIcon" alt="icon"/>
+            {#if title!="Toot"}
+                <img src={icon} class="headerIcon" alt="icon"/>
+            {:else}
+                <a class="icon" href="/home">
+                    <img src={icon} class="backButton" alt="back"/>          
+                </a>
+            {/if}
+            
+
+
             <h1 class="Menu">{title}</h1>
         </div>
     
@@ -29,7 +38,7 @@
         background-color: #252c2c;
         color: white;
         border-bottom: 3px solid #50c0cb;
-        margin: -8px 0px 0px 8px;
+        margin: -8px 0px 0px 0px;
     }
     .headerContainer {
         display: flex;
@@ -37,15 +46,14 @@
         align-items: center;
     }
     img{
-        width: 27px;
-        height: 27px;
+        width: 28px;
+        height: 28px;
         display:inline-block;
         vertical-align:middle;
         margin-left: 1.5rem;
-        margin-right: 5px;
+        margin-right: 10px;
     }
     h1 {
-        margin-top: 8px;
         font-weight: 700;
         letter-spacing: 0.5px;   
         display:inline-block;
@@ -72,5 +80,10 @@
             width: 85lvw;
             margin-right: 24px;
         }
+    }
+    .backButton:hover {
+        background-color: #3c4444;
+        fill-opacity: 0.5;
+        border-radius: 50%;
     }
 </style>
