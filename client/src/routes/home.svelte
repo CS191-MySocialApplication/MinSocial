@@ -18,18 +18,9 @@
     //import HoverUnclickedSettings from "../../public/hover_unclicked_settings.png";
     import MentionsHeader from "../../public/mentions_header.png";
 
+    import { getHomeContent } from "../sdk/mentions_timeline";
+
     import {link} from 'svelte-spa-router';
-  
-    async function getHomeContent() {
-      let res = await fetch("/api/home");
-      let text = await res.json();
-  
-      if (res.status == 200 || res.status == 206) {
-        return text;
-      } else {
-        throw new Error(text);
-      }
-    }
   
     let auth_promise = getHomeContent();
 

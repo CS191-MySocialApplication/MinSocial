@@ -16,16 +16,7 @@
   import HoverLogout from "../../public/hover_logout.png";
   import MessagesHeader from "../../public/dm_header.png";
 
-  async function getMessageContent() {
-    let res = await fetch("/api/messages");
-    let text = await res.json();
-
-    if (res.ok) {
-      return text;
-    } else {
-      throw new Error(text);
-    }
-  }
+  import { getMessageContent } from "../sdk/conversations";
 
   let auth_promise = getMessageContent();
 
