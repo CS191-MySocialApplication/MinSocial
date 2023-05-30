@@ -20,7 +20,7 @@
     export let params = {};
 
     async function getStatus() {
-
+        
         if(params && params.id){
             let res = await fetch("/api/toot/"+String(params.id));
             let text = await res.json();

@@ -16,7 +16,7 @@ class Status(metaclass=ABCMeta):
             'source': self.source,
             'id': self.id,
             'author': self.author,
-            'createdTime': self.createdTime.isoformat(),
+            'createdTime': self.createdTime,
             'content': self.content
         }
 
@@ -53,6 +53,6 @@ class Toot(Status):
         assert("content" in toot)
 
         createdTime = toot["created_at"]
-        createdTime = createdTime.replace(tzinfo=timezone.utc)
+        createdTime = datetime.strftime(toot["created_at"], "%Y-%m-%d %H:%M:%S %Z")
 
         super().__init__(str(toot["id"]), toot["account"], createdTime, toot["content"])
