@@ -97,6 +97,7 @@
               </a>
           </div>
       {:else}
+          <!--Expected behavior for now-->
           <div class="mentions">
               <a class="icon" href="/#/home">
                   <ClickedMentions/>         
@@ -166,24 +167,17 @@
       justify-content: center;
     }
 
-    .mentions:hover .noHover,
-    .dm:hover .noHover,
-    .reply:hover .noHover
-    .logout:hover .noHover {
-      opacity: 0.5;
-      transition: 0.25s ease;
+    .icon {
+        width: 45px;
+        height: 45px;
+        fill: #50C0CB;
     }
-
-    .hoverImg {
-      position: absolute;
-      z-index: 1;
+    
+    .icon:hover {
+        fill: #fff;
+        opacity:0.5;
+        transition: 0.25s ease;
     }
-
-    .noHover {
-      position: absolute;
-      z-index: 2;
-    }
-  }
 
   /*Desktop or Laptop*/
   @media screen and (hover: hover) {
