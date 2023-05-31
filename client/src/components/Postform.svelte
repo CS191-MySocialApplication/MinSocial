@@ -1,6 +1,7 @@
 <script>
 
     let statusText;
+    let cwText;
 
     const handleOnSubmit = e => {
         const ACTION_URL = e.target.action;
@@ -14,6 +15,7 @@
 		}
 
         statusText = "";
+        cwText = "";
 
         fetch(ACTION_URL, {
             method: 'POST',
@@ -36,6 +38,8 @@
         </div>
 
         <div id="containerFooter">
+            <textarea placeholder="Content Warning..." id="cw" name="cw" rows="1" bind:value={cwText}/>
+            <br>
             <input id="submitButton" type="submit" value="Post">
         </div>
 
@@ -71,8 +75,14 @@
         font-weight: bold;
         color: white;
     }
-    #containerArea{
+    #containerArea {
         display: flex;
+        margin-bottom: 5px;
+    }
+
+    #containerFooter {
+        display: flex;
+        margin-bottom: 10px;
     }
     textarea {
         color: #acacac;
@@ -88,8 +98,9 @@
         margin-left: auto;
         margin-right: auto;
     }
+
     
-    #containerFooter{
+    #submitButton{
         /*
         border-top: 2px;
         border-top-style: solid;
@@ -97,6 +108,7 @@
         */
         padding: 5px 15px; 
         text-align: right;
+        margin-left: 5px;
     }
 
     input[type="submit"] {

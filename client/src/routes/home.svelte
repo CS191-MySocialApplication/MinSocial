@@ -50,7 +50,12 @@
               <!--Change href to mentions thread-->
               <p id="source" class="imptDetails">{status["author"]["username"]}</p>
               <span id="dateTime">{status["createdTime"]}</span><br />
-              <p>{@html status["content"]}</p>
+              {#if status["cw"] == false}
+                <p>{@html status["content"]}</p>
+              {:else}
+                <p>{@html status["cw"]}</p>
+              {/if}
+              
             </a>
           {/each}
         {:catch error}

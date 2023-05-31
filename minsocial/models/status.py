@@ -4,12 +4,13 @@ from datetime import datetime, timezone
 
 class Status(metaclass=ABCMeta):
 
-    def __init__(self, statusID, author, createdTime, content):
+    def __init__(self, statusID, author, createdTime, content, cw):
 
         self.id = statusID
         self.author = author
         self.createdTime = createdTime
         self.content = content
+        self.cw = cw
 
     def asdict(self):
         return {
@@ -17,7 +18,8 @@ class Status(metaclass=ABCMeta):
             'id': self.id,
             'author': self.author,
             'createdTime': self.createdTime.isoformat(),
-            'content': self.content
+            'content': self.content,
+            'cw': self.cw
         }
 
     @property
@@ -29,7 +31,7 @@ class Status(metaclass=ABCMeta):
 class Tweet(Status):
     source = "Twitter"
     
-    def __init__(self, data: dict[str, any], author: dict[str, any]):
+    def __init__(self, data, author):
 
         assert("id" in data)
         assert("author_id" in data)
@@ -45,14 +47,15 @@ class Tweet(Status):
 class Toot(Status):
     source = "Mastodon"
 
-    def __init__(self, toot: dict[str, any]):
+    def __init__(self, toot):
         
         assert("id" in toot)
         assert("account" in toot)
         assert("created_at" in toot)
         assert("content" in toot)
+        assert("spoiler_text" in toot)
 
         createdTime = toot["created_at"]
         createdTime = createdTime.replace(tzinfo=timezone.utc)
 
-        super().__init__(str(toot["id"]), toot["account"], createdTime, toot["content"])
+        super().__init__(str(toot["id"]), toot["account"], createdTime, toot["content"], toot["spoiler_text"])
