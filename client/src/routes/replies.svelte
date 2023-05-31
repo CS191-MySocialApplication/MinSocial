@@ -24,16 +24,7 @@
   </script>
   
   <div class="desktopFormat">
-    <NavbarDesktop
-      mentions={UnclickedMentions}
-      hoverMentions={HoverUnclickedMentions}
-      dm={UnclickedDM}
-      hoverDM={HoverUnclickedDM}
-      reply={ClickedReply}
-      hoverReply={HoverClickedReply}
-      logout={Logout}
-      hoverLogout={HoverLogout}
-    />
+    <NavbarDesktop title="Replies"/>
   
     <div class="content">
       <Header bind:value={value} title="Replies" icon={ReplyHeader} />

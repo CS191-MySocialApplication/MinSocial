@@ -28,15 +28,7 @@
   
   <div class="desktopFormat">
     <NavbarDesktop
-      mentions={ClickedMentions}
-      hoverMentions={HoverClickedMentions}
-      dm={UnclickedDM}
-      hoverDM={HoverUnclickedDM}
-      reply={UnclickedReply}
-      hoverReply={HoverUnclickedReply}
-      logout={Logout}
-      hoverLogout={HoverLogout}
-    />
+      title="Mentions"/>
   
     <div class="content">
       <Header title="Mentions"/>

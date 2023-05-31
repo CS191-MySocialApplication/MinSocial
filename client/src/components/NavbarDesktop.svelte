@@ -1,11 +1,15 @@
 <script>
+    // Used to help svelte distinguish between pages
+    export let title;
+
     // Icons for the navbar
     import ClickedMentions from "../../public/mentionsClicked.svelte";
+    import ClickedReplies from "../../public/replyClicked.svelte";
+    import ClickedDM from "../../public/dmClicked.svelte";
     
-    
+    import UnclickedMentions from "../../public/mentionsUnclicked.svelte";
     import UnclickedReplies from "../../public/replyUnclicked.svelte";
     import UnclickedDM from "../../public/dmUnclicked.svelte";
-    
     
     import Logout from "../../public/Logout.svelte";
 
@@ -47,25 +51,71 @@
     <nav class="navBarDesktop">
         <div class="iconContainerOutside">
             <div class="iconContainer">
-
-                <div class="mentions">
-                    <a class="icon" href="/#/home">
-                        <ClickedMentions/>         
-                    </a>
-                </div>
-                
-                <div class="reply">
-                    <a class="icon" href="/#/replies">
-                        <UnclickedReplies/>        
-                    </a>
-                </div>
-
-                <div class="dm">
-                    <a class="icon" href="/#/messages">
-                        <UnclickedDM/>         
-                    </a>
-                </div>
-
+                {#if title == "Mentions"}
+                    <div class="mentions">
+                        <a class="icon" href="/#/home">
+                            <ClickedMentions/>         
+                        </a>
+                    </div>  
+                    <div class="reply">
+                        <a class="icon" href="/#/replies">
+                            <UnclickedReplies/>        
+                        </a>
+                    </div>
+                    <div class="dm">
+                        <a class="icon" href="/#/messages">
+                            <UnclickedDM/>         
+                        </a>
+                    </div>
+                {:else if title == "Replies"}
+                    <div class="mentions">
+                        <a class="icon" href="/#/home">
+                            <UnclickedMentions/>         
+                        </a>
+                    </div>  
+                    <div class="reply">
+                        <a class="icon" href="/#/replies">
+                            <ClickedReplies/>        
+                        </a>
+                    </div>
+                    <div class="dm">
+                        <a class="icon" href="/#/messages">
+                            <UnclickedDM/>         
+                        </a>
+                    </div>
+                {:else if title == "Messages"}
+                    <div class="mentions">
+                        <a class="icon" href="/#/home">
+                            <UnclickedMentions/>         
+                        </a>
+                    </div>  
+                    <div class="reply">
+                        <a class="icon" href="/#/replies">
+                            <UnclickedReplies/>        
+                        </a>
+                    </div>
+                    <div class="dm">
+                        <a class="icon" href="/#/messages">
+                            <ClickedDM/>         
+                        </a>
+                    </div>
+                {:else}
+                    <div class="mentions">
+                        <a class="icon" href="/#/home">
+                            <ClickedMentions/>         
+                        </a>
+                    </div>  
+                    <div class="reply">
+                        <a class="icon" href="/#/replies">
+                            <UnclickedReplies/>        
+                        </a>
+                    </div>
+                    <div class="dm">
+                        <a class="icon" href="/#/messages">
+                            <UnclickedDM/>         
+                        </a>
+                    </div>
+                {/if}
             </div>
             <div class="logout">
                 <a class="icon" on:click={sendMstdnLogout} href="#0">
