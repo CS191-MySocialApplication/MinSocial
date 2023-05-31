@@ -7,7 +7,6 @@
     import { getHomeContent } from "../sdk/mentions_timeline";
 
     import {link} from 'svelte-spa-router';
-    import active from 'svelte-spa-router/active'
 
     let auth_promise = getHomeContent();
 

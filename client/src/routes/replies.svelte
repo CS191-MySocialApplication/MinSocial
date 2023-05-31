@@ -1,7 +1,6 @@
 <script>
 
     import Header from "../components/Header.svelte";
-    import ReplyHeader from "../../public/png/reply_header.png";
     import NavbarDesktop from "../components/NavbarDesktop.svelte"; 
     import NavbarMobile from "../components/NavbarMobile.svelte";
   
