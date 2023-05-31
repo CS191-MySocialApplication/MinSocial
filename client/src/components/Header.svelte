@@ -2,27 +2,41 @@
     import Toggle from "./Toggle.svelte";
     import "@fontsource/open-sans";
     export let title;
-    export let icon;
+    export let icon;    // To be removed
     export let value = "none";
+
+    import MentionsHeader from "../../public/mentionsHeader.svelte";
+    import MessagesHeader from "../../public/dmHeader.svelte";
+    import RepliesHeader from "../../public/replyHeader.svelte";
+
+    import BackButton from "../../public/back.svelte"
+
 </script>
 
 <main>
     <div class="headerContainer">
         <div class="headerContent">
-            {#if title!="Toot"}
-                <img src={icon} class="headerIcon" alt="icon"/>
+            {#if title == "Mentions"}
+                <div class="headerIcon">
+                    <MentionsHeader/>
+                </div>
+            {:else if title == "Replies"}
+                <div class="headerIcon">
+                    <RepliesHeader/>
+                </div>
+            {:else if title == "Messages"}
+                <div class="headerIcon">
+                    <MessagesHeader/>
+                </div>
             {:else}
-                <a class="icon" href="/home">
-                    <img src={icon} class="backButton" alt="back"/>          
+                <a class="headerIcon" href="/home">
+                    <BackButton/>        
                 </a>
             {/if}
             
-
-
             <h1 class="Menu">{title}</h1>
         </div>
     
-        
         {#if title=="Replies"}
             <Toggle bind:value={value} label="Show Replies"/>
         {/if}
@@ -45,7 +59,7 @@
         justify-content: space-between;
         align-items: center;
     }
-    img{
+    img, .headerIcon {
         width: 28px;
         height: 28px;
         display:inline-block;

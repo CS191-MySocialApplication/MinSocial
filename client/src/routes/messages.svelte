@@ -4,17 +4,17 @@
   import NavbarDesktop from "../components/NavbarDesktop.svelte";
   import NavbarMobile from "../components/NavbarMobile.svelte";
 
-  import UnclickedMentions from "../../public/unclicked_mentions.png";
-  import HoverUnclickedMentions from "../../public/hover_unclicked_mentions.png";
-  import UnclickedReply from "../../public/unclicked_reply.png";
-  import HoverUnclickedReply from "../../public/hover_unclicked_reply.png";
-  import ClickedDM from "../../public/clicked_dm.png";
-  import HoverClickedDM from "../../public/hover_clicked_dm.png";
+  import UnclickedMentions from "../../public/png/unclicked_mentions.png";
+  import HoverUnclickedMentions from "../../public/png/hover_unclicked_mentions.png";
+  import UnclickedReply from "../../public/png/unclicked_reply.png";
+  import HoverUnclickedReply from "../../public/png/hover_unclicked_reply.png";
+  import ClickedDM from "../../public/png/clicked_dm.png";
+  import HoverClickedDM from "../../public/png/hover_clicked_dm.png";
   //import UnclickedSettings from "../../public/unclicked_settings.png";
   //import HoverUnclickedSettings from "../../public/hover_unclicked_settings.png";
-  import Logout from "../../public/logout.png";
-  import HoverLogout from "../../public/hover_logout.png";
-  import MessagesHeader from "../../public/dm_header.png";
+  import Logout from "../../public/png/logout.png";
+  import HoverLogout from "../../public/png/hover_logout.png";
+  import MessagesHeader from "../../public/png/dm_header.png";
 
   import { getMessageContent } from "../sdk/conversations";
 

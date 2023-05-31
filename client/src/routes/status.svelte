@@ -3,17 +3,17 @@
     import NavbarDesktop from "../components/NavbarDesktop.svelte";
     import NavbarMobile from "../components/NavbarMobile.svelte";
   
-    import ClickedMentions from "../../public/clicked_mentions.png";
-    import HoverClickedMentions from "../../public/hover_clicked_mentions.png";
-    import UnclickedDM from "../../public/unclicked_dm.png";
-    import HoverUnclickedDM from "../../public/hover_unclicked_dm.png";
-    import UnclickedReply from "../../public/unclicked_reply.png";
-    import HoverUnclickedReply from "../../public/hover_unclicked_reply.png";
+    import ClickedMentions from "../../public/png/clicked_mentions.png";
+    import HoverClickedMentions from "../../public/png/hover_clicked_mentions.png";
+    import UnclickedDM from "../../public/png/unclicked_dm.png";
+    import HoverUnclickedDM from "../../public/png/hover_unclicked_dm.png";
+    import UnclickedReply from "../../public/png/unclicked_reply.png";
+    import HoverUnclickedReply from "../../public/png/hover_unclicked_reply.png";
   
-    import Logout from "../../public/logout.png";
-    import HoverLogout from "../../public/hover_logout.png";
+    import Logout from "../../public/png/logout.png";
+    import HoverLogout from "../../public/png/hover_logout.png";
   
-    import backButton from "../../public/back.png";
+    import backButton from "../../public/png/back.png";
 
     import {link} from 'svelte-spa-router';
   

@@ -1,19 +1,19 @@
 <script>
 
     import Header from "../components/Header.svelte";
-    import ReplyHeader from "../../public/reply_header.png";
+    import ReplyHeader from "../../public/png/reply_header.png";
     import NavbarDesktop from "../components/NavbarDesktop.svelte"; 
     import NavbarMobile from "../components/NavbarMobile.svelte";
   
-    import UnclickedMentions from "../../public/unclicked_mentions.png";
-    import HoverUnclickedMentions from "../../public/hover_unclicked_mentions.png";
-    import UnclickedDM from "../../public/unclicked_dm.png";
-    import HoverUnclickedDM from "../../public/hover_unclicked_dm.png";
-    import ClickedReply from "../../public/clicked_reply.png";
-    import HoverClickedReply from "../../public/hover_clicked_reply.png";
+    import UnclickedMentions from "../../public/png/unclicked_mentions.png";
+    import HoverUnclickedMentions from "../../public/png/hover_unclicked_mentions.png";
+    import UnclickedDM from "../../public/png/unclicked_dm.png";
+    import HoverUnclickedDM from "../../public/png/hover_unclicked_dm.png";
+    import ClickedReply from "../../public/png/clicked_reply.png";
+    import HoverClickedReply from "../../public/png/hover_clicked_reply.png";
   
-    import Logout from "../../public/logout.png";
-    import HoverLogout from "../../public/hover_logout.png";
+    import Logout from "../../public/png/logout.png";
+    import HoverLogout from "../../public/png/hover_logout.png";
     let value;
   
     async function getHomeContent() {
