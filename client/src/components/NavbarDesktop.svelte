@@ -3,6 +3,8 @@
     export let title;
 
     // Icons for the navbar
+    import Logo from "../../public/logo.svelte";
+
     import ClickedMentions from "../../public/mentionsClicked.svelte";
     import ClickedReplies from "../../public/replyClicked.svelte";
     import ClickedDM from "../../public/dmClicked.svelte";
@@ -51,6 +53,9 @@
     <nav class="navBarDesktop">
         <div class="iconContainerOutside">
             <div class="iconContainer">
+                <div class="logo">
+                    <Logo/>
+                </div>
                 {#if title == "Mentions"}
                     <div class="mentions">
                         <a class="icon" href="/#/home">
@@ -180,5 +185,11 @@
         fill: #fff;
         opacity:0.5;
         transition: 0.25s ease;
+    }
+
+    .logo {
+        width: 45px;
+        height: 45px;
+        padding-top: 20px;
     }
 </style>
