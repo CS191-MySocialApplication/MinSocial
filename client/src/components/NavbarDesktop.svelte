@@ -1,12 +1,13 @@
 <script>
-    export let mentions;
-    export let hoverMentions;
-    export let dm;
-    export let hoverDM;
-    export let reply;
-    export let hoverReply;
-    export let logout;
-    export let hoverLogout;
+    // Icons for the navbar
+    import ClickedMentions from "../../public/mentionsClicked.svelte";
+    
+    
+    import UnclickedReplies from "../../public/replyUnclicked.svelte";
+    import UnclickedDM from "../../public/dmUnclicked.svelte";
+    
+    
+    import Logout from "../../public/Logout.svelte";
 
     import {onMount} from 'svelte';
 
@@ -49,30 +50,27 @@
 
                 <div class="mentions">
                     <a class="icon" href="/#/home">
-                        <img src={mentions} class="noHover" alt="mentions"/>
-                        <img src={hoverMentions} class="hoverImg" alt="hover mentions"/>            
+                        <ClickedMentions/>         
                     </a>
                 </div>
                 
                 <div class="reply">
                     <a class="icon" href="/#/replies">
-                        <img src={reply} class="noHover" alt="reply"/>
-                        <img src={hoverReply} class="hoverImg" alt="hover reply"/>            
+                        <UnclickedReplies/>        
                     </a>
                 </div>
 
                 <div class="dm">
                     <a class="icon" href="/#/messages">
-                        <img src={dm} class="noHover" alt="dm"/>
-                        <img src={hoverDM} class="hoverImg" alt="hover dm"/>            
+                        <UnclickedDM/>         
                     </a>
                 </div>
+
             </div>
             <div class="logout">
                 <a class="icon" on:click={sendMstdnLogout} href="#0">
                     <!--Log Out Mastodon-->
-                    <img src={logout} class="noHover" alt="logout"/>
-                    <img src={hoverLogout} class="hoverImg" alt="hover logout"/>
+                    <Logout/>
                 </a>
             </div>
         </div>
@@ -121,33 +119,16 @@
         justify-content: center;
     }
 
-    img, .icon {
-        width: 40px;
-        height: 40px;
+    .icon {
+        width: 45px;
+        height: 45px;
+        fill: #50C0CB;
     }
     
-    .mentions:hover .noHover, .dm:hover .noHover, .reply:hover .noHover, .logout:hover .noHover{
+    .icon:hover {
+        fill: #fff;
         opacity:0.5;
         transition: 0.25s ease;
+        
     }
-
-    .hoverImg {
-        position: absolute;
-        z-index: 1; 
-    }
-
-    .noHover {
-        position: absolute;
-        z-index: 2;
-    }
-
-    /*
-    a {
-        color: #252c2c;
-        text-decoration: none;
-    }
-
-    a:hover {
-        text-decoration: underline;
-    }*/
 </style>

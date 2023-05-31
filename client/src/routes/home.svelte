@@ -16,7 +16,6 @@
     
     //import UnclickedSettings from "../../public/unclicked_settings.png";
     //import HoverUnclickedSettings from "../../public/hover_unclicked_settings.png";
-    import MentionsHeader from "../../public/png/mentions_header.png";
 
     import { getHomeContent } from "../sdk/mentions_timeline";
 
@@ -40,7 +39,7 @@
     />
   
     <div class="content">
-      <Header title="Mentions" icon={MentionsHeader} />
+      <Header title="Mentions"/>
       <main>
         <Postform />
         {#await auth_promise}
