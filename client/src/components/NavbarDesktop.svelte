@@ -1,14 +1,19 @@
 <script>
-    export let mentions;
-    export let hoverMentions;
-    export let dm;
-    export let hoverDM;
-    export let reply;
-    export let hoverReply;
-    export let logout;
-    export let hoverLogout;
+
+    import UnclickedMentions from "../../public/unclicked_mentions.png";
+    import HoverUnclickedMentions from "../../public/hover_unclicked_mentions.png";
+    import UnclickedReply from "../../public/unclicked_reply.png";
+    import HoverUnclickedReply from "../../public/hover_unclicked_reply.png";
+    import ClickedDM from "../../public/clicked_dm.png";
+    import HoverClickedDM from "../../public/hover_clicked_dm.png";
+    // import UnclickedSettings from "../../public/unclicked_settings.png";
+    // import HoverUnclickedSettings from "../../public/hover_unclicked_settings.png";
+    import Logout from "../../public/logout.png";
+    import HoverLogout from "../../public/hover_logout.png";
+    import MessagesHeader from "../../public/dm_header.png";
 
     import {onMount} from 'svelte';
+
 
     let mstdnLogin = true;
     let mstdnLoginLink = "";
@@ -49,30 +54,30 @@
 
                 <div class="mentions">
                     <a class="icon" href="/#/home">
-                        <img src={mentions} class="noHover" alt="mentions"/>
-                        <img src={hoverMentions} class="hoverImg" alt="hover mentions"/>            
+                        <img src={UnclickedMentions} class="noHover" alt="mentions"/>
+                        <img src={HoverUnclickedMentions} class="hoverImg" alt="hover mentions"/>            
                     </a>
                 </div>
                 
                 <div class="reply">
                     <a class="icon" href="/#/replies">
-                        <img src={reply} class="noHover" alt="reply"/>
-                        <img src={hoverReply} class="hoverImg" alt="hover reply"/>            
+                        <img src={UnclickedReply} class="noHover" alt="reply"/>
+                        <img src={HoverUnclickedReply} class="hoverImg" alt="hover reply"/>            
                     </a>
                 </div>
 
                 <div class="dm">
                     <a class="icon" href="/#/messages">
-                        <img src={dm} class="noHover" alt="dm"/>
-                        <img src={hoverDM} class="hoverImg" alt="hover dm"/>            
+                        <img src={ClickedDM} class="noHover" alt="dm"/>
+                        <img src={HoverClickedDM} class="hoverImg" alt="hover dm"/>            
                     </a>
                 </div>
             </div>
             <div class="logout">
                 <a class="icon" on:click={sendMstdnLogout} href="#0">
                     <!--Log Out Mastodon-->
-                    <img src={logout} class="noHover" alt="logout"/>
-                    <img src={hoverLogout} class="hoverImg" alt="hover logout"/>
+                    <img src={Logout} class="noHover" alt="logout"/>
+                    <img src={HoverLogout} class="hoverImg" alt="hover logout"/>
                 </a>
             </div>
         </div>

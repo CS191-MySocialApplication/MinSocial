@@ -48,9 +48,23 @@
           {#each response as status}
             <a class="post" href="/toot/{status["id"]}" use:link>
               <!--Change href to mentions thread-->
-              <p id="source" class="imptDetails">{status["author"]["username"]}</p>
-              <span id="dateTime">{status["createdTime"]}</span><br />
+              <p id="source" class="imptDetails">{status["account"]["username"]}</p>
+              <span id="dateTime">{status["created_at"]}</span><br />
               <p>{@html status["content"]}</p>
+              {#if status["media_attachments"].length !== 0}
+                {#each status["media_attachments"] as image}
+                  <img src="{image["url"]}" alt="something"/>
+                {/each}
+              {:else if status["poll"] !== null}
+                <!-- {console.log(status["poll"])} -->
+                <ul>
+                {#each status["poll"]["options"] as choice}
+                  <li>{choice["title"]} - Votes: {choice["votes_count"]}</li>
+                {/each}
+              </ul>
+
+              Total Votes - {status["poll"]["votes_count"]}
+              {/if}
             </a>
           {/each}
         {:catch error}
