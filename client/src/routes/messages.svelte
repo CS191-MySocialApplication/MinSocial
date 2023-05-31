@@ -4,18 +4,6 @@
   import NavbarDesktop from "../components/NavbarDesktop.svelte";
   import NavbarMobile from "../components/NavbarMobile.svelte";
 
-  import UnclickedMentions from "../../public/png/unclicked_mentions.png";
-  import HoverUnclickedMentions from "../../public/png/hover_unclicked_mentions.png";
-  import UnclickedReply from "../../public/png/unclicked_reply.png";
-  import HoverUnclickedReply from "../../public/png/hover_unclicked_reply.png";
-  import ClickedDM from "../../public/png/clicked_dm.png";
-  import HoverClickedDM from "../../public/png/hover_clicked_dm.png";
-  //import UnclickedSettings from "../../public/unclicked_settings.png";
-  //import HoverUnclickedSettings from "../../public/hover_unclicked_settings.png";
-  import Logout from "../../public/png/logout.png";
-  import HoverLogout from "../../public/png/hover_logout.png";
-  import MessagesHeader from "../../public/png/dm_header.png";
-
   import { getMessageContent } from "../sdk/conversations";
 
   let auth_promise = getMessageContent();
@@ -26,7 +14,7 @@
   <NavbarDesktop title="Messages"/>
   
   <div class="content">
-    <Header title="Messages" icon={MessagesHeader} />
+    <Header title="Messages"/>
     <main>
       {#await auth_promise}
         <p>waiting...</p>
@@ -46,16 +34,7 @@
     </main>
   </div>
 
-  <NavbarMobile
-    mentions={UnclickedMentions}
-    hoverMentions={HoverUnclickedMentions}
-    dm={ClickedDM}
-    hoverDM={HoverClickedDM}
-    reply={UnclickedReply}
-    hoverReply={HoverUnclickedReply}
-    logout={Logout}
-    hoverLogout={HoverLogout}
-  />
+  <NavbarMobile title="Messages"/>
 </div>
 
 <style>

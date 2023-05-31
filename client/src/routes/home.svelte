@@ -3,19 +3,6 @@
     import Postform from "../components/Postform.svelte";
     import NavbarDesktop from "../components/NavbarDesktop.svelte";
     import NavbarMobile from "../components/NavbarMobile.svelte";
-  
-    import ClickedMentions from "../../public/png/clicked_mentions.png";
-    import HoverClickedMentions from "../../public/png/hover_clicked_mentions.png";
-    import UnclickedDM from "../../public/png/unclicked_dm.png";
-    import HoverUnclickedDM from "../../public/png/hover_unclicked_dm.png";
-    import UnclickedReply from "../../public/png/unclicked_reply.png";
-    import HoverUnclickedReply from "../../public/png/hover_unclicked_reply.png";
-  
-    import Logout from "../../public/png/logout.png";
-    import HoverLogout from "../../public/png/hover_logout.png";
-    
-    //import UnclickedSettings from "../../public/unclicked_settings.png";
-    //import HoverUnclickedSettings from "../../public/hover_unclicked_settings.png";
 
     import { getHomeContent } from "../sdk/mentions_timeline";
 
@@ -27,8 +14,7 @@
 </script>
   
   <div class="desktopFormat">
-    <NavbarDesktop
-      title="Mentions"/>
+    <NavbarDesktop title="Mentions"/>
   
     <div class="content">
       <Header title="Mentions"/>
@@ -51,16 +37,7 @@
       </main>
     </div>
   
-    <NavbarMobile
-      mentions={ClickedMentions}
-      hoverMentions={HoverClickedMentions}
-      dm={UnclickedDM}
-      hoverDM={HoverUnclickedDM}
-      reply={UnclickedReply}
-      hoverReply={HoverUnclickedReply}
-      logout={Logout}
-      hoverLogout={HoverLogout}
-    />
+    <NavbarMobile title="Mentions"/>
   </div>
   
 <style>
