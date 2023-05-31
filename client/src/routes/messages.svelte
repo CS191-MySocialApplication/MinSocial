@@ -15,11 +15,59 @@
   import Logout from "../../public/logout.png";
   import HoverLogout from "../../public/hover_logout.png";
   import MessagesHeader from "../../public/dm_header.png";
+  import logo from "../../public/logo.png"
+  import { push } from "svelte-spa-router";
 
-  import { getMessageContent } from "../sdk/conversations";
+  async function getMessageContent() {
+    let res = await fetch("/api/messages");
+    let text = await res.json();
+    console.log(text);
+    if (res.ok) {
+      return text;
+    } else {
+      throw new Error(text);
+    }
+  }
 
   let auth_promise = getMessageContent();
+  
+  async function isolateConversations() {
+    let listOfMessages = await getMessageContent();
+    let conversationsDict = {};
+    for(let message of listOfMessages) {
+      //console.log(message);
+      if(!(message["participantIDs"][0]["username"] in conversationsDict)) {
+        console.log("new user");
+        console.log(message["participantIDs"][0]);
+        conversationsDict[message["participantIDs"][0]["username"]] = [message];
+      }   
+      else {
+        conversationsDict[message["participantIDs"][0]["username"]].push(message);
+      }
+    }
+    console.log("convesationsDict");
+    console.log(conversationsDict);
+    
+    return conversationsDict;
+    
+  
+  }
 
+  let test = isolateConversations();
+  
+  /*isolateConversations().then(function(){
+    console.log(listOfMessages);
+    
+  });
+
+  console.log(conversationsDict);*/
+  
+  
+ 
+  
+
+  
+  
 </script>
 
 <div class="desktopFormat">
@@ -32,23 +80,58 @@
     hoverReply={HoverUnclickedReply}
     logout={Logout}
     hoverLogout={HoverLogout}
+    logo={logo}
     class="navbar"
   />
   
   <div class="content">
     <Header title="Messages" icon={MessagesHeader} />
     <main>
+      <!--
       {#await auth_promise}
         <p>waiting...</p>
       {:then conversations}
         {#each conversations as conversation}
           <a class="conversation" href="/messages">
-            <!--Change href to conversation thread-->
-            <p id="source" class="imptDetails">
-              {conversation["author"]["username"]}</p>
-            <span id="dateTime">{conversation["createdTime"]}</span><br />
-            <p>{@html conversation["content"]}</p>
+            <p class="imptDetails">Conversation with {conversation["participantIDs"][0]["username"]} <span id="dateTime">| {conversation["createdTime"]}</span></p>
+            <div class="message">
+              <p>{conversation["author"]["username"]}:&nbsp</p>
+              {@html conversation["content"]}
+            </div>
           </a>
+        {/each}
+      {:catch error}
+        <p style="color: red">{error.messages}</p>
+      {/await}
+      -->
+      {#await test}
+        <p>waiting...</p>
+      {:then conversationsDict}
+        {#each Object.entries(conversationsDict) as [key, value]}
+        <!--Displays latest message-->
+        <!--
+        <a class="conversation" href="/messages">
+          <p class="imptDetails">{key} <span id="dateTime">| {value[0]["createdTime"]}</span></p>
+          
+            
+          <div class="message">
+            <p>{value[0]["author"]["username"]}:&nbsp</p>
+            {@html value[0]["content"]}
+          </div>
+
+        </a>
+        -->
+        <!--Displays all messages-->  
+        <a class="conversation" href="/#/messages">
+          <p class="imptDetails">{key} <span id="dateTime">| {value[0]["createdTime"]}</span></p>
+          {#each value as message}
+            <div class="message">
+              <p>{value[0]["author"]["username"]}:&nbsp</p>
+              {@html message["content"]}
+            </div>
+            
+          {/each}
+        </a>
         {/each}
       {:catch error}
         <p style="color: red">{error.messages}</p>
@@ -117,6 +200,11 @@
   }
   .imptDetails {
     margin-bottom: 0;
+  }
+  
+  .message {
+    color: #acacac;
+    display: flex;
   }
   
 </style>

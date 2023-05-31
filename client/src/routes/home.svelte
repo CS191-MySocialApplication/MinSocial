@@ -10,7 +10,7 @@
     import HoverUnclickedDM from "../../public/hover_unclicked_dm.png";
     import UnclickedReply from "../../public/unclicked_reply.png";
     import HoverUnclickedReply from "../../public/hover_unclicked_reply.png";
-  
+    import logo from "../../public/logo.png"
     import Logout from "../../public/logout.png";
     import HoverLogout from "../../public/hover_logout.png";
     
@@ -36,6 +36,7 @@
       hoverReply={HoverUnclickedReply}
       logout={Logout}
       hoverLogout={HoverLogout}
+      logo={logo}
     />
   
     <div class="content">
@@ -46,7 +47,7 @@
           <p>waiting...</p>
         {:then response}
           {#each response as status}
-            <a class="post" href="/toot/{status["id"]}" use:link>
+            <a class="post" href="/context/toot/{status["id"]}" use:link>
               <!--Change href to mentions thread-->
               <p id="source" class="imptDetails">{status["author"]["username"]}</p>
               <span id="dateTime">{status["createdTime"]}</span><br />

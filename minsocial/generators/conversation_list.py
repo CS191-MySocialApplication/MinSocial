@@ -35,4 +35,4 @@ def generate_mstdn_conversation_list(mstdn_access_key):
 
     for conversations in conversations_list:
 
-        yield MstdnMsg(conversations["id"], conversations["last_status"]).asdict()
+        yield MstdnMsg(conversations["id"], conversations["last_status"], conversations["accounts"]).asdict()

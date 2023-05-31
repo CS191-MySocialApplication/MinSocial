@@ -12,7 +12,7 @@
             {#if title!="Toot"}
                 <img src={icon} class="headerIcon" alt="icon"/>
             {:else}
-                <a class="icon" href="/home">
+                <a class="icon" href="/#/home">
                     <img src={icon} class="backButton" alt="back"/>          
                 </a>
             {/if}

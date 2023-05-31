@@ -28,7 +28,7 @@ def compose_tweet():
 
     if mstdnAccess:
         client = Mastodon(api_base_url=os.getenv("mastodon_api_base_url"), access_token=mstdnAccess)
-        toot = client.status_post(request.form['text'])
+        toot = client.status_post(request.form['text'], spoiler_text="test cw")
 
 
     return {"status": "success"}

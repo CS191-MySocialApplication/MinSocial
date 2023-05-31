@@ -7,7 +7,7 @@
     export let hoverReply;
     export let logout;
     export let hoverLogout;
-
+    export let logo;
     import {onMount} from 'svelte';
 
     let mstdnLogin = true;
@@ -45,6 +45,9 @@
 <main>
     <nav class="navBarDesktop">
         <div class="iconContainerOutside">
+            <div class="logo">                    
+                <img src={logo} class="static" alt="logo"/>                              
+            </div>
             <div class="iconContainer">
 
                 <div class="mentions">
@@ -120,11 +123,19 @@
         display: flex;
         justify-content: center;
     }
-
-    img, .icon {
+    .logo, .static{
+        width: 55px;
+        height: 55px;
+        
+    }
+    .logo {
+        padding-top: 20px;
+    }
+    .noHover,.hoverImg, .icon {
         width: 40px;
         height: 40px;
     }
+    
     
     .mentions:hover .noHover, .dm:hover .noHover, .reply:hover .noHover, .logout:hover .noHover{
         opacity:0.5;
