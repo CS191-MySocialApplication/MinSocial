@@ -36,10 +36,10 @@
         <div id="containerArea">
             <textarea id="text" name="text" rows="3" bind:value={statusText}/>
         </div>
-
-        <div id="containerFooter">
+        <div id="containerArea">
             <textarea placeholder="Content Warning..." id="cw" name="cw" rows="1" bind:value={cwText}/>
-            <br>
+        </div>
+        <div id="containerFooter">
             <input id="submitButton" type="submit" value="Post">
         </div>
 
@@ -77,13 +77,9 @@
     }
     #containerArea {
         display: flex;
-        margin-bottom: 5px;
     }
 
-    #containerFooter {
-        display: flex;
-        margin-bottom: 10px;
-    }
+
     textarea {
         color: #acacac;
         background-color: #252c2c;
@@ -97,10 +93,11 @@
         display: block;
         margin-left: auto;
         margin-right: auto;
+        margin-bottom: 4px;
     }
 
     
-    #submitButton{
+    #containerFooter{
         /*
         border-top: 2px;
         border-top-style: solid;
@@ -108,7 +105,6 @@
         */
         padding: 5px 15px; 
         text-align: right;
-        margin-left: 5px;
     }
 
     input[type="submit"] {
