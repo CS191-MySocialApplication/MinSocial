@@ -100,6 +100,7 @@
                         </a>
                     </div>
                 {:else}
+                    <!--Expected behavior for now-->
                     <div class="mentions">
                         <a class="icon" href="/#/home">
                             <ClickedMentions/>         
@@ -179,6 +180,5 @@
         fill: #fff;
         opacity:0.5;
         transition: 0.25s ease;
-        
     }
 </style>
