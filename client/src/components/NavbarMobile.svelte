@@ -178,7 +178,7 @@
         opacity:0.5;
         transition: 0.25s ease;
     }
-
+  }
   /*Desktop or Laptop*/
   @media screen and (hover: hover) {
     main {
