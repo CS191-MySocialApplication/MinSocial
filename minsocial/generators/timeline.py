@@ -45,4 +45,5 @@ def generate_mstdn_mentions(mstdn_access_key):
     sortTL = sorted(tl, key=lambda d: d['created_at'], reverse=True)
 
     for post in sortTL:
+        post["id"] = str(post["id"])
         yield post
