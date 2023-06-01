@@ -23,12 +23,14 @@
           <p>waiting...</p>
         {:then response}
           {#each response as status}
+
             <a class="post" href="/context/toot/{status["id"]}" use:link>
               <!--Change href to mentions thread-->
               <p id="source" class="imptDetails">{status["author"]["username"]}</p>
               <span id="dateTime">{status["createdTime"]}</span><br />
               <p>{@html status["content"]}</p>
             </a>
+
           {/each}
         {:catch error}
           <p style="color: red">{error.message}</p>
@@ -73,21 +75,6 @@
     }
   }
 
-  a {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    border-style: none none solid none;
-    border-color: #50c0cb;
-    border-width: 1px;
-    padding: 0px 14px;
-  }
-  a:hover {
-    background-color: #3c4444;
-    fill-opacity: 0.5;
-  }
-  .imptDetails {
-    margin-bottom: 0;
-  }
+  
   
 </style>

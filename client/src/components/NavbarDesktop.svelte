@@ -15,7 +15,9 @@
     
     import Logout from "../../public/Logout.svelte";
 
+
     import {onMount} from 'svelte';
+
 
     let mstdnLogin = true;
     let mstdnLoginLink = "";
@@ -56,6 +58,7 @@
                 <Logo/>
             </div>
             <div class="iconContainer">
+
                 {#if title == "Mentions"}
                     <div class="mentions">
                         <a class="icon" href="/#/home">
@@ -126,6 +129,7 @@
             <div class="logout">
                 <a class="icon" on:click={sendMstdnLogout} href="#0">
                     <!--Log Out Mastodon-->
+
                     <Logout/>
                 </a>
             </div>
