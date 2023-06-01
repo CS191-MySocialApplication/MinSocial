@@ -3,6 +3,7 @@
     import Postform from "../components/Postform.svelte";
     import NavbarDesktop from "../components/NavbarDesktop.svelte";
     import NavbarMobile from "../components/NavbarMobile.svelte";
+    import Status from "../components/Status.svelte";
   
     import ClickedMentions from "../../public/clicked_mentions.png";
     import HoverClickedMentions from "../../public/hover_clicked_mentions.png";
@@ -46,26 +47,7 @@
           <p>waiting...</p>
         {:then response}
           {#each response as status}
-            <a class="post" href="/toot/{status["id"]}" use:link>
-              <!--Change href to mentions thread-->
-              <p id="source" class="imptDetails">{status["account"]["username"]}</p>
-              <span id="dateTime">{status["created_at"]}</span><br />
-              <p>{@html status["content"]}</p>
-              {#if status["media_attachments"].length !== 0}
-                {#each status["media_attachments"] as image}
-                  <img src="{image["url"]}" alt="something"/>
-                {/each}
-              {:else if status["poll"] !== null}
-                <!-- {console.log(status["poll"])} -->
-                <ul>
-                {#each status["poll"]["options"] as choice}
-                  <li>{choice["title"]} - Votes: {choice["votes_count"]}</li>
-                {/each}
-              </ul>
-
-              Total Votes - {status["poll"]["votes_count"]}
-              {/if}
-            </a>
+            <Status status={status} />
           {/each}
         {:catch error}
           <p style="color: red">{error.message}</p>
@@ -119,21 +101,6 @@
     }
   }
 
-  a {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    border-style: none none solid none;
-    border-color: #50c0cb;
-    border-width: 1px;
-    padding: 0px 14px;
-  }
-  a:hover {
-    background-color: #3c4444;
-    fill-opacity: 0.5;
-  }
-  .imptDetails {
-    margin-bottom: 0;
-  }
+  
   
 </style>

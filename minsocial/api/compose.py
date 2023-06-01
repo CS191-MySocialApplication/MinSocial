@@ -28,15 +28,19 @@ def compose_tweet():
 
     client = Mastodon(api_base_url=os.getenv("mastodon_api_base_url"), access_token=mstdnAccess)
 
+    sensitive = request.form["contentWarning"] == "true"
+    spoiler_text = request.form["contentWarningText"] if sensitive else None
+
     attachmentType = request.form.get("attachmentType")
+
+    media_ids = None
+    poll = None
 
     if attachmentType == "media":
         media_ids = []
         for file in request.files.values():
             media = client.media_post(file, mime_type="image/png")
             media_ids.append(media["id"])
-
-        toot = client.status_post(request.form['text'], media_ids=media_ids)
         
     elif attachmentType == "poll":
         option = request.form["option"] == "true"
@@ -44,6 +48,11 @@ def compose_tweet():
         choices = json.loads(request.form["choices"])
 
         poll = client.make_poll(choices, deadline, option)
-        toot = client.status_post(request.form["text"], poll=poll)
+    
+    toot = client.status_post(request.form["text"], 
+                              media_ids=media_ids, 
+                              poll=poll,
+                              sensitive=sensitive,
+                              spoiler_text=spoiler_text)
 
     return {"status": "success"}
