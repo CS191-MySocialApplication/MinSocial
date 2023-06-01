@@ -4,30 +4,7 @@
   import NavbarDesktop from "../components/NavbarDesktop.svelte";
   import NavbarMobile from "../components/NavbarMobile.svelte";
 
-  import UnclickedMentions from "../../public/unclicked_mentions.png";
-  import HoverUnclickedMentions from "../../public/hover_unclicked_mentions.png";
-  import UnclickedReply from "../../public/unclicked_reply.png";
-  import HoverUnclickedReply from "../../public/hover_unclicked_reply.png";
-  import ClickedDM from "../../public/clicked_dm.png";
-  import HoverClickedDM from "../../public/hover_clicked_dm.png";
-  //import UnclickedSettings from "../../public/unclicked_settings.png";
-  //import HoverUnclickedSettings from "../../public/hover_unclicked_settings.png";
-  import Logout from "../../public/logout.png";
-  import HoverLogout from "../../public/hover_logout.png";
-  import MessagesHeader from "../../public/dm_header.png";
-  import logo from "../../public/logo.png"
-  import { push } from "svelte-spa-router";
-
-  async function getMessageContent() {
-    let res = await fetch("/api/messages");
-    let text = await res.json();
-    console.log(text);
-    if (res.ok) {
-      return text;
-    } else {
-      throw new Error(text);
-    }
-  }
+  import { getMessageContent } from "../sdk/conversations";
 
   let auth_promise = getMessageContent();
   
@@ -71,21 +48,10 @@
 </script>
 
 <div class="desktopFormat">
-  <NavbarDesktop
-    mentions={UnclickedMentions}
-    hoverMentions={HoverUnclickedMentions}
-    dm={ClickedDM}
-    hoverDM={HoverClickedDM}
-    reply={UnclickedReply}
-    hoverReply={HoverUnclickedReply}
-    logout={Logout}
-    hoverLogout={HoverLogout}
-    logo={logo}
-    class="navbar"
-  />
+  <NavbarDesktop title="Messages"/>
   
   <div class="content">
-    <Header title="Messages" icon={MessagesHeader} />
+    <Header title="Messages"/>
     <main>
       <!--
       {#await auth_promise}
@@ -139,16 +105,7 @@
     </main>
   </div>
 
-  <NavbarMobile
-    mentions={UnclickedMentions}
-    hoverMentions={HoverUnclickedMentions}
-    dm={ClickedDM}
-    hoverDM={HoverClickedDM}
-    reply={UnclickedReply}
-    hoverReply={HoverUnclickedReply}
-    logout={Logout}
-    hoverLogout={HoverLogout}
-  />
+  <NavbarMobile title="Messages"/>
 </div>
 
 <style>

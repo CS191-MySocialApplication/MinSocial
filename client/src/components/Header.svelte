@@ -1,28 +1,46 @@
 <script>
+    // Component needed for header
     import Toggle from "./Toggle.svelte";
+
+    // Font family to be used
     import "@fontsource/open-sans";
-    export let title;
-    export let icon;
+
+    // Variables needed for the Header and Toggle components
+    export let title;  
     export let value = "none";
+
+    // Icons that would be used for the Header
+    import MentionsHeader from "../../public/mentionsHeader.svelte";
+    import MessagesHeader from "../../public/dmHeader.svelte";
+    import RepliesHeader from "../../public/replyHeader.svelte";
+    import BackButton from "../../public/back.svelte"
+
 </script>
 
 <main>
     <div class="headerContainer">
         <div class="headerContent">
-            {#if title!="Toot"}
-                <img src={icon} class="headerIcon" alt="icon"/>
+            {#if title == "Mentions"}
+                <div class="headerIcon">
+                    <MentionsHeader/>
+                </div>
+            {:else if title == "Replies"}
+                <div class="headerIcon">
+                    <RepliesHeader/>
+                </div>
+            {:else if title == "Messages"}
+                <div class="headerIcon">
+                    <MessagesHeader/>
+                </div>
             {:else}
-                <a class="icon" href="/#/home">
-                    <img src={icon} class="backButton" alt="back"/>          
+                <a class="backButtonIcon" href="/#/home">
+                    <BackButton/>        
                 </a>
             {/if}
             
-
-
             <h1 class="Menu">{title}</h1>
         </div>
     
-        
         {#if title=="Replies"}
             <Toggle bind:value={value} label="Show Replies"/>
         {/if}
@@ -45,19 +63,24 @@
         justify-content: space-between;
         align-items: center;
     }
-    img{
+    .headerIcon, .backButtonIcon {
         width: 28px;
         height: 28px;
-        display:inline-block;
-        vertical-align:middle;
+        display: inline-block;
+        vertical-align: middle;
         margin-left: 1.5rem;
         margin-right: 10px;
+    }
+    .backButtonIcon:hover {
+        background-color: #3c4444;
+        fill-opacity: 0.5;
+        border-radius: 50%;
     }
     h1 {
         font-weight: 700;
         letter-spacing: 0.5px;   
         display:inline-block;
-        vertical-align:middle;     
+        vertical-align: middle;     
     }
     
     @media screen and (hover: none) {
@@ -80,10 +103,5 @@
             width: 85lvw;
             margin-right: 24px;
         }
-    }
-    .backButton:hover {
-        background-color: #3c4444;
-        fill-opacity: 0.5;
-        border-radius: 50%;
     }
 </style>
