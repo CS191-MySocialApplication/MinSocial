@@ -53,7 +53,7 @@
         ];
 
         pollOption = true;
-        deadline = 300;
+        pollDeadline = 300;
 
         fetch(ACTION_URL, {
             method: 'POST',
