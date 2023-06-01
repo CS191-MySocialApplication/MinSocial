@@ -52,10 +52,10 @@
 <main>
     <nav class="navBarDesktop">
         <div class="iconContainerOutside">
+            <div class="logo">
+                <Logo/>
+            </div>
             <div class="iconContainer">
-                <div class="logo">
-                    <Logo/>
-                </div>
                 {#if title == "Mentions"}
                     <div class="mentions">
                         <a class="icon" href="/#/home">
@@ -188,8 +188,6 @@
     }
 
     .logo {
-        width: 45px;
-        height: 45px;
         padding-top: 20px;
     }
 </style>
