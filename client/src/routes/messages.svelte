@@ -92,7 +92,7 @@
           <p class="imptDetails">{key} <span id="dateTime">| {value[0]["createdTime"]}</span></p>
           {#each value as message}
             <div class="message">
-              <p>{value[0]["author"]["username"]}:&nbsp</p>
+              <p>{message["author"]["username"]}:&nbsp</p>
               {@html message["content"]}
             </div>
             
