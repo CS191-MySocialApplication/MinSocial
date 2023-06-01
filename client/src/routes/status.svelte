@@ -2,18 +2,6 @@
     import Header from "../components/Header.svelte";
     import NavbarDesktop from "../components/NavbarDesktop.svelte";
     import NavbarMobile from "../components/NavbarMobile.svelte";
-  
-    import ClickedMentions from "../../public/clicked_mentions.png";
-    import HoverClickedMentions from "../../public/hover_clicked_mentions.png";
-    import UnclickedDM from "../../public/unclicked_dm.png";
-    import HoverUnclickedDM from "../../public/hover_unclicked_dm.png";
-    import UnclickedReply from "../../public/unclicked_reply.png";
-    import HoverUnclickedReply from "../../public/hover_unclicked_reply.png";
-  
-    import Logout from "../../public/logout.png";
-    import HoverLogout from "../../public/hover_logout.png";
-  
-    import backButton from "../../public/back.png";
 
     import {link} from 'svelte-spa-router';
   
@@ -25,19 +13,10 @@
   </script>
   
   <div class="desktopFormat">
-    <NavbarDesktop
-      mentions={ClickedMentions}
-      hoverMentions={HoverClickedMentions}
-      dm={UnclickedDM}
-      hoverDM={HoverUnclickedDM}
-      reply={UnclickedReply}
-      hoverReply={HoverUnclickedReply}
-      logout={Logout}
-      hoverLogout={HoverLogout}
-    />
+    <NavbarDesktop title="Toot"/>
   
     <div class="content">
-      <Header title="Toot" icon={backButton} />
+      <Header title="Toot"/>
       <main>
         {#await auth_promise}
           <p>waiting...</p>
@@ -54,16 +33,7 @@
       </main>
     </div>
   
-    <NavbarMobile
-      mentions={ClickedMentions}
-      hoverMentions={HoverClickedMentions}
-      dm={UnclickedDM}
-      hoverDM={HoverUnclickedDM}
-      reply={UnclickedReply}
-      hoverReply={HoverUnclickedReply}
-      logout={Logout}
-      hoverLogout={HoverLogout}
-    />
+    <NavbarMobile title="Toot"/>
   </div>
   
   <style>

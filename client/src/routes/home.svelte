@@ -3,44 +3,20 @@
     import Postform from "../components/Postform.svelte";
     import NavbarDesktop from "../components/NavbarDesktop.svelte";
     import NavbarMobile from "../components/NavbarMobile.svelte";
-  
-    import ClickedMentions from "../../public/clicked_mentions.png";
-    import HoverClickedMentions from "../../public/hover_clicked_mentions.png";
-    import UnclickedDM from "../../public/unclicked_dm.png";
-    import HoverUnclickedDM from "../../public/hover_unclicked_dm.png";
-    import UnclickedReply from "../../public/unclicked_reply.png";
-    import HoverUnclickedReply from "../../public/hover_unclicked_reply.png";
-    import logo from "../../public/logo.png"
-    import Logout from "../../public/logout.png";
-    import HoverLogout from "../../public/hover_logout.png";
-    
-    //import UnclickedSettings from "../../public/unclicked_settings.png";
-    //import HoverUnclickedSettings from "../../public/hover_unclicked_settings.png";
-    import MentionsHeader from "../../public/mentions_header.png";
 
     import { getHomeContent } from "../sdk/mentions_timeline";
 
     import {link} from 'svelte-spa-router';
-  
+
     let auth_promise = getHomeContent();
 
 </script>
   
   <div class="desktopFormat">
-    <NavbarDesktop
-      mentions={ClickedMentions}
-      hoverMentions={HoverClickedMentions}
-      dm={UnclickedDM}
-      hoverDM={HoverUnclickedDM}
-      reply={UnclickedReply}
-      hoverReply={HoverUnclickedReply}
-      logout={Logout}
-      hoverLogout={HoverLogout}
-      logo={logo}
-    />
+    <NavbarDesktop title="Mentions"/>
   
     <div class="content">
-      <Header title="Mentions" icon={MentionsHeader} />
+      <Header title="Mentions"/>
       <main>
         <Postform />
         {#await auth_promise}
@@ -60,16 +36,7 @@
       </main>
     </div>
   
-    <NavbarMobile
-      mentions={ClickedMentions}
-      hoverMentions={HoverClickedMentions}
-      dm={UnclickedDM}
-      hoverDM={HoverUnclickedDM}
-      reply={UnclickedReply}
-      hoverReply={HoverUnclickedReply}
-      logout={Logout}
-      hoverLogout={HoverLogout}
-    />
+    <NavbarMobile title="Mentions"/>
   </div>
   
 <style>
