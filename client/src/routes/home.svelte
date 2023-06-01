@@ -3,10 +3,12 @@
     import Postform from "../components/Postform.svelte";
     import NavbarDesktop from "../components/NavbarDesktop.svelte";
     import NavbarMobile from "../components/NavbarMobile.svelte";
+    import Status from '../components/Status.svelte';
 
     import { getHomeContent } from "../sdk/mentions_timeline";
 
     import {link} from 'svelte-spa-router';
+
 
     let auth_promise = getHomeContent();
 
@@ -24,12 +26,7 @@
         {:then response}
           {#each response as status}
 
-            <a class="post" href="/context/toot/{status["id"]}" use:link>
-              <!--Change href to mentions thread-->
-              <p id="source" class="imptDetails">{status["author"]["username"]}</p>
-              <span id="dateTime">{status["createdTime"]}</span><br />
-              <p>{@html status["content"]}</p>
-            </a>
+            <Status status={status}/>
 
           {/each}
         {:catch error}

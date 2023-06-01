@@ -3,8 +3,6 @@
 
     export let status;
 
-    console.log(status);
-
     let showContent = false;
 
 </script>
