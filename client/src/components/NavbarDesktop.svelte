@@ -1,16 +1,20 @@
 <script>
+    // Used to help svelte distinguish between pages
+    export let title;
 
-    import UnclickedMentions from "../../public/unclicked_mentions.png";
-    import HoverUnclickedMentions from "../../public/hover_unclicked_mentions.png";
-    import UnclickedReply from "../../public/unclicked_reply.png";
-    import HoverUnclickedReply from "../../public/hover_unclicked_reply.png";
-    import ClickedDM from "../../public/clicked_dm.png";
-    import HoverClickedDM from "../../public/hover_clicked_dm.png";
-    // import UnclickedSettings from "../../public/unclicked_settings.png";
-    // import HoverUnclickedSettings from "../../public/hover_unclicked_settings.png";
-    import Logout from "../../public/logout.png";
-    import HoverLogout from "../../public/hover_logout.png";
-    import MessagesHeader from "../../public/dm_header.png";
+    // Icons for the navbar
+    import Logo from "../../public/logo.svelte";
+
+    import ClickedMentions from "../../public/mentionsClicked.svelte";
+    import ClickedReplies from "../../public/replyClicked.svelte";
+    import ClickedDM from "../../public/dmClicked.svelte";
+    
+    import UnclickedMentions from "../../public/mentionsUnclicked.svelte";
+    import UnclickedReplies from "../../public/replyUnclicked.svelte";
+    import UnclickedDM from "../../public/dmUnclicked.svelte";
+    
+    import Logout from "../../public/Logout.svelte";
+
 
     import {onMount} from 'svelte';
 
@@ -50,34 +54,83 @@
 <main>
     <nav class="navBarDesktop">
         <div class="iconContainerOutside">
+            <div class="logo">
+                <Logo/>
+            </div>
             <div class="iconContainer">
 
-                <div class="mentions">
-                    <a class="icon" href="/#/home">
-                        <img src={UnclickedMentions} class="noHover" alt="mentions"/>
-                        <img src={HoverUnclickedMentions} class="hoverImg" alt="hover mentions"/>            
-                    </a>
-                </div>
-                
-                <div class="reply">
-                    <a class="icon" href="/#/replies">
-                        <img src={UnclickedReply} class="noHover" alt="reply"/>
-                        <img src={HoverUnclickedReply} class="hoverImg" alt="hover reply"/>            
-                    </a>
-                </div>
-
-                <div class="dm">
-                    <a class="icon" href="/#/messages">
-                        <img src={ClickedDM} class="noHover" alt="dm"/>
-                        <img src={HoverClickedDM} class="hoverImg" alt="hover dm"/>            
-                    </a>
-                </div>
+                {#if title == "Mentions"}
+                    <div class="mentions">
+                        <a class="icon" href="/#/home">
+                            <ClickedMentions/>         
+                        </a>
+                    </div>  
+                    <div class="reply">
+                        <a class="icon" href="/#/replies">
+                            <UnclickedReplies/>        
+                        </a>
+                    </div>
+                    <div class="dm">
+                        <a class="icon" href="/#/messages">
+                            <UnclickedDM/>         
+                        </a>
+                    </div>
+                {:else if title == "Replies"}
+                    <div class="mentions">
+                        <a class="icon" href="/#/home">
+                            <UnclickedMentions/>         
+                        </a>
+                    </div>  
+                    <div class="reply">
+                        <a class="icon" href="/#/replies">
+                            <ClickedReplies/>        
+                        </a>
+                    </div>
+                    <div class="dm">
+                        <a class="icon" href="/#/messages">
+                            <UnclickedDM/>         
+                        </a>
+                    </div>
+                {:else if title == "Messages"}
+                    <div class="mentions">
+                        <a class="icon" href="/#/home">
+                            <UnclickedMentions/>         
+                        </a>
+                    </div>  
+                    <div class="reply">
+                        <a class="icon" href="/#/replies">
+                            <UnclickedReplies/>        
+                        </a>
+                    </div>
+                    <div class="dm">
+                        <a class="icon" href="/#/messages">
+                            <ClickedDM/>         
+                        </a>
+                    </div>
+                {:else}
+                    <!--Expected behavior for now-->
+                    <div class="mentions">
+                        <a class="icon" href="/#/home">
+                            <ClickedMentions/>         
+                        </a>
+                    </div>  
+                    <div class="reply">
+                        <a class="icon" href="/#/replies">
+                            <UnclickedReplies/>        
+                        </a>
+                    </div>
+                    <div class="dm">
+                        <a class="icon" href="/#/messages">
+                            <UnclickedDM/>         
+                        </a>
+                    </div>
+                {/if}
             </div>
             <div class="logout">
                 <a class="icon" on:click={sendMstdnLogout} href="#0">
                     <!--Log Out Mastodon-->
-                    <img src={Logout} class="noHover" alt="logout"/>
-                    <img src={HoverLogout} class="hoverImg" alt="hover logout"/>
+
+                    <Logout/>
                 </a>
             </div>
         </div>
@@ -125,34 +178,21 @@
         display: flex;
         justify-content: center;
     }
-
-    img, .icon {
-        width: 40px;
-        height: 40px;
+    
+    .icon {
+        width: 45px;
+        height: 45px;
+        fill: #50C0CB;
     }
     
-    .mentions:hover .noHover, .dm:hover .noHover, .reply:hover .noHover, .logout:hover .noHover{
+    
+    .icon:hover {
+        fill: #fff;
         opacity:0.5;
         transition: 0.25s ease;
     }
 
-    .hoverImg {
-        position: absolute;
-        z-index: 1; 
+    .logo {
+        padding-top: 20px;
     }
-
-    .noHover {
-        position: absolute;
-        z-index: 2;
-    }
-
-    /*
-    a {
-        color: #252c2c;
-        text-decoration: none;
-    }
-
-    a:hover {
-        text-decoration: underline;
-    }*/
 </style>

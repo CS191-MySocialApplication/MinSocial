@@ -3,22 +3,24 @@ from abc import ABCMeta, abstractmethod
 
 class Message(metaclass=ABCMeta):
     # TODO: Group conversation handling 
-    def __init__(self, messageID, content, author, conversationID, createdTime):
+    def __init__(self, messageID, content, author, conversationID, createdTime, participantIDs):
         
         self.messageID = messageID
         self.content = content
         self.author = author
         self.conversationID = conversationID
         self.createdTime = createdTime
+        self.participantIDs = participantIDs
+
 
     def asdict(self):
         return {
-            'source': self.source,
             'messageID': self.messageID,
             'content': self.content,
             'author': self.author,
             'conversationID': self.conversationID,
             'createdTime': self.createdTime,
+            'participantIDs': self.participantIDs,
         }
 
     @property
@@ -38,5 +40,5 @@ class TwtMsg(Message):
 class MstdnMsg(Message):
     source = "Mastodon"
 
-    def __init__(self, conversationID, message):
-        super().__init__(str(message["id"]), message["content"], message["account"], str(conversationID), message["created_at"])
+    def __init__(self, conversationID, message, participantIDs):
+        super().__init__(str(message["id"]), message["content"], message["account"], str(conversationID), message["created_at"], list(participantIDs))

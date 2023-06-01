@@ -8,10 +8,11 @@
     "watch": "parcel watch"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.8.3",
     "@parcel/optimizer-swc": "^2.8.3",
+    "@parcel/transformer-sass": "^2.8.3",
     "@plasmohq/parcel-transformer-svelte3": "^0.4.5",
     "parcel": "^2.8.3",
+    "rollup-plugin-svelte-svg": "^1.0.0-beta.6",
     "svelte": "^3.56.0",
     "typescript": "^5.0.4"
   },

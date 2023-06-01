@@ -1,19 +1,9 @@
 <script>
 
     import Header from "../components/Header.svelte";
-    import ReplyHeader from "../../public/reply_header.png";
     import NavbarDesktop from "../components/NavbarDesktop.svelte"; 
     import NavbarMobile from "../components/NavbarMobile.svelte";
   
-    import UnclickedMentions from "../../public/unclicked_mentions.png";
-    import HoverUnclickedMentions from "../../public/hover_unclicked_mentions.png";
-    import UnclickedDM from "../../public/unclicked_dm.png";
-    import HoverUnclickedDM from "../../public/hover_unclicked_dm.png";
-    import ClickedReply from "../../public/clicked_reply.png";
-    import HoverClickedReply from "../../public/hover_clicked_reply.png";
-  
-    import Logout from "../../public/logout.png";
-    import HoverLogout from "../../public/hover_logout.png";
     let value;
   
     async function getHomeContent() {
@@ -24,34 +14,16 @@
   </script>
   
   <div class="desktopFormat">
-    <NavbarDesktop
-      mentions={UnclickedMentions}
-      hoverMentions={HoverUnclickedMentions}
-      dm={UnclickedDM}
-      hoverDM={HoverUnclickedDM}
-      reply={ClickedReply}
-      hoverReply={HoverClickedReply}
-      logout={Logout}
-      hoverLogout={HoverLogout}
-    />
+    <NavbarDesktop title="Replies"/>
   
     <div class="content">
-      <Header bind:value={value} title="Replies" icon={ReplyHeader} />
+      <Header bind:value={value} title="Replies"/>
       <main style="display:{value}">
         <!-- TODO -->
       </main>
     </div>
   
-    <NavbarMobile
-      mentions={UnclickedMentions}
-      hoverMentions={HoverUnclickedMentions}
-      dm={UnclickedDM}
-      hoverDM={HoverUnclickedDM}
-      reply={ClickedReply}
-      hoverReply={HoverClickedReply}
-      logout={Logout}
-      hoverLogout={HoverLogout}
-    />
+    <NavbarMobile title="Replies"/>
   </div>
   
   <style>
