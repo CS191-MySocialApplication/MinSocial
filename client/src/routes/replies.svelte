@@ -3,14 +3,25 @@
     import Header from "../components/Header.svelte";
     import NavbarDesktop from "../components/NavbarDesktop.svelte"; 
     import NavbarMobile from "../components/NavbarMobile.svelte";
+    import Status from '../components/Status.svelte';
+
+    import {link} from 'svelte-spa-router';
   
     let value;
   
     async function getHomeContent() {
-      // TODO
+      let res = await fetch("/api/replies");
+      let text = await res.json();
+
+      if (res.status == 200 || res.status == 206) {
+        return text;
+      } else {
+        throw new Error(text);
+      }
     }
   
     let auth_promise = getHomeContent();
+
   </script>
   
   <div class="desktopFormat">
@@ -19,7 +30,17 @@
     <div class="content">
       <Header bind:value={value} title="Replies"/>
       <main style="display:{value}">
-        <!-- TODO -->
+        {#await auth_promise}
+          <p>waiting...</p>
+        {:then response}
+          {#each response as status}
+
+            <Status status={status}/>
+
+          {/each}
+        {:catch error}
+          <p style="color: red">{error.message}</p>
+        {/await}
       </main>
     </div>
   
