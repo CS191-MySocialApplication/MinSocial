@@ -1,3 +1,4 @@
+import { replace } from 'svelte-spa-router';
 
 export async function getMessageContent() {
     let res = await fetch("/api/messages");
@@ -6,6 +7,6 @@ export async function getMessageContent() {
     if (res.ok) {
       return text;
     } else {
-      throw new Error(text);
+      replace("/");
     }
   }

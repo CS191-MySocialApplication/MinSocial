@@ -9,6 +9,14 @@
     import attachmentNotChosen from "../../public/attachmentNotChosen.png";
   import Postform from "./Postform.svelte";
 
+
+    function inputValidation(){
+        if(image.length > 4){
+            image = null;
+            imageValue.value = "";
+        }
+    }
+
 </script>
 
 <label for="fileInput">
@@ -21,7 +29,7 @@
     {/if}
     
 </label>
-<input type="file" id="fileInput" multiple bind:value={imageValue} bind:files={image} on:click={()=>{fileChosen = !fileChosen;}}>
+<input type="file" id="fileInput" multiple bind:this={imageValue} bind:files={image} on:change={inputValidation} on:click={()=>{fileChosen = !fileChosen;}}>
 
 <style>
     img {
