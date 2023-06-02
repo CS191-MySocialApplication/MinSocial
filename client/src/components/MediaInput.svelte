@@ -1,8 +1,11 @@
 <script>
+    import { loop_guard } from "svelte/internal";
+
     export let imageValue;
     export let image;
 
     let fileChosen = false;
+    let filePreview = []
 
     //Change to svg!
     import attachmentChosen from "../../public/attachmentChosen.png";
@@ -13,7 +16,7 @@
     function inputValidation(){
         if(image.length > 1){
             for(let i = 0; i < image.length; i++){
-                if(image[i].type.split("/")[0] != "image"){
+                if(image[i].type.split("/")[0] !== "image"){
                     image = [];
                     imageValue.value = "";
                     alert("Multiple file posting is only available to images.");
@@ -27,34 +30,45 @@
             imageValue.value = "";
             alert("You can only post 4 images max.")
         }
+
+        filePreview = Array.from(image).map(x => {
+            return {type: x.type.split("/")[0], url: URL.createObjectURL(x)}
+        })
     }
 
 </script>
 
 <label for="fileInput">
-    <!--Better if img change happens when a file is confirmed to be uploaded-->
-    {#if !fileChosen}
-        <img src={attachmentNotChosen} alt="mediaIcon"/>
-    {:else}
-        
-        <img src={attachmentChosen} alt="mediaIcon"/>
-    {/if}
-    
+    Press
 </label>
 <input type="file" id="fileInput" multiple bind:this={imageValue} bind:files={image} accept="video/*, image/*" on:change={inputValidation} on:click={()=>{fileChosen = !fileChosen;}}>
 
+<div>
+    {#each filePreview as preview}
+        {#if preview.type === "image"}        
+            <img src={preview.url} alt="imagePreview">
+        {:else if preview.type === "video"}
+            <video src={preview.url} controls id="mediaVideo">
+                <track kind="captions">
+            </video>
+        {:else if preview.type === "audio"}
+            <source src={preview.url} type="{preview.type}">
+        {/if}
+    {/each}
+</div>
+
 <style>
     img {
-        height: 30px;
-        width: 30px;
+        max-width: 100px;
+        max-height: 100px;
     }
     /*
     input[type="file"]::file-selector-button {
         display: none;
     }*/
-    input[type="file"] {
+    /* input[type="file"] {
         display: none;
-    }
+    } */
     label {
         height: 30px;
         width: 30px;
