@@ -30,3 +30,25 @@ def view_poll():
     new_poll = client.poll(pollId)
     return new_poll
 
+
+
+@poll_bp.route("/vote", methods=['POST'])
+@authenticate
+@wrap_json
+def vote_poll(): 
+    
+    mstdnAccess = request.cookies.get("mstdnAccessToken")
+    
+    if not mstdnAccess:
+        return {"status": "failed"}
+
+    client = Mastodon(api_base_url=os.getenv("mastodon_api_base_url"), access_token=mstdnAccess)
+
+    pollId = request.form["id"]
+    pollChoices = json.loads(request.form["choices"])
+
+    new_poll = client.poll_vote(pollId, pollChoices)
+
+    print(new_poll)
+
+    return new_poll
