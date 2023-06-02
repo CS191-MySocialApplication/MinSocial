@@ -1,6 +1,6 @@
 <script>
   import Header from "../components/Header.svelte";
-  //import Postform from "../components/Postform.svelte";
+  import Messageform from "../components/Messageform.svelte";
   import NavbarDesktop from "../components/NavbarDesktop.svelte";
   import NavbarMobile from "../components/NavbarMobile.svelte";
 
@@ -70,6 +70,7 @@
         <p style="color: red">{error.messages}</p>
       {/await}
       -->
+      <Messageform />
       {#await test}
         <p>waiting...</p>
       {:then conversationsDict}

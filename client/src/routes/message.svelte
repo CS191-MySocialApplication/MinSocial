@@ -4,7 +4,7 @@
     import NavbarMobile from "../components/NavbarMobile.svelte";
     import Message from '../components/Message.svelte';
 
-    import Postform from "../components/Postform.svelte";
+    import Messageform from "../components/Messageform.svelte";
 
     import {link} from 'svelte-spa-router';
 
@@ -37,7 +37,7 @@
           <p style="color: red">{error.message}</p>
         {/await}
         <!--to turn into a Messageform-->
-        <Postform />
+        <Messageform />
       </main>
     </div>
   
