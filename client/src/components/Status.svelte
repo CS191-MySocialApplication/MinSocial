@@ -1,4 +1,6 @@
 <script>
+    import PollStatus from './PollStatus.svelte';
+
     import {link} from 'svelte-spa-router';
 
     export let status;
@@ -23,14 +25,10 @@
             <img src="{image["url"]}" alt="something"/>
         {/each}
         {:else if status["poll"] !== null}
-        <!-- {console.log(status["poll"])} -->
-        <ul>
-        {#each status["poll"]["options"] as choice}
-            <li>{choice["title"]} - Votes: {choice["votes_count"]}</li>
-        {/each}
-        </ul>
+            <!-- {console.log(status["poll"])} -->
 
-        Total Votes - {status["poll"]["votes_count"]}
+            <PollStatus poll={status["poll"]}/>
+            
         {/if}
     {/if}
   </a>
