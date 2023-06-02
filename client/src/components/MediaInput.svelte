@@ -11,9 +11,21 @@
 
 
     function inputValidation(){
+        if(image.length > 1){
+            for(let i = 0; i < image.length; i++){
+                if(image[i].type.split("/")[0] != "image"){
+                    image = [];
+                    imageValue.value = "";
+                    alert("Multiple file posting is only available to images.");
+                    return;
+                }
+            }
+        }
+
         if(image.length > 4){
-            image = null;
+            image = [];
             imageValue.value = "";
+            alert("You can only post 4 images max.")
         }
     }
 
@@ -29,7 +41,7 @@
     {/if}
     
 </label>
-<input type="file" id="fileInput" multiple bind:this={imageValue} bind:files={image} on:change={inputValidation} on:click={()=>{fileChosen = !fileChosen;}}>
+<input type="file" id="fileInput" multiple bind:this={imageValue} bind:files={image} accept="video/*, image/*" on:change={inputValidation} on:click={()=>{fileChosen = !fileChosen;}}>
 
 <style>
     img {
