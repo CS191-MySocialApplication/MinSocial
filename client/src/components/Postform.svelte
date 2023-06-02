@@ -16,14 +16,24 @@
 
     let attachmentType = "none";
 
-    let statusText;
-    let image;
+    let statusText = "";
+    let image = [];
     let imageValue;
     let mediaToggle = false;
     
     let pollChoices;
     let pollOption;
-    let pollDeadline;
+    let deadlineChoices = [
+        {value: 300, text: "5 minutes"},
+        {value: 1800, text: "30 minutes"},
+        {value: 3600, text: "1 hour"},
+        {value: 21600, text: "6 hours"},
+        {value: 43200, text: "12 hours"},
+        {value: 86400, text: "1 day"},
+        {value: 259200, text: "3 days"},
+        {value: 604800, text: "7 days"}
+    ]
+    let pollDeadline = deadlineChoices[0];
     let pollToggle = false;
 
     let contentWarningToggle = false;
@@ -33,8 +43,16 @@
         const ACTION_URL = e.target.action;
         const formData = new FormData()
 
-        
+        if(!mediaToggle && statusText === ""){
+            alert("Status must have text");
+            return
+        }else if(mediaToggle && image.length == 0){
+            alert("Status does not contain anything")
+            return
+        }
+
         formData.append("text", statusText);
+
         formData.append("contentWarning", contentWarningToggle);
         
         if(contentWarningToggle){
@@ -45,7 +63,7 @@
             formData.append("attachmentType", "poll")
             formData.append("choices", JSON.stringify(pollChoices));
             formData.append("option", pollOption);
-            formData.append("deadline", pollDeadline);
+            formData.append("deadline", pollDeadline.value);
         }else if(mediaToggle){
             formData.append("attachmentType", "media")
             for(let i = 0; i < image.length; i++){
@@ -70,7 +88,7 @@
         ];
 
         pollOption = true;
-        pollDeadline = 300;
+        pollDeadline = deadlineChoices[0];
 
         fetch(ACTION_URL, {
             method: 'POST',
@@ -152,7 +170,7 @@
             
         <div>
             {#if pollToggle}
-                <Poll bind:choices={pollChoices} bind:option={pollOption} bind:deadline={pollDeadline}/>    
+                <Poll bind:choices={pollChoices} bind:option={pollOption} bind:deadline={pollDeadline} deadlineChoices={deadlineChoices}/>    
             {/if}
             {#if mediaToggle}
             <MediaInput bind:imageValue={imageValue} bind:image={image}/>

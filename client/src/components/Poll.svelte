@@ -12,6 +12,8 @@
         ""
     ];
 
+    export let deadlineChoices;
+
     export let option = true;
     
     export let deadline;
@@ -80,14 +82,9 @@
    
     <div id="selectContainer">   
         <select bind:value={deadline}>
-            <option value="300">5 minutes</option>
-            <option value="1800">30 minutes</option>
-            <option value="3600">1 hour</option>
-            <option value="21600">6 hours</option>
-            <option value="43200">12 hours</option>
-            <option value="86400">1 day</option>
-            <option value="259200">3 days</option>
-            <option value="604800">7 days</option>
+            {#each deadlineChoices as deadlineChoice}
+                <option value={deadlineChoice}>{deadlineChoice.text}</option>
+            {/each}
         </select>
         
     </div>
