@@ -50,7 +50,18 @@ def compose_tweet():
 
         poll = client.make_poll(choices, deadline, option)
 
-    userMention = "@"+str(client.account(client.status(latestID)['in_reply_to_account_id'])['username'])+" "+request.form["text"]
+    context = client.status_context(latestID)
+    toot = client.status(latestID)
+
+    toMention = client.me()['username']
+
+    tootContext = context["ancestors"]+[toot]+context["descendants"]
+    for toots in tootContext:
+        if toots['username']!=toMention:
+            toMention = toots['username']
+            break
+
+    userMention = "@"+toMention+" "+request.form["text"]
     
     toot = client.status_post(userMention, 
                               media_ids=media_ids, 
