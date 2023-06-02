@@ -57,8 +57,8 @@ def compose_tweet():
 
     tootContext = context["ancestors"]+[toot]+context["descendants"]
     for toots in tootContext:
-        if toots['username']!=toMention:
-            toMention = toots['username']
+        if toots['account']['username']!=toMention:
+            toMention = toots['account']['username']
             break
 
     userMention = "@"+toMention+" "+request.form["text"]
