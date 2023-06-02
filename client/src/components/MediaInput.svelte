@@ -7,7 +7,7 @@
     //Change to svg!
     import attachmentChosen from "../../public/attachmentChosen.png";
     import attachmentNotChosen from "../../public/attachmentNotChosen.png";
-  import Postform from "./Postform.svelte";
+    import Postform from "./Postform.svelte";
 
 
     function inputValidation(){

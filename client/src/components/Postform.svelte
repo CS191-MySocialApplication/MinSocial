@@ -10,6 +10,8 @@
     import cwDisabled from "../../public/contentWarningDisabled.png";
     import pollEnabled from "../../public/pollEnabled.png";
     import pollDisabled from "../../public/pollDisabled.png";
+    import attachmentChosen from "../../public/attachmentChosen.png";
+    import attachmentNotChosen from "../../public/attachmentNotChosen.png";
 
 
     let attachmentType = "none";
@@ -17,6 +19,7 @@
     let statusText;
     let image;
     let imageValue;
+    let mediaToggle = false;
     
     let pollChoices;
     let pollOption;
@@ -72,13 +75,21 @@
 
     }
 
-    function changeattachmentType(){
-        if(attachmentType == "none"){
-            attachmentType = "media";
-        }else if(attachmentType == "media"){
-            attachmentType = "poll";
+    function toggleMedia(){
+        if(!mediaToggle){
+            pollToggle = false;
+            mediaToggle = true;
         }else{
-            attachmentType = "none"
+            mediaToggle = false;
+        }
+    }
+
+    function togglePoll(){
+        if(!pollToggle){
+            mediaToggle = false;
+            pollToggle = true;
+        }else{
+            pollToggle = false;
         }
     }
 
@@ -86,9 +97,7 @@
         contentWarningToggle = ! contentWarningToggle;
     }
 
-    function showPoll(){
-        pollToggle = ! pollToggle;
-    }
+    
 </script>
 
 
@@ -105,15 +114,21 @@
         </div>
 
         <div class="attachments">
-            <MediaInput bind:imageValue={imageValue} bind:image={image}/>
-            <button type="button" id="displayPoll" on:click={showPoll}> 
-                {#if !pollToggle}
-                <img src={pollDisabled} alt="pollEnable"  />
-                {:else}
-                    <img src={pollEnabled} alt="pollEnable"  />
-                {/if}
-                
-                
+            
+            <button type="button" id="displayMedia" on:click={toggleMedia}> 
+            {#if !mediaToggle}
+                <img src={attachmentNotChosen} alt="mediaIcon"/>
+            {:else}
+                <img src={attachmentChosen} alt="mediaIcon"/>
+            {/if}
+            </button>
+
+            <button type="button" id="displayPoll" on:click={togglePoll}> 
+            {#if !pollToggle}
+                <img src={pollDisabled} alt="pollDisable"  />
+            {:else}
+                <img src={pollEnabled} alt="pollEnable"  />
+            {/if}
             </button>
             
             <button type="button" id="cwToggle" on:click={changeCW}> 
@@ -131,11 +146,14 @@
         </div>
         
             
-            <div>
-                {#if pollToggle}
-                    <Poll bind:choices={pollChoices} bind:option={pollOption} bind:deadline={pollDeadline}/>    
-                {/if}
-            </div>
+        <div>
+            {#if pollToggle}
+                <Poll bind:choices={pollChoices} bind:option={pollOption} bind:deadline={pollDeadline}/>    
+            {/if}
+            {#if mediaToggle}
+            <MediaInput bind:imageValue={imageValue} bind:image={image}/>
+            {/if}
+        </div>
 
         <div id="containerFooter">
             <input id="submitButton" type="submit" value="Post">
