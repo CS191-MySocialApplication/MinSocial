@@ -22,6 +22,7 @@
     let mediaToggle = false;
     
     let pollChoices;
+    let pollUnusedChoices;
     let pollOption;
     let deadlineChoices = [
         {value: 300, text: "5 minutes"},
@@ -33,6 +34,7 @@
         {value: 259200, text: "3 days"},
         {value: 604800, text: "7 days"}
     ]
+
     let pollDeadline = deadlineChoices[0];
     let pollToggle = false;
 
@@ -48,6 +50,14 @@
             return
         }else if(mediaToggle && image.length == 0){
             alert("Status does not contain anything")
+            return
+        }
+
+        if (pollToggle && pollChoices.filter(x => x === "").length !== 0){
+            alert("There should be no empty poll choices");
+            return
+        } else if(pollToggle && (new Set(pollChoices)).size !== pollChoices.length){
+            alert("All poll choices should be unique");
             return
         }
 
@@ -84,6 +94,10 @@
         image = null;
         
         pollChoices = [
+            "", ""
+        ];
+
+        pollUnusedChoices = [
             "", ""
         ];
 
@@ -170,10 +184,10 @@
             
         <div>
             {#if pollToggle}
-                <Poll bind:choices={pollChoices} bind:option={pollOption} bind:deadline={pollDeadline} deadlineChoices={deadlineChoices}/>    
+                <Poll bind:choices={pollChoices} bind:option={pollOption} bind:deadline={pollDeadline} deadlineChoices={deadlineChoices} unused_choices={pollUnusedChoices}/>    
             {/if}
             {#if mediaToggle}
-            <MediaInput bind:imageValue={imageValue} bind:image={image}/>
+                <MediaInput bind:imageValue={imageValue} bind:image={image}/>
             {/if}
         </div>
 

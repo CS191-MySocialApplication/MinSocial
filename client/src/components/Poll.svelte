@@ -7,7 +7,7 @@
     ];
     
     // BAD CODE
-    let unused_choices = [
+    export let unused_choices = [
         "", 
         ""
     ];
