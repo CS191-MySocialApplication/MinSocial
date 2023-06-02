@@ -45,7 +45,9 @@
         contentWarningToggle = false;
         contentWarningText = "";
         
-        imageValue.value = "";
+        if(imageValue){
+            imageValue.value = "";
+        }
         image = null;
         
         pollChoices = [
