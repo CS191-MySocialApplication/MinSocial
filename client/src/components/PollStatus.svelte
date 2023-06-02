@@ -53,14 +53,6 @@
         Loading Poll
     {:then poll}
         {#if poll["voted"]}
-            <!--<ul>
-                {#each poll["options"] as choice}
-                    <li>{choice["title"]} - Votes: {choice["votes_count"]}</li>
-                {/each}
-            </ul>
-            Total Votes - {poll["votes_count"]}-->
-
-            <!---UI for polls-->
             <a class="poll" href="#/home">
                 {#each poll["options"] as choice}
                     {#if poll["votes_count"] === 0}
@@ -97,6 +89,7 @@
                 <input id="submitButton" type="submit" value="Vote">
             </form>
         {/if}
+        
     {:catch error}
         {error}
     {/await}
