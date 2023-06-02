@@ -2,6 +2,7 @@
     import Header from "../components/Header.svelte";
     import NavbarDesktop from "../components/NavbarDesktop.svelte";
     import NavbarMobile from "../components/NavbarMobile.svelte";
+    import Status from '../components/Status.svelte';
 
     import {link} from 'svelte-spa-router';
   
@@ -20,13 +21,16 @@
       <main>
         {#await auth_promise}
           <p>waiting...</p>
-        {:then status }
-            <a class="post" href="/toot/{status["id"]}" use:link>
-              <!--Change href to mentions thread-->
+        {:then response }
+          {#each response as status}
+            <!--<a class="post" href="/context/toot/{status["id"]}" use:link>
+              Change href to mentions thread
               <p id="source" class="imptDetails">{status["source"]} | {status["author"]["username"]}</p>
               <span id="dateTime">{status["createdTime"]}</span><br />
               <p>{@html status["content"]}</p>
-            </a>
+            </a>-->
+            <Status status={status}/>
+          {/each}
         {:catch error}
           <p style="color: red">{error.message}</p>
         {/await}
