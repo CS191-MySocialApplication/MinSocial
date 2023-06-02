@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractmethod
-
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 
 class Message(metaclass=ABCMeta):
     # TODO: Group conversation handling 
@@ -41,4 +42,6 @@ class MstdnMsg(Message):
     source = "Mastodon"
 
     def __init__(self, conversationID, message, participantIDs):
+        message["created_at"] = message["created_at"].astimezone(ZoneInfo("Asia/Manila"))
+        message["created_at"] = message["created_at"].strftime("%d %b %y %H:%M")
         super().__init__(str(message["id"]), message["content"], message["account"], str(conversationID), message["created_at"], list(participantIDs))
