@@ -18,31 +18,27 @@
     }
 </script>
 
-
-
     <!--Change href to mentions thread-->
-    <div class="post">
+    <a class="post" href="/toot/{status["id"]}" use:link>
       <p id="source" class="imptDetails">{status["account"]["username"]}</p>
       
       <span id="dateTime">{status["created_at"]}</span><br />
-      
-      
+            
       {#if status["sensitive"]}
         <p id="spoilerText">{status["spoiler_text"]} <button type="button" id="contentToggle" on:click={()=>{showContent = !showContent}}> {#if showContent} Hide {:else} Show {/if} Content</button></p>
       {/if}
       
-        
-        
+          
       {#if !status["sensitive"] || (status["sensitive"] && showContent)}
-      <a href="/toot/{status["id"]}" use:link>
+      <div>
         <p>{@html status["content"]}</p>
-      </a>
+      </div>
         {#if status["media_attachments"].length !== 0}
         
         {#each status["media_attachments"] as media}
           {#if media["type"] == "image"}
           <div id="mediaContainer">
-            <a href="{media["url"]}" id="mediaAttachment" target="_blank" rel="noreferrer noopener">
+            <a href="{media["url"]}" id="mediaAttachment" target="_blank" rel="noreferrer noopener" onclick='event.stopPropagation();'>
               <img src="{media["url"]}" id="mediaImage" alt="mediaImage"/>
             </a>
           </div>
@@ -56,7 +52,7 @@
           </div>
           {:else if media["type"] == "video"}
           <div id="mediaContainer">
-            <a href="{media["url"]}" id="mediaAttachment" target="_blank" rel="noreferrer noopener" >
+            <a href="{media["url"]}" id="mediaAttachment" target="_blank" rel="noreferrer noopener" onclick='event.stopPropagation();'>
             <video controls id="mediaVideo">
               <track kind="captions">
               <!--maybe add other video formats?-->
@@ -66,7 +62,7 @@
         </div>
           {:else}
           <div id="mediaContainer">
-            <a href="{media["url"]}" id="mediaAttachment" target="_blank" rel="noreferrer noopener" >
+            <a href="{media["url"]}" id="mediaAttachment" target="_blank" rel="noreferrer noopener" onclick='event.stopPropagation();'>
               <video autoplay playsinline loop controls id="mediaGIF">
                 <track kind="captions">
                 <!--maybe add other gifv formats?-->
@@ -79,13 +75,12 @@
 
         {:else if status["poll"] !== null}
             <!-- {console.log(status["poll"])} -->
-
-            <PollStatus poll={status["poll"]}/>
-            
+          <div onclick='event.stopPropagation();'>
+            <PollStatus tootLink='#/toot/{status["id"]}' poll={status["poll"]}/>
+          </div>
         {/if}
       {/if}
-      
-    </div>
+    </a>
 
   <style>
 

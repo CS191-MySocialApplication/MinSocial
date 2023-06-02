@@ -2,8 +2,10 @@
     import { tweened } from 'svelte/motion';
 	import { cubicOut } from 'svelte/easing';
     import { onMount } from 'svelte';
+    import { link } from 'svelte-spa-router';
 
     export let poll;
+    export let tootLink = "#/home";
 
     let votedOptions = [];
 
@@ -47,13 +49,13 @@
 
 </script>
 
-<a class="parent" href="#/home">
-    
+<a class="parent" href="{tootLink}" use:link>
+
     {#await poll}
         Loading Poll
     {:then poll}
         {#if poll["voted"]}
-            <a class="poll" href="#/home">
+            <a class="poll" href="#/home" onclick='event.stopPropagation();'>
                 {#each poll["options"] as choice}
                     {#if poll["votes_count"] === 0}
                         <div class="pollItem"> 
