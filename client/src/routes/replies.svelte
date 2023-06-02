@@ -33,10 +33,19 @@
         {#await auth_promise}
           <p>waiting...</p>
         {:then response}
-          {#each response as status}
-
-            <Status status={status}/>
-
+          {#each response as status,index}
+          {#if Object.entries(response).length-1 == index}
+              <div id="status">
+                <Status status={status}/>
+              </div>
+            {:else}
+            <div id="status"
+            style="border-style: none none solid none;
+            border-color: #50c0cb;
+            border-width: 1px;">
+              <Status status={status}/>
+            </div>
+            {/if}
           {/each}
         {:catch error}
           <p style="color: red">{error.message}</p>
@@ -49,7 +58,7 @@
   
   <style>
     main {
-      margin-top: 90px;
+      margin-top: 70px;
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -80,23 +89,10 @@
         width: 100%;
       }
     }
-  
-    a {
-      display: block;
-      text-decoration: none;
-      color: inherit;
-      border-style: none none solid none;
-      border-color: #50c0cb;
-      border-width: 1px;
-      padding: 0px 14px;
-    }
-    a:hover {
-      background-color: #3c4444;
-      fill-opacity: 0.5;
-    }
-    .imptDetails {
-      margin-bottom: 0;
-    }
     
+    #status {
+    display: flex;
+  }
+  
   </style>
   

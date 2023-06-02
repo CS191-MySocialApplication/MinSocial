@@ -56,7 +56,7 @@
         background-color: #252c2c;
         color: white;
         border-bottom: 3px solid #50c0cb;
-        margin: -8px 0px 0px 0px;
+        margin: 0px;
     }
     .headerContainer {
         display: flex;
@@ -69,7 +69,7 @@
         display: inline-block;
         vertical-align: middle;
         margin-left: 1.5rem;
-        margin-right: 10px;
+        margin-right: 4px;
     }
     .backButtonIcon:hover {
         background-color: #3c4444;
@@ -85,9 +85,9 @@
     
     @media screen and (hover: none) {
         h1 {
-            padding: 24px 0px;
+            padding: 10px 0px;
             letter-spacing: 0.6px;
-            font-size: 18px;
+            font-size: 16px;
         }
         .headerContainer {
             margin-right: 24px;
@@ -96,8 +96,8 @@
     
     @media screen and (hover: hover) {
         h1 {
-            padding: 24px 0px;
-            font-size: 20px;
+            padding: 10px 0px;
+            font-size: 16px;
         }
         .headerContainer {
             width: 85lvw;

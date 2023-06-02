@@ -12,7 +12,8 @@ def generate_mstdn_context(status_id, mstdn_access_key):
     context = client.status_context(status_id)
     toot = client.status(status_id)
 
-    tootContext = context["ancestors"]+[toot]+context["descendants"]
+    #tootContext = context["ancestors"]+[toot]+context["descendants"]
+    tootContext = context["ancestors"]+[toot]
     print(tootContext)
 
     for posts in tootContext:

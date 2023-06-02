@@ -24,23 +24,32 @@
         {#await auth_promise}
           <p>waiting...</p>
         {:then response}
-          {#each response as status}
-
-            <Status status={status}/>
-
+          {#each response as status, index}
+            {#if Object.entries(response).length-1 == index}
+              <div id="status">
+                <Status status={status}/>
+              </div>
+            {:else}
+            <div id="status"
+            style="border-style: none none solid none;
+            border-color: #50c0cb;
+            border-width: 1px;">
+              <Status status={status}/>
+            </div>
+            {/if}
           {/each}
         {:catch error}
           <p style="color: red">{error.message}</p>
         {/await}
       </main>
     </div>
-  
+    
     <NavbarMobile title="Mentions"/>
   </div>
   
 <style>
     main {
-    margin-top: 90px;
+    margin-top: 70px;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -72,6 +81,10 @@
     }
   }
 
+  #status {
+    display: flex;
+  }
   
+
   
 </style>

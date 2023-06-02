@@ -22,14 +22,43 @@
         {#await auth_promise}
           <p>waiting...</p>
         {:then response }
-          {#each response as status}
+          {#each response as status , index}
             <!--<a class="post" href="/context/toot/{status["id"]}" use:link>
               Change href to mentions thread
               <p id="source" class="imptDetails">{status["source"]} | {status["author"]["username"]}</p>
               <span id="dateTime">{status["createdTime"]}</span><br />
               <p>{@html status["content"]}</p>
             </a>-->
-            <Status status={status}/>
+            {#if Object.entries(response).length-1 == index}
+
+              {#if index == 0}
+                <div id="parent">
+                  <Status status={status}/>
+                </div>
+              {:else}
+                <div id="status">
+                  <div id="line"></div>   
+                  <Status status={status} id="reply"/>    
+                </div>
+              {/if}
+            {:else}
+              {#if index == 0}
+                <div id="parent" 
+                style="border-style: none none solid none;
+                border-color: #50c0cb;
+                border-width: 1px;">
+                  <Status status={status}/>
+                </div>
+              {:else}
+                <div id="status"
+                style="border-style: none none solid none;
+                border-color: #acacac;
+                border-width: 1px;">
+                  <div id="line"></div>   
+                  <Status status={status} id="reply"/>    
+                </div>
+              {/if}
+            {/if}
           {/each}
         {:catch error}
           <p style="color: red">{error.message}</p>
@@ -42,7 +71,7 @@
   
   <style>
     main {
-      margin-top: 90px;
+      margin-top: 70px;
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -73,23 +102,21 @@
         width: 100%;
       }
     }
-  
-    a {
-      display: block;
-      text-decoration: none;
-      color: inherit;
-      border-style: none none solid none;
-      border-color: #50c0cb;
-      border-width: 1px;
-      padding: 0px 14px;
+
+    #line{
+      margin: 14px 0px 14px 14px;
+      border-width: 0px 0px 0px 2px;
+      border-style: solid;
     }
-    a:hover {
-      background-color: #3c4444;
-      fill-opacity: 0.5;
+
+    #status, #parent{
+      display: flex;
+      
     }
-    .imptDetails {
-      margin-bottom: 0;
+
+    #status:hover {
+      background-color:#3c4444;
     }
-    
+
   </style>
   
