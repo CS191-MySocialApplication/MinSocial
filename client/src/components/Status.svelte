@@ -96,6 +96,7 @@
   .post:hover {
     background-color: #3c4444;
     fill-opacity: 0.5;
+    text-decoration: none;
   }
 
   a:hover {
