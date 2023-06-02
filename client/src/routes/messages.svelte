@@ -9,7 +9,7 @@
   let auth_promise = getMessageContent();
   
   async function isolateConversations() {
-    let listOfMessages = await getMessageContent();
+    let listOfMessages = await auth_promise;
     let conversationsDict = {};
     for(let message of listOfMessages) {
       //console.log(message);
@@ -91,7 +91,7 @@
         
           <p class="imptDetails">{key} <span id="dateTime">| {value[0]["createdTime"]}</span></p>
           {#each value as message}
-          <a class="conversation" href="/#/messages">
+          <a class="conversation" href="/#/msg/{message["messageID"]}">
             <div class="message">
               <p>{value[0]["author"]["username"]}:&nbsp</p>
               {@html message["content"]}

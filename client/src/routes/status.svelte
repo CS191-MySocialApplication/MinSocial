@@ -4,10 +4,12 @@
     import NavbarMobile from "../components/NavbarMobile.svelte";
     import Status from '../components/Status.svelte';
 
-    import {link} from 'svelte-spa-router';
-  
-    export let params = {};
+    import Postform from "../components/Postform.svelte";
 
+    import {link} from 'svelte-spa-router';
+
+    export let params = {};
+    
     import { getStatus } from "../sdk/status"
   
     let auth_promise = getStatus(params);

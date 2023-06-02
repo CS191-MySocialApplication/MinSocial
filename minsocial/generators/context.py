@@ -13,7 +13,6 @@ def generate_mstdn_context(status_id, mstdn_access_key):
     toot = client.status(status_id)
 
     tootContext = context["ancestors"]+[toot]+context["descendants"]
-    print(tootContext)
 
     for posts in tootContext:
         posts["id"] = str(posts["id"])
