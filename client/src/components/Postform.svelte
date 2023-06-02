@@ -33,7 +33,7 @@
         const ACTION_URL = e.target.action;
         const formData = new FormData()
 
-        formData.append("attachmentType", attachmentType)
+        
         formData.append("text", statusText);
         formData.append("contentWarning", contentWarningToggle);
         
@@ -41,14 +41,18 @@
             formData.append("contentWarningText", contentWarningText)
         }
 
-        if(attachmentType == "poll"){
+        if(pollToggle){
+            formData.append("attachmentType", "poll")
             formData.append("choices", JSON.stringify(pollChoices));
             formData.append("option", pollOption);
             formData.append("deadline", pollDeadline);
-        }else if(attachmentType == "media"){
+        }else if(mediaToggle){
+            formData.append("attachmentType", "media")
             for(let i = 0; i < image.length; i++){
                 formData.append("images_"+i, image[i]);
             }
+        }else{
+            formData.append("attachmentType", "none")
         }
 
         statusText = "";
