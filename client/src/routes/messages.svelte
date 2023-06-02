@@ -70,7 +70,6 @@
         <p style="color: red">{error.messages}</p>
       {/await}
       -->
-      <Messageform />
       {#await test}
         <p>waiting...</p>
       {:then conversationsDict}

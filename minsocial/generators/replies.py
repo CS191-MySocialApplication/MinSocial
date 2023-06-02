@@ -37,7 +37,7 @@ def generate_mstdn_replies(mstdn_access_key):
     response = client.notifications(mentions_only=True)
 
     for notif in response:
-        if len(client.status_context(notif["status"]["id"])["ancestors"]):
+        if (len(client.status_context(notif["status"]["id"])["ancestors"]) and notif["status"]["visibility"]!='direct'):
             tl.append(notif["status"])
 
     sortTL = sorted(tl, key=lambda d: d['created_at'], reverse=True)

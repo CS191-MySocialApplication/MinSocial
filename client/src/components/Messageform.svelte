@@ -5,6 +5,14 @@
     import Poll from "./Poll.svelte";
     import MediaInput from "./MediaInput.svelte"
 
+    import { get } from 'svelte/store';
+    import my_store from "../sdk/store.ts";
+
+    const latestID = get(my_store);
+
+    console.log("latestID: ")
+    console.log(latestID)
+
     let attachmentType = "none";
 
     let statusText;
@@ -18,6 +26,8 @@
     let contentWarningToggle = false;
     let contentWarningText = "";
 
+    let sendID = latestID;
+
     const handleOnSubmit = e => {
         const ACTION_URL = e.target.action;
         const formData = new FormData()
@@ -25,6 +35,7 @@
         formData.append("attachmentType", attachmentType)
         formData.append("text", statusText);
         formData.append("contentWarning", contentWarningToggle);
+        formData.append("sendID", sendID);
         
         if(contentWarningToggle){
             formData.append("contentWarningText", contentWarningText)

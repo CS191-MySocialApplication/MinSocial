@@ -11,8 +11,14 @@
     export let params = {};
     
     import { getMsg } from "../sdk/message"
+
+    import my_store from "../sdk/store.ts";
+    my_store.update(n => params.id)
+
+    console.log(params.id)
   
     let auth_promise = getMsg(params);
+
   </script>
   
   <div class="desktopFormat">

@@ -32,6 +32,7 @@ def compose_tweet():
     spoiler_text = request.form["contentWarningText"] if sensitive else None
 
     attachmentType = request.form.get("attachmentType")
+    latestID = request.form["sendID"]
 
     media_ids = None
     poll = None
@@ -48,12 +49,16 @@ def compose_tweet():
         choices = json.loads(request.form["choices"])
 
         poll = client.make_poll(choices, deadline, option)
+
+    userMention = "@"+str(client.account(client.status(latestID)['in_reply_to_account_id'])['username'])+" "+request.form["text"]
     
-    toot = client.status_post(request.form["text"], 
+    toot = client.status_post(userMention, 
                               media_ids=media_ids, 
                               poll=poll,
                               sensitive=sensitive,
                               spoiler_text=spoiler_text,
-                              visibility='direct')
+                              visibility='direct',
+                              in_reply_to_id=str(latestID))
+    
 
     return {"status": "success"}
