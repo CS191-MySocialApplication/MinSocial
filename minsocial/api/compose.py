@@ -39,7 +39,7 @@ def compose_tweet():
     if attachmentType == "media":
         media_ids = []
         for file in request.files.values():
-            media = client.media_post(file, mime_type="image/png")
+            media = client.media_post(file, mime_type=file.mimetype)
             media_ids.append(media["id"])
         
     elif attachmentType == "poll":
