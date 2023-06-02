@@ -3,7 +3,8 @@ from mastodon import Mastodon
 from minsocial.models.status import Toot
 
 import os
-
+from zoneinfo import ZoneInfo
+from datetime import datetime, timezone, timedelta
 
 def generate_mstdn_context(status_id, mstdn_access_key):
 
@@ -18,5 +19,7 @@ def generate_mstdn_context(status_id, mstdn_access_key):
 
     for posts in tootContext:
         posts["id"] = str(posts["id"])
+        posts["created_at"] = posts["created_at"].astimezone(ZoneInfo("Asia/Manila"))
+        posts["created_at"] = posts["created_at"].strftime("%d %b %y %H:%M")
         
     return tootContext

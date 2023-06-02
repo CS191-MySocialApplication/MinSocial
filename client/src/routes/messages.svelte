@@ -1,6 +1,6 @@
 <script>
   import Header from "../components/Header.svelte";
-  //import Postform from "../components/Postform.svelte";
+  import Messageform from "../components/Messageform.svelte";
   import NavbarDesktop from "../components/NavbarDesktop.svelte";
   import NavbarMobile from "../components/NavbarMobile.svelte";
 
@@ -9,7 +9,7 @@
   let auth_promise = getMessageContent();
   
   async function isolateConversations() {
-    let listOfMessages = await getMessageContent();
+    let listOfMessages = await auth_promise;
     let conversationsDict = {};
     for(let message of listOfMessages) {
       console.log("message");
@@ -67,7 +67,7 @@
           <div id="conversationContainer">
           {#each Object.entries(value) as [key,message]}
             
-          <a class="conversation" href="/#/messages" >
+          <a class="conversation" href="/#/msg/{message["messageID"]}">
             <div class="messageDetails">
               
                 <p id="username">{message["author"]["username"]} messaged <span id="dateTime">| {message["createdTime"]}</span></p>
@@ -80,7 +80,6 @@
           </a>
           
           {/each}
-        </div>
         </div>
         {/each}
       

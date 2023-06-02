@@ -7,6 +7,8 @@ from minsocial.api.statusv2 import status_bp
 from minsocial.api.context import context_bp
 from minsocial.api.compose import compose_bp
 from minsocial.api.replies_timeline import replies_bp
+from minsocial.api.message import message_bp
+from minsocial.api.composeMsg import composeMsg_bp
 
 
 api_blueprint = Blueprint("apiv2", __name__, url_prefix="/api")
@@ -18,3 +20,5 @@ api_blueprint.register_blueprint(status_bp)
 api_blueprint.register_blueprint(context_bp)
 api_blueprint.register_blueprint(compose_bp)
 api_blueprint.register_blueprint(replies_bp)
+api_blueprint.register_blueprint(message_bp)
+api_blueprint.register_blueprint(composeMsg_bp)

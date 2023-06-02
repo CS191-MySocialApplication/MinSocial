@@ -2,6 +2,7 @@ from mastodon import Mastodon
 from minsocial.models.status import Toot
 
 import os
+from zoneinfo import ZoneInfo
 from datetime import datetime, timezone, timedelta
 
 def generate_replies_timeline(twt_access_key=None, mstdn_access_key=None):
@@ -37,11 +38,13 @@ def generate_mstdn_replies(mstdn_access_key):
     response = client.notifications(mentions_only=True)
 
     for notif in response:
-        if len(client.status_context(notif["status"]["id"])["ancestors"]):
+        if (len(client.status_context(notif["status"]["id"])["ancestors"]) and notif["status"]["visibility"]!='direct'):
             tl.append(notif["status"])
 
     sortTL = sorted(tl, key=lambda d: d['created_at'], reverse=True)
 
     for post in sortTL:
         post["id"] = str(post["id"])
+        post["created_at"] = post["created_at"].astimezone(ZoneInfo("Asia/Manila"))
+        post["created_at"] = post["created_at"].strftime("%d %b %y %H:%M")
         yield post
