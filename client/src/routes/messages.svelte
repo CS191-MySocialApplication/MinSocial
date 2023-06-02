@@ -88,16 +88,17 @@
         </a>
         -->
         <!--Displays all messages-->  
-        <a class="conversation" href="/#/messages">
+        
           <p class="imptDetails">{key} <span id="dateTime">| {value[0]["createdTime"]}</span></p>
           {#each value as message}
+          <a class="conversation" href="/#/messages">
             <div class="message">
               <p>{value[0]["author"]["username"]}:&nbsp</p>
               {@html message["content"]}
             </div>
-            
+          </a>
           {/each}
-        </a>
+        
         {/each}
       {:catch error}
         <p style="color: red">{error.messages}</p>
