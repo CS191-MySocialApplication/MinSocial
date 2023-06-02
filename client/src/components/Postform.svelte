@@ -5,6 +5,13 @@
     import Poll from "./Poll.svelte";
     import MediaInput from "./MediaInput.svelte"
 
+    //Change to svg!
+    import cwEnabled from "../../public/contentWarningEnabled.png";
+    import cwDisabled from "../../public/contentWarningDisabled.png";
+    import pollEnabled from "../../public/pollEnabled.png";
+    import pollDisabled from "../../public/pollDisabled.png";
+
+
     let attachmentType = "none";
 
     let statusText;
@@ -14,6 +21,7 @@
     let pollChoices;
     let pollOption;
     let pollDeadline;
+    let pollToggle = false;
 
     let contentWarningToggle = false;
     let contentWarningText = "";
@@ -77,6 +85,10 @@
     function changeCW(){
         contentWarningToggle = ! contentWarningToggle;
     }
+
+    function showPoll(){
+        pollToggle = ! pollToggle;
+    }
 </script>
 
 
@@ -92,24 +104,38 @@
             <textarea id="text" name="text" rows="3" bind:value={statusText}/>
         </div>
 
-        <br>
-        <button type="button" on:click={changeCW}> {#if !contentWarningToggle} Enable {:else} Disable {/if} Content Warning </button>
-        {#if contentWarningToggle}
-            <input type="text" bind:value={contentWarningText} /> 
-        {/if}
-        <br>
-
-        <button type="button" on:click={changeattachmentType}>Attachment: {attachmentType}</button>
-
-        {#if attachmentType=="media"}
-
+        <div class="attachments">
             <MediaInput bind:imageValue={imageValue} bind:image={image}/>
-
-        {:else if attachmentType=="poll"}
-
-            <Poll bind:choices={pollChoices} bind:option={pollOption} bind:deadline={pollDeadline}/>
-
-        {/if}
+            <button type="button" id="displayPoll" on:click={showPoll}> 
+                {#if !pollToggle}
+                <img src={pollDisabled} alt="pollEnable"  />
+                {:else}
+                    <img src={pollEnabled} alt="pollEnable"  />
+                {/if}
+                
+                
+            </button>
+            
+            <button type="button" id="cwToggle" on:click={changeCW}> 
+                {#if !contentWarningToggle}
+                <img src={cwDisabled} alt="cwEnable"  />
+                {:else}
+                <img src={cwEnabled} alt="cwDisable" />
+                {/if}
+            </button>
+            <div id="containerCW">
+                {#if contentWarningToggle}
+                    <input type="text" id="cwText" placeholder="Content Warning..." bind:value={contentWarningText} /> 
+                {/if}
+            </div>
+        </div>
+        
+            
+            <div>
+                {#if pollToggle}
+                    <Poll bind:choices={pollChoices} bind:option={pollOption} bind:deadline={pollDeadline}/>    
+                {/if}
+            </div>
 
         <div id="containerFooter">
             <input id="submitButton" type="submit" value="Post">
@@ -149,9 +175,14 @@
     }
     #containerArea{
         display: flex;
+        margin-bottom:4px;
+    }
+
+    .attachments {
+        display: flex;
     }
     textarea {
-        color: #acacac;
+        color: white;
         background-color: #252c2c;
         font-family:"Open Sans";  
         font-size: 12px;   
@@ -160,9 +191,7 @@
         resize: none;
         outline: none;
         padding: 15px;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
+        border-radius:5px;
     }
     
     #containerFooter{
@@ -190,5 +219,46 @@
         background-color: #50c0cb; /*#a7dfe5;*/
         opacity: 0.5;
  
+    }
+    button {
+        background-color: transparent;
+        border: none;    
+        margin-right: 4px;
+        height:30px;
+        width:30px;
+        padding: 0px;
+        border-radius:5px;
+    }
+    
+    #cwText {
+        color: white;
+        background-color: #252c2c;
+        font-family:"Open Sans";  
+        font-size: 12px;   
+        width: 100%;
+        border-width: 0;
+        resize: none;
+        outline: none;
+        padding: 5px;
+        margin-left: 0;
+        margin-right: 0;
+        border-radius:5px;
+    }
+    img{
+        height: 30px;
+        width:30px;
+    }
+    button:hover{
+        background-color: #252c2c;
+        /*opacity: 0.5;*/
+    }
+
+    #containerCW {
+        width: 100%;
+        display:flex;
+    }
+
+    ::placeholder {
+        color: #acacac;
     }
 </style>
