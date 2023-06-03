@@ -4,7 +4,7 @@ from zoneinfo import ZoneInfo
 
 class Message(metaclass=ABCMeta):
     # TODO: Group conversation handling 
-    def __init__(self, messageID, content, author, conversationID, createdTime, participantIDs):
+    def __init__(self, messageID, content, author, conversationID, createdTime, participantIDs, statusDict):
         
         self.messageID = messageID
         self.content = content
@@ -12,6 +12,7 @@ class Message(metaclass=ABCMeta):
         self.conversationID = conversationID
         self.createdTime = createdTime
         self.participantIDs = participantIDs
+        self.statusDict = statusDict
 
 
     def asdict(self):
@@ -22,6 +23,7 @@ class Message(metaclass=ABCMeta):
             'conversationID': self.conversationID,
             'createdTime': self.createdTime,
             'participantIDs': self.participantIDs,
+            'statusDict': self.statusDict,
         }
 
     @property
@@ -41,7 +43,7 @@ class TwtMsg(Message):
 class MstdnMsg(Message):
     source = "Mastodon"
 
-    def __init__(self, conversationID, message, participantIDs):
+    def __init__(self, conversationID, message, participantIDs, statusDict):
         message["created_at"] = message["created_at"].astimezone(ZoneInfo("Asia/Manila"))
         message["created_at"] = message["created_at"].strftime("%d %b %y %H:%M")
-        super().__init__(str(message["id"]), message["content"], message["account"], str(conversationID), message["created_at"], list(participantIDs))
+        super().__init__(str(message["id"]), message["content"], message["account"], str(conversationID), message["created_at"], list(participantIDs), statusDict)
