@@ -69,11 +69,11 @@
             </div>
             <p id="content">{@html message["content"]}</p>
           </a>
-          
           {/each}
         </div>
+      </div>
       {/each}
-      
+       
       {:catch error}
         <p style="color: red">{error.messages}</p>
       {/await}
