@@ -73,20 +73,20 @@
             {#if message["unread"]==true}
               <div id="unreadContent">
                 {#if message["statusDict"]["sensitive"]}
-                  <p>{message["statusDict"]["spoiler_text"]} | <em>Hidden Content</em></p>
+                  <p>{message["statusDict"]["spoiler_text"]}&ensp;&bull;&ensp;<span style="font-size: 12px">Hidden Content</span> </p>
                 {:else}
                   {#if message["statusDict"]["media_attachments"].length != 0}
                     <div id="messagePreview">
                     <p id="htmlContent">{@html message["content"]}</p>
-                    <span> | <em>Attachment</em></span>
+                    <p>&ensp;&bull;&ensp;<span style="font-size: 12px">Media</span> </p>
                     </div>
                   {:else if message["statusDict"]["poll"]!= null}
                     <div id="messagePreview">
-                    <p>{@html message["content"]}</p>
-                    <span> | <em>Poll</em></span>
+                      <p id="htmlContent">{@html message["content"]}</p>
+                      <p>&ensp;&bull;&ensp;<span style="font-size: 12px">Poll</span> </p>
                     </div>
                   {:else}
-                    <p>{@html message["content"]}
+                  <p id="htmlContent">{@html message["content"]}
                   {/if}
                 {/if}
 
@@ -95,20 +95,20 @@
             {:else}
             <div id="readContent">
               {#if message["statusDict"]["sensitive"]}
-                <p>{message["statusDict"]["spoiler_text"]} | <em>Hidden Content</em></p>
+                <p>{message["statusDict"]["spoiler_text"]}&ensp;&bull;&ensp;<span style="font-size: 12px">Hidden Content</span></p>
               {:else}
               {#if message["statusDict"]["media_attachments"].length != 0}
                 <div id="messagePreview">
                   <p id="htmlContent">{@html message["content"]}</p>
-                  <span> | <em>Attachment</em></span>
+                  <p>&ensp;&bull;&ensp;<span style="font-size: 12px">Media</span> </p>
                   </div>
               {:else if message["statusDict"]["poll"]!= null}
                 <div id="messagePreview">
-                  <p>{@html message["content"]}</p>
-                  <span> | <em>Poll</em></span>
+                  <p id="htmlContent">{@html message["content"]}</p>
+                  <p>&ensp;&bull;&ensp;<span style="font-size: 12px">Poll</span> </p>
                 </div>
               {:else}
-                <p>{@html message["content"]}
+              <p id="htmlContent">{@html message["content"]}
               {/if}
               {/if}
             
@@ -227,6 +227,7 @@
 
   #htmlContent {
       pointer-events: none;
+      margin: 0px;
     }
 
   #messagePreview {
