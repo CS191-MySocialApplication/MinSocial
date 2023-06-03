@@ -56,10 +56,23 @@ def compose_tweet():
     toMention = client.me()['username']
 
     tootContext = context["ancestors"]+[toot]+context["descendants"]
+
+    flag = False
     for toots in tootContext:
         if toots['account']['username']!=toMention:
             toMention = toots['account']['username']
+            flag = True
+
+        for mentioned in toots['mentions']:
+            if mentioned['username']!=toMention:
+                toMention = mentioned['username']
+                flag = True
+                
+        if flag == True:
             break
+        
+    
+    print('Chosen: ',toMention)
 
     userMention = "@"+toMention+" "+request.form["text"]
     
