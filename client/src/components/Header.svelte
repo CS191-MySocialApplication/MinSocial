@@ -15,6 +15,8 @@
     import RepliesHeader from "../../public/replyHeader.svelte";
     import BackButton from "../../public/back.svelte"
 
+    import {push, pop, replace} from 'svelte-spa-router'
+
     import { lastPageAccessed } from "../routes/store.ts";
 </script>
 
@@ -34,9 +36,9 @@
                     <MessagesHeader/>
                 </div>
             {:else}
-                <a class="backButtonIcon" href="{$lastPageAccessed}">
+                <div class="backButtonIcon" on:click={()=>pop()} on:keypress>
                     <BackButton/>        
-                </a>
+                </div>
             {/if}
             
             <h1 class="Menu">{title}</h1>
