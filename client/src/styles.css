@@ -7,9 +7,11 @@ main {
   color: white;
 }
 
-.imptDetails, p {
+/*
+.imptDetails,p {
   font-size: 14px;
 }
+*/
 
 .imptDetails {
   letter-spacing: 0.5px;

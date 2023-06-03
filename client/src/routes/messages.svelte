@@ -1,21 +1,24 @@
 <script>
   import Header from "../components/Header.svelte";
-  //import Postform from "../components/Postform.svelte";
+  import Messageform from "../components/Messageform.svelte";
   import NavbarDesktop from "../components/NavbarDesktop.svelte";
   import NavbarMobile from "../components/NavbarMobile.svelte";
 
   import { getMessageContent } from "../sdk/conversations";
+  import { lastPageAccessed } from "./store.ts";
 
+  let pageTitle = "Messages"
   let auth_promise = getMessageContent();
   
   async function isolateConversations() {
-    let listOfMessages = await getMessageContent();
+    let listOfMessages = await auth_promise;
     let conversationsDict = {};
     for(let message of listOfMessages) {
-      //console.log(message);
+      console.log("message");
+      console.log(message);
       if(!(message["participantIDs"][0]["username"] in conversationsDict)) {
         console.log("new user");
-        console.log(message["participantIDs"][0]);
+        console.log(message["participantIDs"][0]["username"]);
         conversationsDict[message["participantIDs"][0]["username"]] = [message];
       }   
       else {
@@ -38,79 +41,51 @@
   });
 
   console.log(conversationsDict);*/
-  
-  
- 
-  
-
-  
-  
 </script>
 
 <div class="desktopFormat">
-  <NavbarDesktop title="Messages"/>
-  
+  <NavbarDesktop lastPageAccessed={$lastPageAccessed}/>
+
   <div class="content">
-    <Header title="Messages"/>
-    <main>
-      <!--
-      {#await auth_promise}
-        <p>waiting...</p>
-      {:then conversations}
-        {#each conversations as conversation}
-          <a class="conversation" href="/messages">
-            <p class="imptDetails">Conversation with {conversation["participantIDs"][0]["username"]} <span id="dateTime">| {conversation["createdTime"]}</span></p>
-            <div class="message">
-              <p>{conversation["author"]["username"]}:&nbsp</p>
-              {@html conversation["content"]}
-            </div>
-          </a>
-        {/each}
-      {:catch error}
-        <p style="color: red">{error.messages}</p>
-      {/await}
-      -->
+    <Header title={pageTitle}/>
+    <main on:load|once={lastPageAccessed.update( n => "/#/messages")}>
+  
       {#await test}
         <p>waiting...</p>
       {:then conversationsDict}
-        {#each Object.entries(conversationsDict) as [key, value]}
-        <!--Displays latest message-->
-        <!--
-        <a class="conversation" href="/messages">
-          <p class="imptDetails">{key} <span id="dateTime">| {value[0]["createdTime"]}</span></p>
-          
-            
-          <div class="message">
-            <p>{value[0]["author"]["username"]}:&nbsp</p>
-            {@html value[0]["content"]}
-          </div>
-
-        </a>
-        -->
+      
+        {#each Object.entries(conversationsDict) as [user, value]}
+        
         <!--Displays all messages-->  
-        <a class="conversation" href="/#/messages">
-          <p class="imptDetails">{key} <span id="dateTime">| {value[0]["createdTime"]}</span></p>
-          {#each value as message}
-            <div class="message">
-              <p>{message["author"]["username"]}:&nbsp</p>
-              {@html message["content"]}
-            </div>
+        <div id="user">
+          <p class="imptDetails">Conversations with {user} </p>
+          <div id="conversationContainer">
+          {#each Object.entries(value) as [key,message]}
             
+          <a class="conversation" href="/#/msg/{message["messageID"]}">
+            <div class="messageDetails">
+                <p id="username">{message["author"]["username"]} messaged <span id="dateTime">| {message["createdTime"]}</span></p>
+                <!--<p id="timeSent"><span id="dateTime">{message["createdTime"]}</span></p>-->    
+            </div>
+            <p id="content">{@html message["content"]}</p>
+          </a>
           {/each}
-        </a>
-        {/each}
+        </div>
+      </div>
+      {/each}
+       
       {:catch error}
         <p style="color: red">{error.messages}</p>
       {/await}
     </main>
   </div>
-
-  <NavbarMobile title="Messages"/>
+  
+  <NavbarMobile lastPageAccessed={$lastPageAccessed}/>
 </div>
 
 <style>
     main {
-    margin-top: 90px;
+    margin-top: 70px;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -146,22 +121,51 @@
     display: block;
     text-decoration: none;
     color: inherit;
+    padding: 0px 14px 1px 14px;
+    
+    border-radius: 5px;
+    background-color: #3c4444; /*#252c2c;*/
+    
+  }
+
+  #user {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    /*
     border-style: none none solid none;
     border-color: #50c0cb;
     border-width: 1px;
+    */
     padding: 0px 14px;
   }
   a:hover {
-    background-color: #3c4444;
-    fill-opacity: 0.5;
-  }
-  .imptDetails {
-    margin-bottom: 0;
+    background-color: #252c2c;
   }
   
-  .message {
-    color: #acacac;
+  .messageDetails {
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    font-size: 14px;
     display: flex;
+    justify-content: space-between;
+
+  }
+
+  #conversationContainer {
+    border-radius: 15px;
+    background-color:#3c4444;
+    margin: 14px 0px;
+    padding: 14px;
+
   }
   
+  #username {
+    margin-bottom: 0px;
+  }
+
+  #content {
+    font-size: 14px;
+    color: #acacac;
+  }
 </style>

@@ -3,32 +3,64 @@
     import Header from "../components/Header.svelte";
     import NavbarDesktop from "../components/NavbarDesktop.svelte"; 
     import NavbarMobile from "../components/NavbarMobile.svelte";
+    import Status from '../components/Status.svelte';
+
+    import {link} from 'svelte-spa-router';
+    import { lastPageAccessed } from "./store.ts";
   
     let value;
+    let pageTitle = "Replies";
   
     async function getHomeContent() {
-      // TODO
+      let res = await fetch("/api/replies");
+      let text = await res.json();
+
+      if (res.status == 200 || res.status == 206) {
+        return text;
+      } else {
+        throw new Error(text);
+      }
     }
   
     let auth_promise = getHomeContent();
+
   </script>
   
   <div class="desktopFormat">
-    <NavbarDesktop title="Replies"/>
+    <NavbarDesktop lastPageAccessed={$lastPageAccessed}/>
   
     <div class="content">
-      <Header bind:value={value} title="Replies"/>
-      <main style="display:{value}">
-        <!-- TODO -->
+      <Header bind:value={value} title={pageTitle}/>
+      <main style="display:{value}" on:load|once={lastPageAccessed.update( n => "/#/replies")}>
+        {#await auth_promise}
+          <p>waiting...</p>
+        {:then response}
+          {#each response as status,index}
+          {#if Object.entries(response).length-1 == index}
+              <div id="status">
+                <Status status={status}/>
+              </div>
+            {:else}
+            <div id="status"
+            style="border-style: none none solid none;
+            border-color: #50c0cb;
+            border-width: 1px;">
+              <Status status={status}/>
+            </div>
+            {/if}
+          {/each}
+        {:catch error}
+          <p style="color: red">{error.message}</p>
+        {/await}
       </main>
     </div>
   
-    <NavbarMobile title="Replies"/>
+    <NavbarMobile lastPageAccessed={$lastPageAccessed}/>
   </div>
   
   <style>
     main {
-      margin-top: 90px;
+      margin-top: 70px;
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -59,23 +91,10 @@
         width: 100%;
       }
     }
-  
-    a {
-      display: block;
-      text-decoration: none;
-      color: inherit;
-      border-style: none none solid none;
-      border-color: #50c0cb;
-      border-width: 1px;
-      padding: 0px 14px;
-    }
-    a:hover {
-      background-color: #3c4444;
-      fill-opacity: 0.5;
-    }
-    .imptDetails {
-      margin-bottom: 0;
-    }
     
+    #status {
+    display: flex;
+  }
+  
   </style>
   
