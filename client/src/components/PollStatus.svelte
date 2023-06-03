@@ -5,7 +5,6 @@
     import { link } from 'svelte-spa-router';
 
     export let poll;
-    export let tootLink = "#/home";
 
     let votedOptions = [];
 
@@ -49,18 +48,19 @@
 
 </script>
 
-<a class="parent" href="{tootLink}" use:link>
+<div class="parent">
 
     {#await poll}
         Loading Poll
     {:then poll}
         {#if poll["voted"]}
-            <a class="poll" href="#/home" onclick='event.stopPropagation();'>
+            <div class="poll">
                 {#each poll["options"] as choice}
                     {#if poll["votes_count"] === 0}
                         <div class="pollItem"> 
                             <span class="percentage"> 0% <span> {choice["title"]}
                         </div>
+                        <progress value={0}></progress>
                     {:else}
                         <div class="pollItem">
                             <span class="percentage">{Math.trunc(choice["votes_count"]/poll["votes_count"] *100)}% </span>
@@ -74,29 +74,31 @@
                 {:else}
                     <span class="totalVotes"> {poll["votes_count"]} votes </span>
                 {/if}
-            </a>
+            </div>
 
         {:else}
-            <form action="/api/poll/vote" on:submit|preventDefault={handleOnVote} class="pollForm">
-                {#each poll["options"] as choice, i}
-                    <div class="pollFormItems">
-                        {#if poll["multiple"]}
-                            <input type="checkbox" bind:group={votedOptions} name="vote" value={i}/>
-                        {:else}
-                            <input type="radio" bind:group={votedOptions} name="vote" value={i}/>
-                        {/if}
-                        {choice["title"]}
-                    </div>
-                {/each}
-                <input id="submitButton" type="submit" value="Vote">
-            </form>
+            <div class="pollForm" on:click|stopPropagation on:keypress={()=>{}}>
+                <form action="/api/poll/vote" on:submit|preventDefault|once={handleOnVote}>
+                    {#each poll["options"] as choice, i}
+                        <div class="pollFormItems">
+                            {#if poll["multiple"]}
+                                <input type="checkbox" bind:group={votedOptions} name="vote" value={i}/>
+                            {:else}
+                                <input type="radio" bind:group={votedOptions} name="vote" value={i}/>
+                            {/if}
+                            {choice["title"]}
+                        </div>
+                    {/each}
+                    <input id="submitButton" type="submit" value="Vote">
+                </form>
+            </div>
         {/if}
         
     {:catch error}
         {error}
     {/await}
 
-</a>
+</div>
 
 <style>
     .parent {
@@ -107,6 +109,9 @@
         margin-bottom: 14px;
     }
     .parent:hover .poll {
+        background-color: #252c2c;
+    }
+    .parent:hover .pollForm {
         background-color: #252c2c;
     }
     .poll {

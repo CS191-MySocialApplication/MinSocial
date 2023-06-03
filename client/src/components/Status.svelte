@@ -2,7 +2,7 @@
   import PollStatus from './PollStatus.svelte';
 
   import {link} from 'svelte-spa-router';
-
+  import {push, pop, replace} from 'svelte-spa-router'
   export let status;
 
   let showContent = false;
@@ -19,17 +19,17 @@
 </script>
 
   <!--Change href to mentions thread-->
-  <a class="post" href="/toot/{status["id"]}" use:link>
+  <div class="post" on:click={()=>{push("/toot/"+status["id"])}} on:keypress={()=>{}}>
     <div class="statusDetails">
-    <p id="username">{status["account"]["username"]} <span id="dateTime">| {status["created_at"]}</span></p>
-  </div>
+      <p id="username">{status["account"]["username"]} <span id="dateTime">| {status["created_at"]}</span></p>
+    </div>
     
     {#if status["sensitive"]}
       <p id="spoilerText">{status["spoiler_text"]} <button type="button" id="contentToggle" 
         onclick="event.stopPropagation(); event.preventDefault; return false"
         on:click={()=>{showContent = !showContent}}> {#if showContent} Hide {:else} Show {/if} Content</button></p>
     {/if}
-      
+    
     {#if !status["sensitive"] || (status["sensitive"] && showContent)}
       <a href="/toot/{status["id"]}" use:link>
         <p id="htmlContent">{@html status["content"]}</p>
@@ -37,11 +37,11 @@
 
       {#if status["media_attachments"].length == 4}
         <div id="centering">
-          <div id="mediaGallery"> 
+          <div id="mediaGallery" on:click|stopPropagation on:keypress={()=>{}}> 
             {#each status["media_attachments"] as media}
               {#if media["type"] == "image"}
                 <div id="multipleMediaContainer">
-                  <a href="{media["url"]}" id="imageLink" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
+                  <a href="{media["url"]}" id="imageLink" target="_blank" rel="noreferrer noopener">
                     <img src="{media["url"]}" id="mediaImage" alt="mediaImage"/>
                   </a>
                 </div>
@@ -62,7 +62,7 @@
         </div>
         {:else if status["media_attachments"].length == 3}
         <div id="centering">
-          <div id="mediaGallery"> 
+          <div id="mediaGallery" on:click|stopPropagation on:keypress={()=>{}}> 
             {#each status["media_attachments"] as media , index}
               {#if index == 0}
               {#if media["type"] == "image"}
@@ -109,7 +109,7 @@
         </div>
         {:else if status["media_attachments"].length == 2}
         <div id="centering">
-          <div id="mediaGallery"> 
+          <div id="mediaGallery" on:click|stopPropagation on:keypress={()=>{}}> 
             {#each status["media_attachments"] as media}
               {#if media["type"] == "image"}
                 <div id="multipleMediaContainer" style="grid-row:span 2;">
@@ -136,20 +136,20 @@
         {@const media = status["media_attachments"][0]}
         <div id="centering">
           {#if media["type"] == "image"}
-            <div id="singleMediaContainer">
-              <a href="{media["url"]}" id="imageLink" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
+            <div id="singleMediaContainer" on:click|stopPropagation on:keypress={()=>{}}>
+              <a href="{media["url"]}" id="imageLink" target="_blank" rel="noreferrer noopener">
                 <img src="{media["url"]}" id="mediaImage" alt="mediaImage"/>
               </a>
             </div>
         
           {:else if media["type"] == "audio"}
 
-                <audio controls id="mediaAudio">
+                <audio controls id="mediaAudio" on:click|stopPropagation on:keypress={()=>{}}>
                   <source src={media["url"]} type="audio/mp3">
                 </audio>
 
           {:else if media["type"] == "video"}
-            <div id="singleMediaContainer">
+            <div id="singleMediaContainer" on:click|stopPropagation on:keypress={()=>{}}>
               <div id="videoContainer">
                 <video controls id="mediaVideo">
                   <track kind="captions">
@@ -160,7 +160,7 @@
             </div>
 
           {:else}
-            <div id="singleMediaContainer">
+            <div id="singleMediaContainer" on:click|stopPropagation on:keypress={()=>{}}>
               <div id="gifContainer">
               <video autoplay playsinline loop muted id="mediaGIF">
                 <track kind="captions">
@@ -180,8 +180,8 @@
           
       {/if}
     {/if}
-   
-  </a>
+
+  </div>
 
 <style>
 
