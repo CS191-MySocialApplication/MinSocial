@@ -18,26 +18,22 @@
   }
 </script>
 
-
-
   <!--Change href to mentions thread-->
-  <div class="post">
+  <a class="post" href="/toot/{status["id"]}" use:link>
     <div class="statusDetails">
     <p id="username">{status["account"]["username"]} <span id="dateTime">| {status["created_at"]}</span></p>
-    
-    <!--<p id="timeSent"><span id="dateTime">{status["created_at"]}</span></p>-->
   </div>
     
     {#if status["sensitive"]}
-      <p id="spoilerText">{status["spoiler_text"]} <button type="button" id="contentToggle" on:click={()=>{showContent = !showContent}}> {#if showContent} Hide {:else} Show {/if} Content</button></p>
+      <p id="spoilerText">{status["spoiler_text"]} <button type="button" id="contentToggle" 
+        onclick="event.stopPropagation(); event.preventDefault; return false"
+        on:click={()=>{showContent = !showContent}}> {#if showContent} Hide {:else} Show {/if} Content</button></p>
     {/if}
-    
-      
       
     {#if !status["sensitive"] || (status["sensitive"] && showContent)}
-      <a href="/toot/{status["id"]}" use:link>
+      <div>
         <p id="content">{@html status["content"]}</p>
-      </a>
+      </div>
 
       {#if status["media_attachments"].length == 4}
         <div id="centering">
@@ -45,7 +41,7 @@
             {#each status["media_attachments"] as media}
               {#if media["type"] == "image"}
                 <div id="multipleMediaContainer">
-                  <a href="{media["url"]}" id="imageLink" target="_blank" rel="noreferrer noopener">
+                  <a href="{media["url"]}" id="imageLink" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
                     <img src="{media["url"]}" id="mediaImage" alt="mediaImage"/>
                   </a>
                 </div>
@@ -71,7 +67,7 @@
               {#if index == 0}
               {#if media["type"] == "image"}
                 <div id="multipleMediaContainer" style="grid-row:span 2;">
-                  <a href="{media["url"]}" id="imageLink" target="_blank" rel="noreferrer noopener">
+                  <a href="{media["url"]}" id="imageLink" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
                     <img src="{media["url"]}" id="mediaImage" alt="mediaImage"/>
                   </a>
                 </div>
@@ -90,7 +86,7 @@
               {:else}
               {#if media["type"] == "image"}
                 <div id="multipleMediaContainer">
-                  <a href="{media["url"]}" id="imageLink" target="_blank" rel="noreferrer noopener">
+                  <a href="{media["url"]}" id="imageLink" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
                     <img src="{media["url"]}" id="mediaImage" alt="mediaImage"/>
                   </a>
                 </div>
@@ -117,7 +113,7 @@
             {#each status["media_attachments"] as media}
               {#if media["type"] == "image"}
                 <div id="multipleMediaContainer" style="grid-row:span 2;">
-                  <a href="{media["url"]}" id="imageLink" target="_blank" rel="noreferrer noopener">
+                  <a href="{media["url"]}" id="imageLink" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
                     <img src="{media["url"]}" id="mediaImage" alt="mediaImage"/>
                   </a>
                 </div>
@@ -141,7 +137,7 @@
         <div id="centering">
           {#if media["type"] == "image"}
             <div id="singleMediaContainer">
-              <a href="{media["url"]}" id="imageLink" target="_blank" rel="noreferrer noopener">
+              <a href="{media["url"]}" id="imageLink" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
                 <img src="{media["url"]}" id="mediaImage" alt="mediaImage"/>
               </a>
             </div>
@@ -185,7 +181,7 @@
       {/if}
     {/if}
    
-  </div>
+  </a>
 
 <style>
 
@@ -207,9 +203,6 @@
   background-color: #3c4444;
   
 
-}
-a:hover {
-  text-decoration: underline;
 }
 
 .statusDetails {
