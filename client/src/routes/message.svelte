@@ -64,7 +64,6 @@
           <p style="color: red">{error.message}</p>
         {/await}
         <!--to turn into a Messageform-->
-        <a id="bottom">&nbsp; </a>
       </main>
       <Messageform />
     </div>
