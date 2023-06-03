@@ -53,7 +53,7 @@
   
   <style>
     main {
-      margin-top: 90px;
+      margin-top: 70px;
       flex: 1;
       display: flex;
       flex-direction: column;
