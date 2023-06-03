@@ -48,7 +48,7 @@
       </main>
     </div>
   
-    <NavbarMobile title="Toot"/>
+    <NavbarMobile lastPageAccessed={$lastPageAccessed}/>
   </div>
   
   <style>
