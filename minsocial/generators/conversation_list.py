@@ -34,5 +34,4 @@ def generate_mstdn_conversation_list(mstdn_access_key):
     conversations_list = client.conversations()
 
     for conversations in conversations_list:
-
-        yield MstdnMsg(conversations["id"], conversations["last_status"], conversations["accounts"], client.status(conversations["last_status"]["id"])).asdict()
+        yield MstdnMsg(conversations["id"], conversations["unread"], conversations["last_status"], conversations["accounts"], client.status(conversations["last_status"]["id"])).asdict()

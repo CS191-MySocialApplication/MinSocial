@@ -11,7 +11,7 @@
     <!--<p id="source" class="imptDetails">{status["account"]["username"]}</p>-->
     
     {#if status["sensitive"]}
-        <span id="spoilerText" style="text-align:right;">{status["spoiler_text"]} <button type="button" id="contentToggle" on:click={()=>{showContent = !showContent}}> {#if showContent} Hide {:else} Show {/if} Content</button></span>
+        <span id="spoilerText">{status["spoiler_text"]} <button type="button" id="contentToggle" on:click={()=>{showContent = !showContent}}> {#if showContent} Hide {:else} Show {/if} Content</button></span>
     {/if}
     <div class="message">
     {#if !status["sensitive"] || (status["sensitive"] && showContent)}
@@ -195,7 +195,10 @@
   object-fit: cover;
   height: 100%;
   width: 100%;
+  border-radius:5px;
 }
+
+
 
 #mediaAudio {
   width: 100%;
