@@ -60,7 +60,7 @@
             {/each}
           </div>
         </div>
-        {:else if status["media_attachments"].length == 3}
+      {:else if status["media_attachments"].length == 3}
         <div id="centering">
           <div id="mediaGallery" on:click|stopPropagation on:keypress={()=>{}}> 
             {#each status["media_attachments"] as media , index}
@@ -107,7 +107,7 @@
             {/each}
           </div>
         </div>
-        {:else if status["media_attachments"].length == 2}
+      {:else if status["media_attachments"].length == 2}
         <div id="centering">
           <div id="mediaGallery" on:click|stopPropagation on:keypress={()=>{}}> 
             {#each status["media_attachments"] as media}
