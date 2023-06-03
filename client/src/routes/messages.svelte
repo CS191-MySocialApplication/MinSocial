@@ -44,8 +44,8 @@
 </script>
 
 <div class="desktopFormat">
-  <NavbarDesktop title={pageTitle}/>
-  
+  <NavbarDesktop lastPageAccessed={$lastPageAccessed}/>
+
   <div class="content">
     <Header title={pageTitle}/>
     <main on:load|once={lastPageAccessed.update( n => "/#/messages")}>
@@ -80,7 +80,7 @@
       {/await}
     </main>
   </div>
-
+  
   <NavbarMobile title={pageTitle}/>
 </div>
 

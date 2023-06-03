@@ -16,7 +16,7 @@
 </script>
   
   <div class="desktopFormat">
-    <NavbarDesktop title={pageTitle}/>
+    <NavbarDesktop lastPageAccessed={$lastPageAccessed}/>
   
     <div class="content">
       <Header title={pageTitle}/>
@@ -45,7 +45,7 @@
       </main>
     </div>
     
-    <NavbarMobile title={pageTitle}/>
+    <NavbarMobile title={pageTitle} />
   </div>
   
 <style>

@@ -7,6 +7,7 @@
     import Postform from "../components/Postform.svelte";
 
     import {link} from 'svelte-spa-router';
+    import { lastPageAccessed } from "./store.ts";
 
     export let params = {};
     
@@ -16,7 +17,7 @@
   </script>
   
   <div class="desktopFormat">
-    <NavbarDesktop title="Toot"/>
+    <NavbarDesktop title="Toot" lastPageAccessed={$lastPageAccessed}/>
   
     <div class="content">
       <Header title="Toot"/>

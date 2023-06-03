@@ -27,7 +27,7 @@
   </script>
   
   <div class="desktopFormat">
-    <NavbarDesktop title={pageTitle}/>
+    <NavbarDesktop lastPageAccessed={$lastPageAccessed}/>
   
     <div class="content">
       <Header bind:value={value} title={pageTitle}/>

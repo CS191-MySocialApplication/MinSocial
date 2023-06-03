@@ -7,6 +7,7 @@
     import Messageform from "../components/Messageform.svelte";
 
     import {link} from 'svelte-spa-router';
+    import { lastPageAccessed } from "./store.ts";
 
     export let params = {};
     
@@ -22,7 +23,7 @@
   </script>
   
   <div class="desktopFormat">
-    <NavbarDesktop title="Toot"/>
+    <NavbarDesktop lastPageAccessed={$lastPageAccessed}/>
   
     <div class="content">
       <Header title="Toot"/>
