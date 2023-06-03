@@ -5,7 +5,9 @@
   import NavbarMobile from "../components/NavbarMobile.svelte";
 
   import { getMessageContent } from "../sdk/conversations";
+  import { lastPageAccessed } from "./store.ts";
 
+  let pageTitle = "Messages"
   let auth_promise = getMessageContent();
   
   async function isolateConversations() {
@@ -39,21 +41,14 @@
   });
 
   console.log(conversationsDict);*/
-  
-  
- 
-  
-
-  
-  
 </script>
 
 <div class="desktopFormat">
-  <NavbarDesktop title="Messages"/>
+  <NavbarDesktop title={pageTitle}/>
   
   <div class="content">
-    <Header title="Messages"/>
-    <main>
+    <Header title={pageTitle}/>
+    <main on:load|once={lastPageAccessed.update( n => "/#/messages")}>
   
       {#await test}
         <p>waiting...</p>
@@ -69,19 +64,16 @@
             
           <a class="conversation" href="/#/msg/{message["messageID"]}">
             <div class="messageDetails">
-              
                 <p id="username">{message["author"]["username"]} messaged <span id="dateTime">| {message["createdTime"]}</span></p>
-                <!--<p id="timeSent"><span id="dateTime">{message["createdTime"]}</span></p>-->
-              
-              
+                <!--<p id="timeSent"><span id="dateTime">{message["createdTime"]}</span></p>-->    
             </div>
             <p id="content">{@html message["content"]}</p>
-            
           </a>
           
           {/each}
         </div>
-        {/each}
+        </div>
+      {/each}
       
       {:catch error}
         <p style="color: red">{error.messages}</p>
@@ -89,7 +81,7 @@
     </main>
   </div>
 
-  <NavbarMobile title="Messages"/>
+  <NavbarMobile title={pageTitle}/>
 </div>
 
 <style>

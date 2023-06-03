@@ -7,20 +7,21 @@
 
     import { getHomeContent } from "../sdk/mentions_timeline";
 
-    import {link} from 'svelte-spa-router';
+    import { link } from 'svelte-spa-router';
+    import { lastPageAccessed } from "./store.ts";
 
-
+    let pageTitle = "Mentions"
     let auth_promise = getHomeContent();
 
 </script>
   
   <div class="desktopFormat">
-    <NavbarDesktop title="Mentions"/>
+    <NavbarDesktop title={pageTitle}/>
   
     <div class="content">
-      <Header title="Mentions"/>
-      <main>
-        <Postform />
+      <Header title={pageTitle}/>
+      <main on:load|once={lastPageAccessed.update( n => "/#/home")}>
+        <Postform/>
         {#await auth_promise}
           <p>waiting...</p>
         {:then response}
@@ -44,7 +45,7 @@
       </main>
     </div>
     
-    <NavbarMobile title="Mentions"/>
+    <NavbarMobile title={pageTitle}/>
   </div>
   
 <style>
