@@ -36,7 +36,7 @@
       
     {#if !status["sensitive"] || (status["sensitive"] && showContent)}
       <a href="/toot/{status["id"]}" use:link>
-        <p id="content">{@html status["content"]}</p>
+        <p id="htmlContent">{@html status["content"]}</p>
       </a>
 
       {#if status["media_attachments"].length == 4}
@@ -225,8 +225,9 @@ a:hover {
     margin-bottom: 0px;
   }
 
-  #content {
+  #htmlContent {
     font-size: 14px;
+    pointer-events: none;
   }
 
 

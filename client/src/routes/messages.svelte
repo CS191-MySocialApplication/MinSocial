@@ -66,20 +66,28 @@
           <p class="imptDetails">Conversations with {user} </p>
           <div id="conversationContainer">
           {#each Object.entries(value) as [key,message]}
+          {console.log("message test")}
+              {console.log(message)}
             
           <a class="conversation" href="/#/msg/{message["messageID"]}">
             <div class="messageDetails">
               
                 <p id="username">{message["author"]["username"]} messaged <span id="dateTime">| {message["createdTime"]}</span></p>
                 <!--<p id="timeSent"><span id="dateTime">{message["createdTime"]}</span></p>-->
-              
-              
+
             </div>
+            <!--If message has content warning (Hidden) -->
+            <!--If content has media (Attachment)-->
+            <!--If content has poll (Poll)-->
+            
             <p id="content">{@html message["content"]}</p>
+            
+            
             
           </a>
           
           {/each}
+        </div>
         </div>
         {/each}
       
