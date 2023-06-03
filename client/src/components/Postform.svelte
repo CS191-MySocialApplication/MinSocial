@@ -6,13 +6,9 @@
     import MediaInput from "./MediaInput.svelte"
 
     //Change to svg!
-    import cwEnabled from "../../public/contentWarningEnabled.png";
-    import cwDisabled from "../../public/contentWarningDisabled.png";
-    import pollEnabled from "../../public/pollEnabled.png";
-    import pollDisabled from "../../public/pollDisabled.png";
-    import attachmentChosen from "../../public/attachmentChosen.png";
-    import attachmentNotChosen from "../../public/attachmentNotChosen.png";
-
+    import ContentWarning from "../../public/contentWarning.svelte";
+    import PollIcon from "../../public/poll.svelte";
+    import Attachment from "../../public/attachment.svelte";
 
     let attachmentType = "none";
 
@@ -153,25 +149,37 @@
             
             <button type="button" id="displayMedia" on:click={toggleMedia}> 
             {#if !mediaToggle}
-                <img src={attachmentNotChosen} alt="mediaIcon"/>
+                <div class="disabled">
+                    <Attachment/>
+                </div>
             {:else}
-                <img src={attachmentChosen} alt="mediaIcon"/>
+                <div class="enabled">
+                    <Attachment/>
+                </div>
             {/if}
             </button>
 
             <button type="button" id="displayPoll" on:click={togglePoll}> 
             {#if !pollToggle}
-                <img src={pollDisabled} alt="pollDisable"  />
+                <div class="disabled">
+                    <PollIcon/>
+                </div>
             {:else}
-                <img src={pollEnabled} alt="pollEnable"  />
+                <div class="enabled">
+                    <PollIcon/>
+                </div>
             {/if}
             </button>
             
             <button type="button" id="cwToggle" on:click={changeCW}> 
                 {#if !contentWarningToggle}
-                <img src={cwDisabled} alt="cwEnable"  />
+                    <div class="disabled">
+                        <ContentWarning/>
+                    </div>
                 {:else}
-                <img src={cwEnabled} alt="cwDisable" />
+                    <div class="enabled">
+                        <ContentWarning/>
+                    </div>
                 {/if}
             </button>
             <div id="containerCW">
@@ -298,10 +306,7 @@
         margin-right: 0;
         border-radius:5px;
     }
-    img{
-        height: 30px;
-        width:30px;
-    }
+
     button:hover{
         background-color: #252c2c;
         /*opacity: 0.5;*/
@@ -314,5 +319,16 @@
 
     ::placeholder {
         color: #acacac;
+    }
+
+    .enabled {
+        width: 30px;
+        height: 30px;
+        fill: #ffffff;
+    }
+    .disabled {
+        width: 30px;
+        height: 30px;
+        fill:#acacac;
     }
 </style>
