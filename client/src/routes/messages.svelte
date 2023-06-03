@@ -72,7 +72,6 @@
           
           {/each}
         </div>
-        </div>
       {/each}
       
       {:catch error}
