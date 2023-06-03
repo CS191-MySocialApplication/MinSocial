@@ -9,6 +9,7 @@ from minsocial.api.compose import compose_bp
 from minsocial.api.replies_timeline import replies_bp
 from minsocial.api.message import message_bp
 from minsocial.api.composeMsg import composeMsg_bp
+from minsocial.api.composeMsgv2 import composeMsgv2_bp
 from minsocial.api.poll import poll_bp
 
 
@@ -24,3 +25,4 @@ api_blueprint.register_blueprint(poll_bp)
 api_blueprint.register_blueprint(replies_bp)
 api_blueprint.register_blueprint(message_bp)
 api_blueprint.register_blueprint(composeMsg_bp)
+api_blueprint.register_blueprint(composeMsgv2_bp)

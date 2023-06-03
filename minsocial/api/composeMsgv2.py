@@ -10,13 +10,13 @@ import json
 import tweepy
 from mastodon import Mastodon
 
-composeMsg_bp = Blueprint('composeMsg', __name__, url_prefix='/composeMsg')
+composeMsgv2_bp = Blueprint('composeMsgv2', __name__, url_prefix='/composeMsgv2')
 
 
-@composeMsg_bp.route("/", methods=['POST'])
+@composeMsgv2_bp.route("/", methods=['POST'])
 @authenticate
 @wrap_json
-def compose_Msg(): 
+def compose_newMsg(): 
     # TODO: Refactor code
     if request.form["text"] == None:
         return {"status": "failed"}
@@ -32,7 +32,6 @@ def compose_Msg():
     spoiler_text = request.form["contentWarningText"] if sensitive else None
 
     attachmentType = request.form.get("attachmentType")
-    latestID = request.form["sendID"]
 
     media_ids = None
     poll = None
@@ -40,7 +39,7 @@ def compose_Msg():
     if attachmentType == "media":
         media_ids = []
         for file in request.files.values():
-            media = client.media_post(file, mime_type="image/png")
+            media = client.media_post(file, mime_type=file.mimetype)
             media_ids.append(media["id"])
         
     elif attachmentType == "poll":
@@ -49,40 +48,13 @@ def compose_Msg():
         choices = json.loads(request.form["choices"])
 
         poll = client.make_poll(choices, deadline, option)
-
-    context = client.status_context(latestID)
-    toot = client.status(latestID)
-
-    toMention = client.me()['username']
-
-    tootContext = context["ancestors"]+[toot]+context["descendants"]
-
-    flag = False
-    for toots in tootContext:
-        if toots['account']['username']!=toMention:
-            toMention = toots['account']['username']
-            flag = True
-
-        for mentioned in toots['mentions']:
-            if mentioned['username']!=toMention:
-                toMention = mentioned['username']
-                flag = True
-                
-        if flag == True:
-            break
-        
     
-    print('Chosen: ',toMention)
-
-    userMention = "@"+toMention+" "+request.form["text"]
-    
-    toot = client.status_post(userMention, 
+    toot = client.status_post(request.form["text"], 
                               media_ids=media_ids, 
                               poll=poll,
                               sensitive=sensitive,
                               spoiler_text=spoiler_text,
-                              visibility='direct',
-                              in_reply_to_id=str(latestID))
-    
+                              visibility='direct')
 
     return {"status": "success"}
+

@@ -1,6 +1,6 @@
 <script>
   import Header from "../components/Header.svelte";
-  import Messageform from "../components/Messageform.svelte";
+  import Messageformv2 from "../components/Messageformv2.svelte";
   import NavbarDesktop from "../components/NavbarDesktop.svelte";
   import NavbarMobile from "../components/NavbarMobile.svelte";
 
@@ -8,7 +8,7 @@
   import { lastPageAccessed } from "./store.ts";
 
   let pageTitle = "Messages"
-  let auth_promise = getMessageContent();
+  let auth_promise = getMessageContent(); 
   
   async function isolateConversations() {
     let listOfMessages = await auth_promise;
@@ -49,7 +49,7 @@
   <div class="content">
     <Header title={pageTitle}/>
     <main on:load|once={lastPageAccessed.update( n => "/#/messages")}>
-  
+      <Messageformv2/>
       {#await test}
         <p>waiting...</p>
       {:then conversationsDict}
