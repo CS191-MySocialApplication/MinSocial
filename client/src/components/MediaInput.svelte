@@ -117,6 +117,7 @@
         border: none;
         padding: 5px 15px;
         border-radius: 15px; 
+        margin-left: 5px;
     }
 
     label:hover {
