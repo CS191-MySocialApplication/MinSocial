@@ -4,8 +4,7 @@
     export let imageValue;
     export let image;
 
-    let fileChosen = false;
-    let filePreview = []
+    export let filePreview = []
 
     //Change to svg!
     import attachmentChosen from "../../public/attachmentChosen.png";
@@ -41,7 +40,7 @@
 <label for="fileInput">
     Press
 </label>
-<input type="file" id="fileInput" multiple bind:this={imageValue} bind:files={image} accept="video/*, image/*" on:change={inputValidation} on:click={()=>{fileChosen = !fileChosen;}}>
+<input type="file" id="fileInput" multiple bind:this={imageValue} bind:files={image} accept="video/*, image/*" on:change={inputValidation}>
 
 <div>
     {#each filePreview as preview}

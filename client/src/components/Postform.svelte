@@ -15,6 +15,7 @@
     let statusText = "";
     let image = [];
     let imageValue;
+    let filePreview;
     let mediaToggle = false;
     
     let pollChoices;
@@ -88,6 +89,7 @@
             imageValue.value = "";
         }
         image = null;
+        filePreview = [];
         
         pollChoices = [
             "", ""
@@ -195,7 +197,7 @@
                 <Poll bind:choices={pollChoices} bind:option={pollOption} bind:deadline={pollDeadline} deadlineChoices={deadlineChoices} unused_choices={pollUnusedChoices}/>    
             {/if}
             {#if mediaToggle}
-                <MediaInput bind:imageValue={imageValue} bind:image={image}/>
+                <MediaInput bind:imageValue={imageValue} bind:image={image} bind:filePreview={filePreview}/>
             {/if}
         </div>
 
