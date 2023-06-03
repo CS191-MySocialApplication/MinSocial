@@ -244,6 +244,7 @@
 
     .attachments {
         display: flex;
+        margin-bottom: 20px;
     }
     textarea {
         color: white;

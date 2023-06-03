@@ -191,7 +191,7 @@
         background-color: #252c2c;
         padding: 4px 10px 10px 10px;
         width: 50%;
-        margin: 20px 0px  0px 0px;
+        margin: 0px 0px  0px 0px;
     }
 
     #containerTitle{

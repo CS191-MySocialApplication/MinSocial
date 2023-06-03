@@ -243,6 +243,7 @@
     }
 
     .attachments {
+        margin-bottom: 20px;
         display: flex;
     }
     textarea {

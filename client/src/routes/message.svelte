@@ -64,8 +64,9 @@
           <p style="color: red">{error.message}</p>
         {/await}
         <!--to turn into a Messageform-->
-        <Messageform />
+        <a id="bottom">&nbsp; </a>
       </main>
+      <Messageform />
     </div>
   
     <NavbarMobile lastPageAccessed={$lastPageAccessed}/>
@@ -74,6 +75,7 @@
   <style>
     main {
       margin-top: 70px;
+      margin-bottom: 70px;
       flex: 1;
       display: flex;
       flex-direction: column;
