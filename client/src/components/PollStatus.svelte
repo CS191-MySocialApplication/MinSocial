@@ -148,7 +148,7 @@
         font-size: 12px;
     }
     .pollForm {
-        width: 50%;
+        width: 60%;
         background-color: #3c4444;
         border-radius: 15px;
         padding: 10px 10px;
@@ -159,7 +159,7 @@
     }
     input[type="submit"] {
         background-color: #50c0cb;
-        width: 20%;
+        width: 15%;
         height: 24px;
         margin-top: 20px;
         margin-bottom: 5px;
@@ -193,5 +193,10 @@
 	    opacity: 0.8;
         border: 1px solid #50c0cb;
     }
-
+    /*Touch screen*/
+    @media screen and (hover: none) {
+        input[type="submit"] {
+            min-width: 75px;
+        }
+    }
 </style>
