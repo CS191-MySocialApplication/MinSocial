@@ -82,9 +82,9 @@
                     {#each poll["options"] as choice, i}
                         <div class="pollFormItems">
                             {#if poll["multiple"]}
-                                <input type="checkbox" bind:group={votedOptions} name="vote" value={i}/>
+                                <input type="checkbox" class="box" bind:group={votedOptions} name="vote" value={i}/>
                             {:else}
-                                <input type="radio" bind:group={votedOptions} name="vote" value={i}/>
+                                <input type="radio" class="box" bind:group={votedOptions} name="vote" value={i}/>
                             {/if}
                             {choice["title"]}
                         </div>
@@ -161,7 +161,7 @@
         background-color: #50c0cb;
         width: 20%;
         height: 24px;
-        margin-top: 10px;
+        margin-top: 20px;
         margin-bottom: 5px;
         border: none;
         border-radius: 15px; 
@@ -170,4 +170,28 @@
     input[type="submit"]:hover {
         opacity: 0.5;
     }
+    .pollFormItems {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 2px;
+    }
+    input[type="checkbox"], input[type="radio"] {
+        appearance: none;
+    }
+    .box {
+        width: 15px;
+        height: 15px;
+        background-color: #3c4444;
+        border: 1px solid #ffffff;
+    }
+    .box:hover {
+        border: 1px solid #50c0cb;
+    }
+    .box:checked {
+        background-color: #50c0cb;
+	    opacity: 0.8;
+        border: 1px solid #50c0cb;
+    }
+
 </style>
