@@ -77,9 +77,9 @@
             </a>
 
         {:else}
-            <form action="/api/poll/vote" on:submit|preventDefault={handleOnVote}>
+            <form action="/api/poll/vote" on:submit|preventDefault={handleOnVote} class="pollForm">
                 {#each poll["options"] as choice, i}
-                    <div>
+                    <div class="pollFormItems">
                         {#if poll["multiple"]}
                             <input type="checkbox" bind:group={votedOptions} name="vote" value={i}/>
                         {:else}
@@ -117,7 +117,6 @@
         border-radius: 15px;
         padding: 10px 10px;
     }
-
     progress {
         width: 100%;
         height: 10px;
@@ -128,7 +127,6 @@
     progress::-moz-progress-bar { background: #50c0cb; border-radius: 5px; border-color: #50c0cb}
     progress::-webkit-progress-bar { border-radius: 5px; background: #808080; height: 10px}
     progress::-webkit-progress-value { background: #50c0cb; border-radius: 5px; height: 10px}
-
     .pollItem {
         display: block;
         font-size: 14px;
@@ -143,5 +141,28 @@
     .totalVotes {
         margin-top: 10px;
         font-size: 12px;
+    }
+    .pollForm {
+        width: 50%;
+        background-color: #3c4444;
+        border-radius: 15px;
+        padding: 10px 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        font-size: 14px;
+    }
+    input[type="submit"] {
+        background-color: #50c0cb;
+        width: 20%;
+        height: 24px;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        border: none;
+        border-radius: 15px; 
+        font-weight: 600;
+    }
+    input[type="submit"]:hover {
+        opacity: 0.5;
     }
 </style>
