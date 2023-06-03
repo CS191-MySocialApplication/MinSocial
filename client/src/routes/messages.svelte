@@ -65,12 +65,12 @@
               {console.log(message)}-->
             
           <a class="conversation" href="/#/msg/{message["conversationID"]}/{message["messageID"]}">
-            <div class="messageDetails">
-                <p id="username">{message["author"]["username"]} messaged <span id="dateTime">| {message["createdTime"]}</span></p>
-                <!--<p id="timeSent"><span id="dateTime">{message["createdTime"]}</span></p>-->
-
-            </div>
+      
             {#if message["unread"]==true}
+            <div class="messageDetails readDetails">
+              <p id="username">{message["author"]["username"]} messaged <span class="dateTime">| {message["createdTime"]}</span></p>
+            </div>
+            
               <div id="unreadContent">
                 {#if message["statusDict"]["sensitive"]}
                   <p>{message["statusDict"]["spoiler_text"]}&ensp;&bull;&ensp;<span style="font-size: 12px">Hidden Content</span> </p>
@@ -89,10 +89,13 @@
                   <p id="htmlContent">{@html message["content"]}
                   {/if}
                 {/if}
-
-                
               </div>
+
             {:else}
+            <div class="messageDetails unreadDetails">
+              <p id="username">{message["author"]["username"]} messaged <span class="dateTime">| {message["createdTime"]}</span></p>
+            </div>
+
             <div id="readContent">
               {#if message["statusDict"]["sensitive"]}
                 <p>{message["statusDict"]["spoiler_text"]}&ensp;&bull;&ensp;<span style="font-size: 12px">Hidden Content</span></p>
@@ -110,14 +113,9 @@
               {:else}
               <p id="htmlContent">{@html message["content"]}
               {/if}
-              {/if}
-            
-               
-              
-              
+              {/if}           
             </div>
-            {/if}
-                        
+            {/if}                        
           </a>
           {/each}
         </div>
@@ -199,7 +197,17 @@
     font-size: 14px;
     display: flex;
     justify-content: space-between;
-
+  }
+  .dateTime {
+    font-size: 12px;
+  }
+  .messageDetails.readDetails {
+    color: white;
+  }
+  .messageDetails.unreadDetails {
+    color: #acacac;
+    font-weight: normal;
+    letter-spacing: normal;
   }
 
   #conversationContainer {
@@ -207,7 +215,6 @@
     background-color:#3c4444;
     margin: 14px 0px;
     padding: 14px;
-
   }
   
   #username {
@@ -217,6 +224,7 @@
   #unreadContent {
     font-size: 14px;
     color: white;
+    font-weight: 600;
   }
 
   #readContent {
