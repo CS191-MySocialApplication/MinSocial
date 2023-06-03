@@ -61,19 +61,69 @@
           <p class="imptDetails">Conversations with {user} </p>
           <div id="conversationContainer">
           {#each Object.entries(value) as [key,message]}
+          <!--{console.log("message test")}
+              {console.log(message)}-->
             
           <a class="conversation" href="/#/msg/{message["messageID"]}">
             <div class="messageDetails">
                 <p id="username">{message["author"]["username"]} messaged <span id="dateTime">| {message["createdTime"]}</span></p>
-                <!--<p id="timeSent"><span id="dateTime">{message["createdTime"]}</span></p>-->    
+                <!--<p id="timeSent"><span id="dateTime">{message["createdTime"]}</span></p>-->
+
             </div>
-            <p id="content">{@html message["content"]}</p>
+            {#if message["unread"]==true}
+              <div id="unreadContent">
+                {#if message["statusDict"]["sensitive"]}
+                  <p>{message["statusDict"]["spoiler_text"]} | <em>Hidden Content</em></p>
+                {:else}
+                  {#if message["statusDict"]["media_attachments"].length != 0}
+                    <div id="messagePreview">
+                    <p id="htmlContent">{@html message["content"]}</p>
+                    <span> | <em>Attachment</em></span>
+                    </div>
+                  {:else if message["statusDict"]["poll"]!= null}
+                    <div id="messagePreview">
+                    <p>{@html message["content"]}</p>
+                    <span> | <em>Poll</em></span>
+                    </div>
+                  {:else}
+                    <p>{@html message["content"]}
+                  {/if}
+                {/if}
+
+                
+              </div>
+            {:else}
+            <div id="readContent">
+              {#if message["statusDict"]["sensitive"]}
+                <p>{message["statusDict"]["spoiler_text"]} | <em>Hidden Content</em></p>
+              {:else}
+              {#if message["statusDict"]["media_attachments"].length != 0}
+                <div id="messagePreview">
+                  <p id="htmlContent">{@html message["content"]}</p>
+                  <span> | <em>Attachment</em></span>
+                  </div>
+              {:else if message["statusDict"]["poll"]!= null}
+                <div id="messagePreview">
+                  <p>{@html message["content"]}</p>
+                  <span> | <em>Poll</em></span>
+                </div>
+              {:else}
+                <p>{@html message["content"]}
+              {/if}
+              {/if}
+            
+               
+              
+              
+            </div>
+            {/if}
+                        
           </a>
           {/each}
         </div>
-      </div>
-      {/each}
-       
+        </div>
+        {/each}
+      
       {:catch error}
         <p style="color: red">{error.messages}</p>
       {/await}
@@ -164,8 +214,22 @@
     margin-bottom: 0px;
   }
 
-  #content {
+  #unreadContent {
     font-size: 14px;
     color: #acacac;
+  }
+
+  #readContent {
+    font-size: 14px;
+    color: white;
+    
+  }
+
+  #htmlContent {
+      pointer-events: none;
+    }
+
+  #messagePreview {
+    display: flex;
   }
 </style>

@@ -26,13 +26,8 @@
           <p>waiting...</p>
         {:then response }
           {#each response as status , index}
-            <!--<a class="post" href="/context/toot/{status["id"]}" use:link>
-              Change href to mentions thread
-              <p id="source" class="imptDetails">{status["source"]} | {status["author"]["username"]}</p>
-              <span id="dateTime">{status["createdTime"]}</span><br />
-              <p>{@html status["content"]}</p>
-            </a>-->
-            {#if Object.entries(response).length-1 == index}
+            {#if Object.entries(response).length-1 != index}
+            {#if Object.entries(response).length-2 == index}
 
               {#if index == 0}
                 <div id="parent">
@@ -61,6 +56,7 @@
                   <Status status={status} id="reply"/>    
                 </div>
               {/if}
+            {/if}
             {/if}
           {/each}
         {:catch error}

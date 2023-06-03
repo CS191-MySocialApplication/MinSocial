@@ -11,6 +11,7 @@
 
     export let params = {};
     
+    
     import { getMsg } from "../sdk/message"
 
     import my_store from "../sdk/store.ts";
@@ -26,25 +27,44 @@
     <NavbarDesktop lastPageAccessed={$lastPageAccessed}/>
   
     <div class="content">
-      <Header title="Toot"/>
+      <Header title="Conversation"/>
       <main>
         {#await auth_promise}
           <p>waiting...</p>
         {:then response }
-          {#each response as status}
-            <!--<a class="post" href="/context/toot/{status["id"]}" use:link>
-              Change href to mentions thread
-              <p id="source" class="imptDetails">{status["source"]} | {status["author"]["username"]}</p>
-              <span id="dateTime">{status["createdTime"]}</span><br />
-              <p>{@html status["content"]}</p>
-            </a>-->
-            <Message status={status}/>
+          {@const usernames = response[Object.entries(response).length-1]}
+          <div id="messageThread">
+          {#each response as status, index}
+            {#if Object.entries(response).length-1 != index}
+              {#if usernames.includes(status["account"]["username"]) }
+                <!--Message from other user-->
+                <div id="leftAlignment">
+                  <div id="otherMessageArea">
+                    <div id="otherMessage">
+                      <Message status={status}/>
+                    </div>
+                  </div>
+                  <span id="dateTime">{status["created_at"]}</span>
+                </div>
+              {:else}
+                <!--Message from user-->
+                <div id="rightAlignment">
+                <div id="ownMessageArea">
+                  <div id="ownMessage">
+                    <Message status={status}/>
+                  </div>
+                </div>
+                <span id="dateTime">{status["created_at"]}</span>
+              </div>
+              {/if}
+            {/if}
           {/each}
+        </div>
         {:catch error}
           <p style="color: red">{error.message}</p>
         {/await}
         <!--to turn into a Messageform-->
-        <Messageform />
+        <!--<Messageform />-->
       </main>
     </div>
   
@@ -84,23 +104,39 @@
         width: 100%;
       }
     }
-  
-    a {
-      display: block;
-      text-decoration: none;
-      color: inherit;
-      border-style: none none solid none;
-      border-color: #50c0cb;
-      border-width: 1px;
-      padding: 0px 14px;
+    
+    #otherMessageArea {
+      display: flex;
+      justify-content: left;
+      width: 100%;
     }
-    a:hover {
-      background-color: #3c4444;
-      fill-opacity: 0.5;
-    }
-    .imptDetails {
-      margin-bottom: 0;
+    #ownMessageArea {
+      display: flex;
+      justify-content: right;
+      width: 100%;
     }
     
+
+    #leftAlignment {
+      text-align: left;
+      margin-bottom:14px;
+    }
+
+    #rightAlignment {
+      text-align: right;
+      margin-bottom:14px;
+    }
+    
+    #otherMessage {
+      background-color: #3c4444;
+      border-radius: 15px;
+      max-width: 50%;
+    }
+
+    #ownMessage {
+      background-color: #36676c;
+      border-radius: 15px;
+      max-width: 50%;
+    }
   </style>
   

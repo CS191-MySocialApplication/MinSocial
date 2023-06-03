@@ -12,14 +12,20 @@ def generate_mstdn_context(status_id, mstdn_access_key):
 
     context = client.status_context(status_id)
     toot = client.status(status_id)
+    conversations_list = client.conversations()
+    
+    conversation_usernames = []
+
+    for conversations in conversations_list:
+        if conversations["accounts"][0]["username"] not in conversation_usernames:
+            conversation_usernames.append(conversations["accounts"][0]["username"]) 
 
     #tootContext = context["ancestors"]+[toot]+context["descendants"]
     tootContext = context["ancestors"]+[toot]
-    print(tootContext)
 
     for posts in tootContext:
         posts["id"] = str(posts["id"])
         posts["created_at"] = posts["created_at"].astimezone(ZoneInfo("Asia/Manila"))
         posts["created_at"] = posts["created_at"].strftime("%d %b %y %H:%M")
         
-    return tootContext
+    return tootContext+[conversation_usernames]
