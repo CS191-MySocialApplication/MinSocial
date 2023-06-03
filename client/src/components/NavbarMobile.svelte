@@ -138,11 +138,6 @@
 
   /*Touch screen*/
   @media screen and (hover: none) {
-    .icon {
-      width: 40px;
-      height: 40px;
-    }
-
     .navBarMobile {
       display: flex;
       max-width: 100%;
@@ -162,7 +157,7 @@
     .dm,
     .reply,
     .logout {
-      width: 40px;
+      width: 45px;
       display: flex;
       justify-content: center;
     }
