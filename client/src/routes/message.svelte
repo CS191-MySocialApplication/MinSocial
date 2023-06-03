@@ -4,7 +4,7 @@
     import NavbarMobile from "../components/NavbarMobile.svelte";
     import Message from '../components/Message.svelte';
 
-    import Messageform from "../components/Messageform.svelte";
+    import Messageform from "../components/MsgForm.svelte";
 
     import {link} from 'svelte-spa-router';
     import { lastPageAccessed } from "./store.ts";
@@ -64,7 +64,7 @@
           <p style="color: red">{error.message}</p>
         {/await}
         <!--to turn into a Messageform-->
-        <!--<Messageform />-->
+        <Messageform />
       </main>
     </div>
   
