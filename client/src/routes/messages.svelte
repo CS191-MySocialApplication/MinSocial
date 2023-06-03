@@ -64,7 +64,7 @@
           <!--{console.log("message test")}
               {console.log(message)}-->
             
-          <a class="conversation" href="/#/msg/{message["messageID"]}">
+          <a class="conversation" href="/#/msg/{message["conversationID"]}/{message["messageID"]}">
             <div class="messageDetails">
                 <p id="username">{message["author"]["username"]} messaged <span id="dateTime">| {message["createdTime"]}</span></p>
                 <!--<p id="timeSent"><span id="dateTime">{message["createdTime"]}</span></p>-->
@@ -216,13 +216,12 @@
 
   #unreadContent {
     font-size: 14px;
-    color: #acacac;
+    color: white;
   }
 
   #readContent {
     font-size: 14px;
-    color: white;
-    
+    color: #acacac;
   }
 
   #htmlContent {

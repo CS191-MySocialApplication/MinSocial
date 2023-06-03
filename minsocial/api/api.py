@@ -11,6 +11,7 @@ from minsocial.api.message import message_bp
 from minsocial.api.composeMsg import composeMsg_bp
 from minsocial.api.composeMsgv2 import composeMsgv2_bp
 from minsocial.api.poll import poll_bp
+from minsocial.api.convoContext import convoContext_bp
 
 
 api_blueprint = Blueprint("apiv2", __name__, url_prefix="/api")
@@ -26,3 +27,4 @@ api_blueprint.register_blueprint(replies_bp)
 api_blueprint.register_blueprint(message_bp)
 api_blueprint.register_blueprint(composeMsg_bp)
 api_blueprint.register_blueprint(composeMsgv2_bp)
+api_blueprint.register_blueprint(convoContext_bp)

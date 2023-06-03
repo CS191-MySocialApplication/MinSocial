@@ -9,7 +9,7 @@ import Mastodon_Callback from './routes/callback/mstdn.svelte'
 const routes = {
     '/': Login,
     '/home': Home,
-    '/msg/:id': Message,
+    '/msg/:cid/:tid': Message,
     '/messages': Messages,
     '/replies': Replies,
     '/callback/mstdn': Mastodon_Callback,

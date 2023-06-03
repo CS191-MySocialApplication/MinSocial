@@ -15,9 +15,9 @@
     import { getMsg } from "../sdk/message"
 
     import my_store from "../sdk/store.ts";
-    my_store.update(n => params.id)
+    my_store.update(n => params.tid)
 
-    console.log(params.id)
+    console.log(params.tid)
   
     let auth_promise = getMsg(params);
 
