@@ -15,6 +15,7 @@
     import RepliesHeader from "../../public/replyHeader.svelte";
     import BackButton from "../../public/back.svelte"
 
+    import { lastPageAccessed } from "../routes/store.ts";
 </script>
 
 <main>
@@ -33,7 +34,7 @@
                     <MessagesHeader/>
                 </div>
             {:else}
-                <a class="backButtonIcon" href="/#/home">
+                <a class="backButtonIcon" href="{$lastPageAccessed}">
                     <BackButton/>        
                 </a>
             {/if}

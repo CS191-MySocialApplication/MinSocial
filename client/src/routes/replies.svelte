@@ -6,8 +6,10 @@
     import Status from '../components/Status.svelte';
 
     import {link} from 'svelte-spa-router';
+    import { lastPageAccessed } from "./store.ts";
   
     let value;
+    let pageTitle = "Replies";
   
     async function getHomeContent() {
       let res = await fetch("/api/replies");
@@ -25,11 +27,11 @@
   </script>
   
   <div class="desktopFormat">
-    <NavbarDesktop title="Replies"/>
+    <NavbarDesktop lastPageAccessed={$lastPageAccessed}/>
   
     <div class="content">
-      <Header bind:value={value} title="Replies"/>
-      <main style="display:{value}">
+      <Header bind:value={value} title={pageTitle}/>
+      <main style="display:{value}" on:load|once={lastPageAccessed.update( n => "/#/replies")}>
         {#await auth_promise}
           <p>waiting...</p>
         {:then response}
@@ -53,7 +55,7 @@
       </main>
     </div>
   
-    <NavbarMobile title="Replies"/>
+    <NavbarMobile lastPageAccessed={$lastPageAccessed}/>
   </div>
   
   <style>

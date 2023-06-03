@@ -1,6 +1,6 @@
 <script>
   // Used to help svelte distinguish between pages
-  export let title;
+  export let lastPageAccessed;
 
   // Icons for the navbar
   import ClickedMentions from "../../public/mentionsClicked.svelte";
@@ -48,7 +48,7 @@
 <main>
   <nav class="navBarMobile">
     <div class="iconContainer">
-      {#if title == "Mentions"}
+      {#if lastPageAccessed === "/#/home"}
         <div class="mentions">
             <a class="icon" href="/#/home">
                 <ClickedMentions/>         
@@ -64,7 +64,7 @@
                 <UnclickedDM/>         
             </a>
         </div>
-      {:else if title == "Replies"}
+      {:else if lastPageAccessed === "/#/replies"}
           <div class="mentions">
               <a class="icon" href="/#/home">
                   <UnclickedMentions/>         
@@ -80,7 +80,7 @@
                   <UnclickedDM/>         
               </a>
           </div>
-      {:else if title == "Messages"}
+      {:else if lastPageAccessed === "/#/messages"}
           <div class="mentions">
               <a class="icon" href="/#/home">
                   <UnclickedMentions/>         
@@ -138,11 +138,6 @@
 
   /*Touch screen*/
   @media screen and (hover: none) {
-    .icon {
-      width: 40px;
-      height: 40px;
-    }
-
     .navBarMobile {
       display: flex;
       max-width: 100%;
@@ -162,7 +157,7 @@
     .dm,
     .reply,
     .logout {
-      width: 40px;
+      width: 45px;
       display: flex;
       justify-content: center;
     }

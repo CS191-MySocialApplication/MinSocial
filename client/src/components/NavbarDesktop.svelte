@@ -1,6 +1,6 @@
 <script>
     // Used to help svelte distinguish between pages
-    export let title;
+    export let lastPageAccessed;
 
     // Icons for the navbar
     import Logo from "../../public/logo.svelte";
@@ -14,7 +14,6 @@
     import UnclickedDM from "../../public/dmUnclicked.svelte";
     
     import Logout from "../../public/Logout.svelte";
-
 
     import {onMount} from 'svelte';
 
@@ -58,8 +57,7 @@
                 <Logo/>
             </div>
             <div class="iconContainer">
-
-                {#if title == "Mentions"}
+                {#if lastPageAccessed === "/#/home"}
                     <div class="mentions">
                         <a class="icon" href="/#/home">
                             <ClickedMentions/>         
@@ -75,7 +73,7 @@
                             <UnclickedDM/>         
                         </a>
                     </div>
-                {:else if title == "Replies"}
+                {:else if lastPageAccessed === "/#/replies"}
                     <div class="mentions">
                         <a class="icon" href="/#/home">
                             <UnclickedMentions/>         
@@ -91,7 +89,7 @@
                             <UnclickedDM/>         
                         </a>
                     </div>
-                {:else if title == "Messages"}
+                {:else if lastPageAccessed === "/#/messages"}
                     <div class="mentions">
                         <a class="icon" href="/#/home">
                             <UnclickedMentions/>         
