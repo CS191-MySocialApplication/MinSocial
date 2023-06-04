@@ -3,6 +3,7 @@
 
 	import {replace} from 'svelte-spa-router';
 	import {onMount} from 'svelte';
+	import Logo from "../../public/logoLogin.svelte";
 
 	let state = "";
 	let code = "";
@@ -49,6 +50,9 @@
 	{#await mstdn_auth_promise}
 		<p>waiting...</p>
 	{:then url}
+		<div class="logo">
+			<Logo/>
+		</div>
 		<p>
 			<a href={url}>Log-in Using Mastodon</a>
 		</p>
@@ -64,10 +68,15 @@
   margin: 0;
   background-color: #50c0cb;
   display: flex;
+	flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-
+.logo {
+	width: 100px;
+	height: 100px;
+	margin-bottom: 2%;
+}
 a {
   display: flex;
   align-items: center;
