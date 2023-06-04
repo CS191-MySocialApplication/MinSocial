@@ -181,20 +181,12 @@
         <input id="submitButton" type="submit" value="">
     </div>
 </div>
-    
-    
-    
-
-    
-      
-
-      
-  </form>
+</form>
 </div>
 </main>
 <style>
 
-main {
+    main {
         position: fixed;
         z-index: 1;
         width: 100%;
@@ -205,20 +197,13 @@ main {
         margin: 0px;
         bottom: 0;
     }
-    
-    #postContainer {
-        width: 85lvw;
-    }
-    
-  
     #flexContainer {
         display:flex;
         align-items:center;
         padding: 14px;
-        width: 100%;
+        width: 85%;
         justify-content: space-between;
         margin-left:8px;
-
     }
     #mediaContainer, #pollContainer{
         display:flex;
@@ -258,7 +243,7 @@ main {
     }
     .attachments {
         display: flex;
-
+        margin-right: 14px;
     }
     textarea {
         color: white;
@@ -296,15 +281,21 @@ main {
         height: 30px;
         fill:#acacac;
     }
-
+    #send {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 14px;
+    }
     input[type="submit"] {
-        background: url('../../public/send.png');
+        background: url('../../public/send.svg');
         border:none; 
         width: 30px;
         height: 30px;
         background-size:95% 95%;
         border-radius: 5px;
         background-repeat: none;
+        padding: 0px;
     }
 
     input[type="submit"]:hover {
@@ -313,23 +304,31 @@ main {
     ::placeholder {
         color: #acacac;
     }
-    
-    /*
-  @media screen and (hover: none) {
-        
-        #postContainer {
-            margin-right: 24px;
+    @media screen and (min-width: 516px) and (max-width: 714px) and (hover: hover) {
+        #flexContainer {
+            width: 83%;
         }
     }
-   
-    
-    @media screen and (hover: hover) {
-        
-        #postContainer {
-            width: 85lvw;
-            margin-right: 24px;
+    @media screen and (max-width: 515px) and (hover: hover) {
+        #flexContainer {
+            width: 81%;
         }
     }
-    */
+    @media screen and (hover: none) {  
+        main {
+            bottom: 80px;
+        }
+        #flexContainer {
+            width: 100%;
+            margin-left: 0;
+        }
+        #send {
+            margin-left: 12px;
+            margin-right: 24px;
+        }
+        .attachments {
+            margin-right: 12px;
+        }
+    }    
     
 </style>
