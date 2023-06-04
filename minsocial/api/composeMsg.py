@@ -59,19 +59,20 @@ def compose_Msg():
 
     flag = False
     for toots in tootContext:
-        if toots['account']['username']!=toMention:
+        if toots['account']['username']!=client.me()['username']:
             toMention = toots['account']['username']
+            #print('user: ',toots['account']['username'],'\n')
             flag = True
 
         for mentioned in toots['mentions']:
-            if mentioned['username']!=toMention:
+            if mentioned['username']!=client.me()['username']:
                 toMention = mentioned['username']
+                #print('mentions: ',mentioned['username'],'\n')
                 flag = True
                 
         if flag == True:
             break
         
-    
     print('Chosen: ',toMention)
 
     userMention = "@"+toMention+" "+request.form["text"]
