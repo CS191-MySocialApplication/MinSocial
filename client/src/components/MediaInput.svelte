@@ -6,11 +6,6 @@
 
     export let filePreview = [];
 
-    //Change to svg!
-    import attachmentChosen from "../../public/attachmentChosen.png";
-    import attachmentNotChosen from "../../public/attachmentNotChosen.png";
-    import Postform from "./Postform.svelte";
-
     function inputValidation() {
         if (image.length > 1) {
             for (let i = 0; i < image.length; i++) {
