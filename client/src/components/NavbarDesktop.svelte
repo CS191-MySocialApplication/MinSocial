@@ -17,6 +17,7 @@
 
     import {onMount} from 'svelte';
 
+    import {link} from 'svelte-spa-router'
 
     let mstdnLogin = true;
     let mstdnLoginLink = "";
@@ -59,66 +60,66 @@
             <div class="iconContainer">
                 {#if lastPageAccessed === "/#/home"}
                     <div class="mentions">
-                        <a class="icon" href="/#/home">
+                        <a class="icon" href="/home" use:link>
                             <ClickedMentions/>         
                         </a>
                     </div>  
                     <div class="reply">
-                        <a class="icon" href="/#/replies">
+                        <a class="icon" href="/replies" use:link>
                             <UnclickedReplies/>        
                         </a>
                     </div>
                     <div class="dm">
-                        <a class="icon" href="/#/messages">
+                        <a class="icon" href="/messages" use:link>
                             <UnclickedDM/>         
                         </a>
                     </div>
                 {:else if lastPageAccessed === "/#/replies"}
                     <div class="mentions">
-                        <a class="icon" href="/#/home">
+                        <a class="icon" href="/home" use:link>
                             <UnclickedMentions/>         
                         </a>
                     </div>  
                     <div class="reply">
-                        <a class="icon" href="/#/replies">
+                        <a class="icon" href="/replies" use:link>
                             <ClickedReplies/>        
                         </a>
                     </div>
                     <div class="dm">
-                        <a class="icon" href="/#/messages">
+                        <a class="icon" href="/messages" use:link>
                             <UnclickedDM/>         
                         </a>
                     </div>
                 {:else if lastPageAccessed === "/#/messages"}
                     <div class="mentions">
-                        <a class="icon" href="/#/home">
+                        <a class="icon" href="/home" use:link>
                             <UnclickedMentions/>         
                         </a>
                     </div>  
                     <div class="reply">
-                        <a class="icon" href="/#/replies">
+                        <a class="icon" href="/replies" use:link>
                             <UnclickedReplies/>        
                         </a>
                     </div>
                     <div class="dm">
-                        <a class="icon" href="/#/messages">
+                        <a class="icon" href="/messages" use:link>
                             <ClickedDM/>         
                         </a>
                     </div>
                 {:else}
                     <!--Expected behavior for now-->
                     <div class="mentions">
-                        <a class="icon" href="/#/home">
+                        <a class="icon" href="/home" use:link>
                             <ClickedMentions/>         
                         </a>
                     </div>  
                     <div class="reply">
-                        <a class="icon" href="/#/replies">
+                        <a class="icon" href="/replies" use:link>
                             <UnclickedReplies/>        
                         </a>
                     </div>
                     <div class="dm">
-                        <a class="icon" href="/#/messages">
+                        <a class="icon" href="/messages" use:link>
                             <UnclickedDM/>         
                         </a>
                     </div>
