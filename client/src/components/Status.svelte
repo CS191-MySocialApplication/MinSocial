@@ -19,7 +19,7 @@
 </script>
 
   <!--Change href to mentions thread-->
-  <div class="post" on:click={()=>{push("/toot/"+status["id"]); window.location.reload(true) }} on:keypress={()=>{}}>
+  <div class="post" on:click={async ()=>{ await push("/toot/"+status["id"]); window.location.reload(true) }} on:keypress={()=>{}}>
     <div class="statusDetails">
       <p id="username">{status["account"]["username"]} <span id="dateTime">| {status["created_at"]}</span></p>
     </div>

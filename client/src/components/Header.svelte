@@ -17,7 +17,7 @@
 
     import {push, pop, replace} from 'svelte-spa-router'
 
-    import { lastPageAccessed } from "../routes/store.ts";
+    import { tick } from "svelte";
 </script>
 
 <main>
@@ -36,7 +36,7 @@
                     <MessagesHeader/>
                 </div>
             {:else}
-                <div class="backButtonIcon" on:click={()=>pop()} on:keypress>
+                <div class="backButtonIcon" on:click={async ()=>{history.back()}} on:keypress={()=>{}}>
                     <BackButton/>        
                 </div>
             {/if}
