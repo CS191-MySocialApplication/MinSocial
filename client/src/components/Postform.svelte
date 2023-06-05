@@ -1,6 +1,7 @@
 <script>
 
     import {replace} from 'svelte-spa-router';
+    import { createEventDispatcher } from 'svelte';
 
     import Poll from "./Poll.svelte";
     import MediaInput from "./MediaInput.svelte"
@@ -38,7 +39,9 @@
     let contentWarningToggle = false;
     let contentWarningText = "";
 
-    const handleOnSubmit = e => {
+    const dispatch = createEventDispatcher();
+
+    async function handleOnSubmit(e){
         const ACTION_URL = e.target.action;
         const formData = new FormData()
 
@@ -102,10 +105,13 @@
         pollOption = true;
         pollDeadline = deadlineChoices[0];
 
-        fetch(ACTION_URL, {
+        await fetch(ACTION_URL, {
             method: 'POST',
             body: formData
-        });        
+        });
+
+
+        dispatch('postSubmit');
 
     }
 

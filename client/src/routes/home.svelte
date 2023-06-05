@@ -12,6 +12,10 @@
 
     let pageTitle = "Mentions"
     let auth_promise = getHomeContent();
+    
+    function onFormSubmit(e){
+      auth_promise = getHomeContent();
+    }
 
 </script>
   
@@ -21,7 +25,7 @@
     <div class="content">
       <Header title={pageTitle}/>
       <main on:load|once={lastPageAccessed.update( n => "/#/home")}>
-        <Postform/>
+        <Postform on:postSubmit={onFormSubmit}/>
         {#await auth_promise}
           <p>waiting...</p>
         {:then response}
