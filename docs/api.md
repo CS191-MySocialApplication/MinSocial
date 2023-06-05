@@ -55,4 +55,8 @@ Compose a Status to be posted on social medias accounts that are currently logge
 Expects:
 - `text`: `String`
 
+Optional:
+- `files`: Media: video/audio/\[List: image\]'
+- `poll` => `choices`: `\[List: String\]`', `deadline`: Int, `multiple`: Boolean
+
 Returns `Status: Success` if post is successful and `Status: Fail` if post is unsuccessful.
