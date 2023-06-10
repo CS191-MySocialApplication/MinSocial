@@ -117,10 +117,11 @@
     .poll {
         display: flex;
         flex-direction: column;
-        width: 50%;
+        width: 70%;
         background-color: #3c4444;
         border-radius: 15px;
         padding: 10px 10px;
+        margin: 14px;
     }
     progress {
         width: 100%;
@@ -148,7 +149,7 @@
         font-size: 12px;
     }
     .pollForm {
-        width: 60%;
+        width: 70%;
         background-color: #3c4444;
         border-radius: 15px;
         padding: 10px 10px;
@@ -156,6 +157,7 @@
         flex-direction: column;
         gap: 10px;
         font-size: 14px;
+        margin: 14px;
     }
     input[type="submit"] {
         background-color: #50c0cb;
@@ -179,6 +181,9 @@
     input[type="checkbox"], input[type="radio"] {
         appearance: none;
     }
+    input[type="radio"] {
+        border-radius: 100px;
+    }
     .box {
         width: 15px;
         height: 15px;
@@ -193,10 +198,22 @@
 	    opacity: 0.8;
         border: 1px solid #50c0cb;
     }
+    /* Desktop */
+    @media screen and (hover: hover) {
+        .poll, .pollForm {
+            min-width: 150px;
+        }
+        #submitButton {
+            min-width: 60px;
+        }
+    }
     /*Touch screen*/
     @media screen and (hover: none) {
         input[type="submit"] {
             min-width: 75px;
+        }
+        .poll, .pollForm {
+            min-width: 100px;
         }
     }
 </style>
