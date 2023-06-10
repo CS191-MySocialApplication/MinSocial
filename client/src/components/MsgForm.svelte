@@ -210,9 +210,10 @@
         padding: 14px 14px 0px 14px;
         width: 100%;
         margin-left:8px;
+        margin-bottom: 10px;
     }
     #containerCW {
-        width: 100%;
+        width: calc(85% - 44px);
         display:flex;
         padding: 14px 14px 0px 14px;
         justify-content: center;
@@ -308,10 +309,16 @@
         #flexContainer {
             width: 83%;
         }
+        #containerCW {
+            width: calc(83% - 44px);
+        }
     }
     @media screen and (max-width: 515px) and (hover: hover) {
         #flexContainer {
             width: 81%;
+        }
+        #containerCW {
+            width: calc(81% - 44px);
         }
     }
     @media screen and (hover: none) {  
@@ -322,12 +329,19 @@
             width: 100%;
             margin-left: 0;
         }
+        #containerCW {
+            width: calc(100% - 74px);
+        }
         #send {
             margin-left: 12px;
             margin-right: 24px;
         }
         .attachments {
             margin-right: 12px;
+        }
+        #pollContainer {
+            width: auto;
+            margin-left: 0;
         }
     }    
     
