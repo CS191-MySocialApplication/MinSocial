@@ -22,6 +22,17 @@
             image = [];
             imageValue.value = "";
             alert("You can only post 4 images max.");
+        }else if (Array.from(image).filter((x) => {
+            if (x.type.split("/")[0] !== "image"){
+                return x.size > 40000000
+            }else{
+                return x.size > 8000000
+            }
+        }).length > 0){
+            image = [];
+            imageValue.value = "";
+            alert("One of files exceeded the maximum file size limit");
+            return;
         }
 
         filePreview = Array.from(image).map((x) => {
