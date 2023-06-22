@@ -1,6 +1,7 @@
 <script>
 
   import {replace} from 'svelte-spa-router';
+  import { createEventDispatcher } from 'svelte';
 
   import Poll from "./Poll.svelte";
   import MediaInput from "./MediaInput.svelte"
@@ -12,8 +13,8 @@
     import Attachment from "../../public/attachment.svelte";
   const latestID = get(my_store);
 
-  console.log("latestID: ")
-  console.log(latestID)
+//   console.log("latestID: ")
+//   console.log(latestID)
 
   let attachmentType = "none";
 
@@ -43,52 +44,94 @@
     let contentWarningToggle = false;
     let contentWarningText = "";
 
-  let sendID = latestID;
+    let sendID = latestID;
+    const dispatch = createEventDispatcher();
 
-  const handleOnSubmit = e => {
-      const ACTION_URL = e.target.action;
-      const formData = new FormData()
+    async function handleOnSubmit(e){
+        const ACTION_URL = e.target.action;
+        const formData = new FormData()
 
-      formData.append("attachmentType", attachmentType)
-      formData.append("text", statusText);
-      formData.append("contentWarning", contentWarningToggle);
-      formData.append("sendID", sendID);
-      
-      if(contentWarningToggle){
-          formData.append("contentWarningText", contentWarningText)
-      }
+        if(!mediaToggle && statusText === ""){
+            alert("Status must have text");
+            return
+        }else if(mediaToggle && image.length == 0){
+            alert("Status does not contain anything")
+            return
+        }
 
-      if(attachmentType == "poll"){
-          formData.append("choices", JSON.stringify(pollChoices));
-          formData.append("option", pollOption);
-          formData.append("deadline", pollDeadline);
-      }else if(attachmentType == "media"){
-          for(let i = 0; i < image.length; i++){
-              formData.append("images_"+i, image[i]);
-          }
-      }
+        if (pollToggle && pollChoices.filter(x => x === "").length !== 0){
+            alert("There should be no empty poll choices");
+            return
+        } else if(pollToggle && (new Set(pollChoices)).size !== pollChoices.length){
+            alert("All poll choices should be unique");
+            return
+        }
 
-      statusText = "";
+        formData.append("text", statusText);
+        formData.append("sendID", sendID);
+        formData.append("contentWarning", contentWarningToggle);
 
-      contentWarningToggle = false;
-      contentWarningText = "";
-      
-      imageValue = "";
-      image = "";
-      
-      pollChoices = [
-          "", ""
-      ];
+        if(contentWarningToggle){
+            formData.append("contentWarningText", contentWarningText)
+        }
 
-      pollOption = true;
-      pollDeadline = 300;
+        if(pollToggle){
+            formData.append("attachmentType", "poll")
+            formData.append("choices", JSON.stringify(pollChoices));
+            formData.append("option", pollOption);
+            formData.append("deadline", pollDeadline.value);
+        }else if(mediaToggle){
+            formData.append("attachmentType", "media")
+            for(let i = 0; i < image.length; i++){
+                formData.append("images_"+i, image[i]);
+            }
+        }else{
+            formData.append("attachmentType", "none")
+        }
 
-      fetch(ACTION_URL, {
-          method: 'POST',
-          body: formData
-      });        
+        statusText = "";
 
-  }
+        contentWarningToggle = false;
+        contentWarningText = "";
+        
+        if(imageValue){
+            imageValue.value = "";
+        }
+        image = null;
+        filePreview = [];
+        
+        pollChoices = [
+            "", ""
+        ];
+
+        pollUnusedChoices = [
+            "", ""
+        ];
+
+        pollOption = true;
+        pollDeadline = deadlineChoices[0];
+
+        let res = await fetch(ACTION_URL, {
+            method: 'POST',
+            body: formData
+        });
+        let data = await res.json();
+
+        if(res.status == 200 || res.status == 206){
+            dispatch('postSubmit',{
+                status: "success",
+                id: String(data["id"])
+            });
+        }else{
+            dispatch('postSubmit', {
+                status: "error"
+            })
+        }
+
+
+        
+
+    }
 
   function toggleMedia(){
         if(!mediaToggle){

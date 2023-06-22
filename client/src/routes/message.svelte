@@ -6,7 +6,7 @@
 
     import Messageform from "../components/MsgForm.svelte";
 
-    import {link} from 'svelte-spa-router';
+    import {link, replace} from 'svelte-spa-router';
     import { lastPageAccessed } from "./store.ts";
 
     export let params = {};
@@ -17,9 +17,13 @@
     import my_store from "../sdk/store.ts";
     my_store.update(n => params.tid)
 
-    console.log(params.tid)
-  
+    // console.log(params.tid)
+
     let auth_promise = getMsg(params);
+
+    function onFormSubmit(e){
+        replace("/messages")
+    }
 
   </script>
   
@@ -65,7 +69,7 @@
         {/await}
         <!--to turn into a Messageform-->
       </main>
-      <Messageform />
+      <Messageform on:postSubmit={onFormSubmit}/>
     </div>
   
     <NavbarMobile lastPageAccessed={$lastPageAccessed}/>
