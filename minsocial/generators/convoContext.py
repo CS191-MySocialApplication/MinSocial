@@ -17,7 +17,7 @@ def generate_mstdn_context(status_id, mstdn_access_key, convo_id):
     conversation_usernames = []
 
     for conversations in conversations_list:
-        if conversations["accounts"][0]["username"] not in conversation_usernames:
+        if conversations["accounts"] and conversations["accounts"][0]["username"] not in conversation_usernames:
             conversation_usernames.append(conversations["accounts"][0]["username"]) 
     
     if convo_id != None:

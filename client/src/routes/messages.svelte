@@ -14,19 +14,21 @@
     let listOfMessages = await auth_promise;
     let conversationsDict = {};
     for(let message of listOfMessages) {
-      console.log("message");
-      console.log(message);
-      if(!(message["participantIDs"][0]["username"] in conversationsDict)) {
-        console.log("new user");
-        console.log(message["participantIDs"][0]["username"]);
-        conversationsDict[message["participantIDs"][0]["username"]] = [message];
-      }   
-      else {
-        conversationsDict[message["participantIDs"][0]["username"]].push(message);
+      // console.log("message");
+      // console.log(message);
+      if(message["participantIDs"].length !== 0){
+        if(!(message["participantIDs"][0]["username"] in conversationsDict)) {
+          // console.log("new user");
+          // console.log(message["participantIDs"][0]["username"]);
+          conversationsDict[message["participantIDs"][0]["username"]] = [message];
+        }   
+        else {
+          conversationsDict[message["participantIDs"][0]["username"]].push(message);
+        }
       }
     }
-    console.log("convesationsDict");
-    console.log(conversationsDict);
+    // console.log("convesationsDict");
+    // console.log(conversationsDict);
     
     return conversationsDict;
     
