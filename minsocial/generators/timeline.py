@@ -36,12 +36,14 @@ def generate_mstdn_mentions(mstdn_access_key):
     user = client.account_verify_credentials()
     owntoots = client.account_statuses(id=user["id"], exclude_reblogs=True, exclude_replies=True) 
     for toots in owntoots:
-        tl.append(toots)
+        if (toots["visibility"]!='direct'):
+            tl.append(toots)
     
     response = client.notifications(mentions_only=True)
 
     for notif in response:
-        tl.append(notif["status"])
+        if (notif["status"]["visibility"]!='direct'):
+            tl.append(notif["status"])
 
     sortTL = sorted(tl, key=lambda d: d['created_at'], reverse=True)
 
