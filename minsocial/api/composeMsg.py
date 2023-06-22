@@ -53,19 +53,20 @@ def compose_Msg():
     context = client.status_context(latestID)
     toot = client.status(latestID)
 
-    toMention = client.me()['username']
+    me = client.me()
+    toMention = me['username']
 
     tootContext = context["ancestors"]+[toot]+context["descendants"]
 
     flag = False
     for toots in tootContext:
-        if toots['account']['username']!=client.me()['username']:
+        if toots['account']['username']!=me['username']:
             toMention = toots['account']['username']
             #print('user: ',toots['account']['username'],'\n')
             flag = True
 
         for mentioned in toots['mentions']:
-            if mentioned['username']!=client.me()['username']:
+            if mentioned['username']!=me['username']:
                 toMention = mentioned['username']
                 #print('mentions: ',mentioned['username'],'\n')
                 flag = True
@@ -85,5 +86,6 @@ def compose_Msg():
                               visibility='direct',
                               in_reply_to_id=str(latestID))
     
+    toot["id"] = str(toot["id"])
 
-    return {"status": "success"}
+    return toot
