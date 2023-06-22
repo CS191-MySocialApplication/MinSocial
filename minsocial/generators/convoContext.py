@@ -22,7 +22,6 @@ def generate_mstdn_context(status_id, mstdn_access_key, convo_id):
     
     if convo_id != None:
         setread = client.conversations_read(convo_id)
-        print('\n', setread)
 
     #tootContext = context["ancestors"]+[toot]+context["descendants"]
     tootContext = context["ancestors"]+[toot]

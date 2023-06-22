@@ -73,10 +73,10 @@ def compose_Msg():
         if flag == True:
             break
         
-    print('Chosen: ',toMention)
 
     userMention = "@"+toMention+" "+request.form["text"]
     
+
     toot = client.status_post(userMention, 
                               media_ids=media_ids, 
                               poll=poll,
