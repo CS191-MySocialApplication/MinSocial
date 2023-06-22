@@ -1,3 +1,4 @@
+import { replace } from 'svelte-spa-router';
 
 export async function getStatus(params: any) {
     if(params.id !== undefined){
@@ -7,7 +8,7 @@ export async function getStatus(params: any) {
         if (res.status == 200 || res.status == 206) {
             return text;
         } else {
-            throw new Error(text);
+            replace("/");
         }
     }
 }
